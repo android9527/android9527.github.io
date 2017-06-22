@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,分享,Blog,Handler、Message," />
+  <meta name="keywords" content="Android,Handler、Message,分享,Blog," />
 
 
 
@@ -94,7 +94,7 @@
 
 
 <meta name="description" content="Handler、Message1、基本用法:创建Handler重写handlerMessage（Message msg）处理消息 1234567891011121314Handler handler = new Handler()&amp;#123;    @Override    public void handleMessage(Message msg) &amp;#123;        super.han">
-<meta name="keywords" content="Android,分享,Blog,Handler、Message">
+<meta name="keywords" content="Android,Handler、Message,分享,Blog">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Handler、Message、MessageQueue随笔">
 <meta property="og:url" content="http://yoursite.com/2016/03/04/2016-03-04-Handler-Message-Android/index.html">
@@ -102,12 +102,12 @@
 <meta property="og:description" content="Handler、Message1、基本用法:创建Handler重写handlerMessage（Message msg）处理消息 1234567891011121314Handler handler = new Handler()&amp;#123;    @Override    public void handleMessage(Message msg) &amp;#123;        super.han">
 <meta property="og:image" content="http://yoursite.com/images/handler/handler_send.jpg">
 <meta property="og:image" content="http://yoursite.com/images/handler/handler_post.jpg">
-<meta property="og:image" content="http://yoursite.com/images/handler/handler_premove.jpg">
+<meta property="og:image" content="http://yoursite.com/images/handler/handler_remove.jpg">
 <meta property="og:image" content="http://yoursite.com/images/handler/recycle1.jpg">
 <meta property="og:image" content="http://yoursite.com/images/handler/recycle2.jpg">
 <meta property="og:image" content="http://yoursite.com/images/handler/recycle3.jpg">
 <meta property="og:image" content="http://yoursite.com/images/handler/obtain_message.jpg">
-<meta property="og:updated_time" content="2017-06-22T10:52:29.000Z">
+<meta property="og:updated_time" content="2017-06-22T11:07:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Handler、Message、MessageQueue随笔">
 <meta name="twitter:description" content="Handler、Message1、基本用法:创建Handler重写handlerMessage（Message msg）处理消息 1234567891011121314Handler handler = new Handler()&amp;#123;    @Override    public void handleMessage(Message msg) &amp;#123;        super.han">
@@ -355,7 +355,7 @@
 <p>（3）<br><img src="/images/handler/handler_post.jpg" alt="post（Runnable）"></p>
 <p>Post Runnable 到消息队列。将Runnable转换为Message</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">private static Message getPostMessage(Runnable r) &#123;</div><div class="line">        Message m = Message.obtain();</div><div class="line">        m.callback = r; // msg的callback指向Runnale</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3、消息队列中移除消息"><a href="#3、消息队列中移除消息" class="headerlink" title="3、消息队列中移除消息"></a>3、消息队列中移除消息</h3><p><img src="/images/handler/handler_premove.jpg" alt="移除消息"></p>
+<h3 id="3、消息队列中移除消息"><a href="#3、消息队列中移除消息" class="headerlink" title="3、消息队列中移除消息"></a>3、消息队列中移除消息</h3><p><img src="/images/handler/handler_remove.jpg" alt="移除消息"></p>
 <p>一般在Activity页面结束时调用handler.removeCallbacksAndMessages(null);<br>移除队列中所用的callbacks和messages。详见MessageQueue. removeCallbacksAndMessages();</p>
 <h3 id="4、消息事件处理"><a href="#4、消息事件处理" class="headerlink" title="4、消息事件处理"></a>4、消息事件处理</h3><p><strong>Handler 里面的mLooper所在的线程决定了 handleMessage 方法所在的线程</strong></p>
 <p>message的处理比较简单，先判断Message中有没有指定的callback对象（Runnable），有的话就调用callback的run方法，没有则调用我们自己创建Handler对象时实现的handleMessage(Message msg)方法，就这样实现了消息的分发。</p>
@@ -437,11 +437,11 @@
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
+            <a href="/tags/Handler、Message/" rel="tag"># Handler、Message</a>
+          
             <a href="/tags/分享/" rel="tag"># 分享</a>
           
             <a href="/tags/Blog/" rel="tag"># Blog</a>
-          
-            <a href="/tags/Handler、Message/" rel="tag"># Handler、Message</a>
           
         </div>
       
@@ -548,7 +548,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -561,7 +561,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
