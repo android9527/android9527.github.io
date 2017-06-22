@@ -100,18 +100,18 @@
 <meta property="og:url" content="http://yoursite.com/2016/03/04/2016-03-04-Handler-Message-Android/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="Handler、Message1、基本用法:创建Handler重写handlerMessage（Message msg）处理消息 1234567891011121314Handler handler = new Handler()&amp;#123;    @Override    public void handleMessage(Message msg) &amp;#123;        super.han">
-<meta property="og:image" content="http://img.blog.csdn.net/20160303001436631">
+<meta property="og:image" content="http://yoursite.com/images/handler/handler_send.jpg">
 <meta property="og:image" content="http://img.blog.csdn.net/20160303001511603">
 <meta property="og:image" content="http://img.blog.csdn.net/20160303001534260">
 <meta property="og:image" content="http://img.blog.csdn.net/20160303000358680">
 <meta property="og:image" content="http://img.blog.csdn.net/20160303001204549">
 <meta property="og:image" content="http://img.blog.csdn.net/20160303001626307">
 <meta property="og:image" content="http://img.blog.csdn.net/20160303001704620">
-<meta property="og:updated_time" content="2017-06-22T09:17:30.000Z">
+<meta property="og:updated_time" content="2017-06-22T10:47:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Handler、Message、MessageQueue随笔">
 <meta name="twitter:description" content="Handler、Message1、基本用法:创建Handler重写handlerMessage（Message msg）处理消息 1234567891011121314Handler handler = new Handler()&amp;#123;    @Override    public void handleMessage(Message msg) &amp;#123;        super.han">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160303001436631">
+<meta name="twitter:image" content="http://yoursite.com/images/handler/handler_send.jpg">
 
 
 
@@ -348,7 +348,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> * @param callback The callback interface in which to handle messages, or null.</div><div class="line"> * @param async If true, the handler calls &#123;@link Message#setAsynchronous(boolean)&#125; for</div><div class="line"> * each &#123;@link Message&#125; that is sent to it or &#123;@link Runnable&#125; that is posted to it.  </div><div class="line"> *</div><div class="line"> * @hide</div><div class="line">*/</div><div class="line">public Handler(Callback callback, boolean async) &#123;</div><div class="line">    mLooper = Looper.myLooper();// 使用当前线程所在的Looper</div><div class="line">    if (mLooper == null) &#123;</div><div class="line">        throw new RuntimeException(</div><div class="line">            &quot;Can&apos;t create handler inside thread that has </div><div class="line">            not called Looper.prepare()&quot;);</div><div class="line">    &#125;</div><div class="line">    mQueue = mLooper.mQueue;</div><div class="line">    mCallback = callback;</div><div class="line">    mAsynchronous = async;  //标志Message是否为异步Message.setAsynchronous</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">* @hide   </div><div class="line">*/</div><div class="line">public Handler(Looper looper, Callback callback, boolean async) &#123;</div><div class="line">    mLooper = looper;    // 为handler指定Looper</div><div class="line">    mQueue = looper.mQueue;</div><div class="line">    mCallback = callback;</div><div class="line">    mAsynchronous = async;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="2、发送消息到消息队列MesageQueue"><a href="#2、发送消息到消息队列MesageQueue" class="headerlink" title="2、发送消息到消息队列MesageQueue"></a>2、发送消息到消息队列MesageQueue</h3><p>Handler中提供了很多个发送消息的方法，其中除了sendMessageAtFrontOfQueue()方法之外，其它的发送消息方法最终都会辗转调用到sendMessageAtTime()方法中</p>
-<p><img src="http://img.blog.csdn.net/20160303001436631" alt="发送消息"></p>
+<p><img src="../../../../images/handler/handler_send.jpg" alt="发送消息"></p>
 <p>（1）boolean sendEmptyMessage(int);<br>// 发送一条消息到队列，成功返回true，失败返回false，通常是因为Looper已经退出</p>
 <p>（2）sendEmptyMessageAtTime(int, long)指定时间发送消息 相对时间<br>SystemClock.uptimeMillis() + 3000; // 从开机到现在的毫秒数（手机睡眠的时间不包括在内）；  </p>
 <p>（3）通过sendMessageAtFrontOfQueue()方法来发送消息的，它也会调用enqueueMessage()来让消息入队，只不过when为0，这时会把mMessages(MQ头部消息)赋值为新入队的这条消息，然后将这条消息的next指定为刚才的mMessages，这样也就完成了添加消息到队列头部的操作。 </p>
