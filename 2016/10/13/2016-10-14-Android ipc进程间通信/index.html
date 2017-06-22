@@ -100,17 +100,17 @@
 <meta property="og:url" content="http://yoursite.com/2016/10/13/2016-10-14-Android ipc进程间通信/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="进程间通信几种方式:文件 SharedPreferences BroadcastReceiver ContentProvider AIDL 序列化Serialable 和 Parcelable （1）序列化 ID 的问题 （2）静态变量序列化 （3）Transient 关键字 （4）序列化存储规则 静态成员变量属于类，而不是对象，所以不会参与序列化；使用transient关键字标记的成员变量不参与">
-<meta property="og:image" content="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/RegistReceiver.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/SendBroadcast.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/mReceivers.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/receives_list.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/am_proxy.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/ams.png">
-<meta property="og:updated_time" content="2017-06-22T09:16:19.000Z">
+<meta property="og:image" content="http://yoursite.com/images/binder/RegistReceiver.png">
+<meta property="og:image" content="http://yoursite.com/images/binder/SendBroadcast.png">
+<meta property="og:image" content="http://yoursite.com/images/binder/mReceivers.png">
+<meta property="og:image" content="http://yoursite.com/images/binder/receives_list.png">
+<meta property="og:image" content="http://yoursite.com/images/binder/am_proxy.jpg">
+<meta property="og:image" content="http://yoursite.com/images/binder/ams.png">
+<meta property="og:updated_time" content="2017-06-22T10:58:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android进程间通信">
 <meta name="twitter:description" content="进程间通信几种方式:文件 SharedPreferences BroadcastReceiver ContentProvider AIDL 序列化Serialable 和 Parcelable （1）序列化 ID 的问题 （2）静态变量序列化 （3）Transient 关键字 （4）序列化存储规则 静态成员变量属于类，而不是对象，所以不会参与序列化；使用transient关键字标记的成员变量不参与">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/RegistReceiver.png">
+<meta name="twitter:image" content="http://yoursite.com/images/binder/RegistReceiver.png">
 
 
 
@@ -393,13 +393,13 @@
 <p>9） 整合（剩下的）并行receivers，以及静态receivers，形成一个串行receivers表； </p>
 <p>10） 尝试逐个向串行receivers递送广播。</p>
 <p>RegistReceiver</p>
-<p><img src="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/RegistReceiver.png" alt="RegistReceiver"></p>
+<p><img src="/images/binder/RegistReceiver.png" alt="RegistReceiver"></p>
 <p>SendBroadcast</p>
-<p><img src="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/SendBroadcast.png" alt="SendBroadcast"></p>
+<p><img src="/images/binder/SendBroadcast.png" alt="SendBroadcast"></p>
 <p>图：客户进程中的mReceivers表</p>
-<p>mReceivers<br><img src="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/mReceivers.png" alt="mReceivers"></p>
+<p>mReceivers<br><img src="/images/binder/mReceivers.png" alt="mReceivers"></p>
 <p>receives_list</p>
-<p><img src="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/receives_list.png" alt="RegistReceiver"></p>
+<p><img src="/images/binder/receives_list.png" alt="RegistReceiver"></p>
 <p>该表的key项是我们比较熟悉的Context，也就是说可以是Activity、Service或Application。而value项则是另一张“子哈希表”。这是个“表中表”的形式。言下之意就是，每个Context（比如一个activity），是可以注册多个receiver的，这个很好理解。mReceivers里的“子哈希表”的key值为BroadcastReceiver，value项为ReceiverDispatcher，示意图如下：</p>
 <p>到这里其实开始走两个分支，</p>
 <p>1，如果是动态注册的receiver，其实可以知道，运行进程是活的，接收对象是存在的，deliverToRegisteredReceiverLocked(r, (BroadcastFilter)target, false)，</p>
@@ -433,9 +433,9 @@
 <p>1、客户端发出绑定请求，服务端返回一个Binder对象，该对象能处理跨进程请求，而客户端拿到的是Binder对象的引用，Binder的实体是在服务端的。客户端执行asInterface()方法，如果客户端和服务端处于同一进程，则直接返回服务端的Stub对象本身，如果处于不同进程，则返回的是Stub.proxy代理类对象。</p>
 <p>2、客户端发送远程请求（addPerson或者getPersonList)，此时客户端线程挂起，Binder拿到数据后，对数据进行处理如在不同进程，会把数据写入Parcel，调用Transact方法。</p>
 <p>3、触发onTransact方法，该方法运行在Binder线程池，方法中会调用到服务端实现的接口方法，当数据处理完毕后，返回reply值，经过Binder返回客户端，此时客户端线程被唤醒。</p>
-<p>am_proxy.jpg<br><img src="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/am_proxy.jpg" alt="am_proxy.jpg"></p>
+<p>am_proxy.jpg<br><img src="/images/binder/am_proxy.jpg" alt="am_proxy.jpg"></p>
 <p>AMS基本架构</p>
-<p><img src="https://raw.githubusercontent.com/android9527/android9527.github.io/master/src/binder/images/ams.png" alt="ams"></p>
+<p><img src="/images/binder/ams.png" alt="ams"></p>
 <h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>老罗的Android之旅</p>
 <p><a href="http://shyluo.blog.51cto.com/5725845/966376" target="_blank" rel="external">http://shyluo.blog.51cto.com/5725845/966376</a></p>
 <p>品茗论道说广播(Broadcast内部机制讲解)</p>
