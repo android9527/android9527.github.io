@@ -13,12 +13,6 @@
 
 
 
-
-
-
-
-
-
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
@@ -100,16 +94,16 @@
 <meta property="og:url" content="http://yoursite.com/2016/04/14/2016-04-14-Android hot-fix/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="AndFix 项目地址：https://github.com/alibaba/AndFix AndFix is a solution to fix the bugs online instead of redistributing Android App.Andfix is an acronym for “Android hot-fix”.AndFix supports Android versi">
-<meta property="og:image" content="http://yoursite.com/master/images/andfix/principle.png">
+<meta property="og:image" content="http://yoursite.com/images/andfix/principle.png">
 <meta property="og:image" content="http://yoursite.com/images/andfix/process.png">
 <meta property="og:image" content="http://yoursite.com/images/andfix/out.apatch.zip.png">
 <meta property="og:image" content="http://yoursite.com/images/andfix/CERT.RSA.png">
 <meta property="og:image" content="http://yoursite.com/images/andfix/method_replace.png">
-<meta property="og:updated_time" content="2017-06-22T10:55:44.000Z">
+<meta property="og:updated_time" content="2017-07-04T03:28:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android hot-fix热修复">
 <meta name="twitter:description" content="AndFix 项目地址：https://github.com/alibaba/AndFix AndFix is a solution to fix the bugs online instead of redistributing Android App.Andfix is an acronym for “Android hot-fix”.AndFix supports Android versi">
-<meta name="twitter:image" content="http://yoursite.com/master/images/andfix/principle.png">
+<meta name="twitter:image" content="http://yoursite.com/images/andfix/principle.png">
 
 
 
@@ -143,7 +137,11 @@
 
 
 
-  <title>Android hot-fix热修复 | 个人博客</title>
+  <title> Android hot-fix热修复 | 个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
   
 
 
@@ -158,10 +156,6 @@
 
 
 
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -245,9 +239,43 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -289,7 +317,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android hot-fix热修复</h1>
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android hot-fix热修复
+              
+            
+          </h1>
         
 
         <div class="post-meta">
@@ -330,6 +365,7 @@
       </header>
     
 
+
     <div class="post-body" itemprop="articleBody">
 
       
@@ -344,7 +380,7 @@
 <p>缺点：不支持添加文件到assets文件夹<br>不支持layout文件添加组件<br>不支持add filed(R.xx.xx)， new class， 内部类， 匿名内部类</p>
 <h2 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h2><p>The implementation principle of AndFix is method body’s replacing,</p>
 <p>具体的实现原理就是方法替换</p>
-<p><img src="/master/images/andfix/principle.png" alt="image"></p>
+<p><img src="/images/andfix/principle.png" alt="image"></p>
 <h3 id="Method-replacing"><a href="#Method-replacing" class="headerlink" title="Method replacing"></a>Method replacing</h3><p>AndFix judges the methods should be replaced by java custom annotation and replaces it by hooking it. AndFix has a native method <code>art_replaceMethod</code> in ART or <code>dalvik_replaceMethod</code> in Dalvik. </p>
 <p>For more details, <a href="https://github.com/alibaba/AndFix/tree/master/jni" target="_blank" rel="external">here</a>.</p>
 <h2 id="Fix-Process"><a href="#Fix-Process" class="headerlink" title="Fix Process"></a>Fix Process</h2><p><img src="/images/andfix/process.png" alt="image"></p>
@@ -428,7 +464,7 @@
 <h3 id="SecurityChecker-java"><a href="#SecurityChecker-java" class="headerlink" title="SecurityChecker.java"></a>SecurityChecker.java</h3><p>用于验证apk和dex的签名</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">init()获取apk的签名mPublicKey</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">verifyApk(File path)  //loadPatch()时检查apk和补丁的签名</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">签名校验失败时抛出异常</div><div class="line">E/SecurityChecker: /data/data/com.euler.andfix/files/apatch/out.apatch java.security.SignatureException: Signature was not verified </div><div class="line">at org.apache.harmony.security.provider.cert.X509CertImpl.verify(X509CertImpl.java:384) </div><div class="line">at com.alipay.euler.andfix.security.SecurityChecker.check(SecurityChecker.java:158)                                                                                                                                              at com.alipay.euler.andfix.security.SecurityChecker.verifyApk(SecurityChecker.java:124) </div><div class="line">at com.alipay.euler.andfix.AndFixManager.fix(AndFixManager.java:121) </div><div class="line">at com.alipay.euler.andfix.patch.PatchManager.loadPatch(PatchManager.java:230) </div><div class="line">at com.alipay.euler.andfix.patch.PatchManager.addPatch(PatchManager.java:161) </div><div class="line">at com.euler.andfix.MainApplication.onCreate(MainApplication.java:63)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">签名校验失败时抛出异常</div><div class="line">E/SecurityChecker: /data/data/com.euler.andfix/files/apatch/out.apatch java.security.SignatureException: Signature was not verified </div><div class="line">at org.apache.harmony.security.provider.cert.X509CertImpl.verify(X509CertImpl.java:384) </div><div class="line">at com.alipay.euler.andfix.security.SecurityChecker.check(SecurityChecker.java:158)</div><div class="line">at com.alipay.euler.andfix.security.SecurityChecker.verifyApk(SecurityChecker.java:124) </div><div class="line">at com.alipay.euler.andfix.AndFixManager.fix(AndFixManager.java:121) </div><div class="line">at com.alipay.euler.andfix.patch.PatchManager.loadPatch(PatchManager.java:230) </div><div class="line">at com.alipay.euler.andfix.patch.PatchManager.addPatch(PatchManager.java:161) </div><div class="line">at com.euler.andfix.MainApplication.onCreate(MainApplication.java:63)</div></pre></td></tr></table></figure>
 <h3 id="Compat-java"><a href="#Compat-java" class="headerlink" title="Compat.java"></a>Compat.java</h3><p>检查当前系统是否支持andfix<br>AndFix supports Android version from 2.3 to 6.0, both ARM and X86 architecture, both Dalvik and ART runtime.<br>not support alibaba’s YunOs</p>
 <h3 id="MethodReplace-java"><a href="#MethodReplace-java" class="headerlink" title="MethodReplace.java"></a>MethodReplace.java</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Annotation for method</div><div class="line"> *</div><div class="line"> * @author sanping.li@alipay.com</div><div class="line"> */</div><div class="line">@Target(ElementType.METHOD) // ElementType是用来指定Annotation类型可以用在哪一些元素上的</div><div class="line">@Retention(RetentionPolicy.RUNTIME)  // 注解的保存策略</div><div class="line">/**</div><div class="line"> * SOURCE：只会保留在程序源码里，源码如果经过了编译之后，Annotation的数据就会消失,并不会保留在编译好的.class文件里面</div><div class="line"> * CLASS：Annotation类型的信息保留在程序源码里,同时也会保留在编译好的.class文件里面,在执行的时候，并不会把这一些信息加载到虚拟机</div><div class="line"> * (JVM)中去.注意一下，当你没有设定一个Annotation类型的Retention值时，系统默认值是CLASS.</div><div class="line"> * RUNTIME：表示在源码、编译好的.class文件中保留信息，在执行的时候会把这一些信息加载到JVM中去的．</div><div class="line"> */</div><div class="line">public @interface MethodReplace &#123;</div><div class="line">    String clazz();</div><div class="line">    String method();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="AndFix-java"><a href="#AndFix-java" class="headerlink" title="AndFix.java"></a>AndFix.java</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// initialize art or dalvik </div><div class="line">private static native boolean setup(boolean isArt, int apilevel);</div><div class="line">// </div><div class="line">private static native void replaceMethod(Method dest, Method src);</div><div class="line">/**</div><div class="line"> * modify access flag of class’ fields to public</div><div class="line"> *</div><div class="line"> * @param field field</div><div class="line"> */</div><div class="line">private static native void setFieldFlag(Field field);</div></pre></td></tr></table></figure>
@@ -509,17 +545,7 @@
       
 
       
-      
-        <div class="post-widgets">
         
-          <div class="wp_rating">
-            <div id="wpac-rating"></div>
-          </div>
-        
-
-        
-        </div>
-      
       
 
       
@@ -622,10 +648,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -752,12 +778,6 @@
 
 
 
-
-
-
-
-
-
   
   <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
 
@@ -847,32 +867,137 @@
 
   
 
-
-
-
-
-  
-
-  
-
-  
   <script type="text/javascript">
-  wpac_init = window.wpac_init || [];
-  wpac_init.push({widget: 'Rating', id: ,
-    el: 'wpac-rating',
-    color: 'fc6423'
-  });
-  (function() {
-    if ('WIDGETPACK_LOADED' in window) return;
-    WIDGETPACK_LOADED = true;
-    var mc = document.createElement('script');
-    mc.type = 'text/javascript';
-    mc.async = true;
-    mc.src = '//embed.widgetpack.com/widget.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-  })();
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
   </script>
 
+
+
+
+
+  
 
   
 

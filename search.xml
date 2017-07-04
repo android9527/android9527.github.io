@@ -1,500 +1,37 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
   
     
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
-
-
-
-
-
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="个人博客">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/"/>
-
-
-
-
-
-  <title> 个人博客 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-   page-home 
- ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">个人博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404.html" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/22/2017-06-22-Glide设置超时时间/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/22/2017-06-22-Glide设置超时时间/" itemprop="url">
-                  Glide 设置超时时间
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-22T00:00:00+08:00">
-                2017-06-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Glide 系列文章<br><a href="https://mrfu.me/2016/02/27/Glide_Request_Priorities/" target="_blank" rel="external">https://mrfu.me/2016/02/27/Glide_Request_Priorities/</a></p>
+    <entry>
+      <title><![CDATA[Glide 设置超时时间]]></title>
+      <url>/2017/06/22/2017-06-22-Glide%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4/</url>
+      <content type="html"><![CDATA[<p>Glide 系列文章<br><a href="https://mrfu.me/2016/02/27/Glide_Request_Priorities/" target="_blank" rel="external">https://mrfu.me/2016/02/27/Glide_Request_Priorities/</a></p>
 <p>Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms<br>设置超时时间方法<br>1、使用Volley作为协议栈<br>compile ‘com.github.bumptech.glide:volley-integration:1.5.0@aar’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class CustomGlideModule implements GlideModule &#123;</div><div class="line">    @Override</div><div class="line">    public void applyOptions(Context context, GlideBuilder builder) &#123;</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public void registerComponents(Context context, Glide glide) &#123;</div><div class="line">        RequestQueue queue = new RequestQueue( // params hardcoded from Volley.newRequestQueue()</div><div class="line">                new DiskBasedCache(new File(context.getCacheDir(), &quot;volley&quot;)),</div><div class="line">                new BasicNetwork(new HurlStack())) &#123;</div><div class="line">            @Override public &lt;T&gt; Request&lt;T&gt; add(Request&lt;T&gt; request) &#123;</div><div class="line">                request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1));</div><div class="line">                return super.add(request);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        queue.start();</div><div class="line">        glide.register(GlideUrl.class, InputStream.class, new VolleyUrlLoader.Factory(queue));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;meta-data</div><div class="line">    android:name=&quot;&#123;packageName&#125;.CustomGlideModule&quot;</div><div class="line">    android:value=&quot;GlideModule&quot; /&gt;</div></pre></td></tr></table></figure>
 <p>2、使用OkHttp作为协议栈<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile &apos;com.github.bumptech.glide:okhttp-integration:1.5.0@aar&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class CustomGlideModule extends GlideModule &#123;</div><div class="line">    @Override</div><div class="line">    public void applyOptions(Context context, GlideBuilder builder) &#123;</div><div class="line">        // stub</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void registerComponents(Context context, Glide glide) &#123;</div><div class="line">        final OkHttpClient.Builder builder = new OkHttpClient.Builder();</div><div class="line"></div><div class="line">        // set your timeout here</div><div class="line">        builder.readTimeout(30, TimeUnit.SECONDS);</div><div class="line">        builder.writeTimeout(30, TimeUnit.SECONDS);</div><div class="line">        builder.connectTimeout(30, TimeUnit.SECONDS);</div><div class="line"></div><div class="line">        glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;meta-data</div><div class="line">    android:name=&quot;&#123;packageName&#125;.CustomGlideModule&quot;</div><div class="line">    android:value=&quot;GlideModule&quot; /&gt;</div></pre></td></tr></table></figure>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> Glide </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/13/2017-05-13-理解Android中的SharedPreferences/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/13/2017-05-13-理解Android中的SharedPreferences/" itemprop="url">
-                  理解Android中的SharedPreferences
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-13T00:00:00+08:00">
-                2017-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="理解Android中的SharedPreferences"><a href="#理解Android中的SharedPreferences" class="headerlink" title="理解Android中的SharedPreferences"></a>理解Android中的SharedPreferences</h1><p>SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：<br>（1）每次调用getSharedPreferences时都会创建一个SharedPreferences对象吗？这个对象具体是哪个类对象？<br>（2）在UI线程中调用getXXX有可能导致ANR吗？<br>（3）为什么SharedPreferences只适合用来存放少量数据，为什么不能把SharedPreferences对应的xml文件当成普通文件一样存放大量数据？<br>（4）commit和apply有什么区别？<br>（5）SharedPreferences每次写入时是增量写入吗？</p>
+    <entry>
+      <title><![CDATA[理解Android中的SharedPreferences]]></title>
+      <url>/2017/05/13/2017-05-13-%E7%90%86%E8%A7%A3Android%E4%B8%AD%E7%9A%84SharedPreferences/</url>
+      <content type="html"><![CDATA[<h1 id="理解Android中的SharedPreferences"><a href="#理解Android中的SharedPreferences" class="headerlink" title="理解Android中的SharedPreferences"></a>理解Android中的SharedPreferences</h1><p>SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：<br>（1）每次调用getSharedPreferences时都会创建一个SharedPreferences对象吗？这个对象具体是哪个类对象？<br>（2）在UI线程中调用getXXX有可能导致ANR吗？<br>（3）为什么SharedPreferences只适合用来存放少量数据，为什么不能把SharedPreferences对应的xml文件当成普通文件一样存放大量数据？<br>（4）commit和apply有什么区别？<br>（5）SharedPreferences每次写入时是增量写入吗？</p>
 <p>要想弄清楚上面几个问题，需要查看SharedPreferences的源码实现才能解决。先从Context的getSharedPreferences开始：<br>我们知道Android中的Context类体系其实是使用了装饰者模式，而被装饰对象就这个mBase，它其实就是一个ContextImpl对象，ContextImpl的getSharedPreferences方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    public SharedPreferences getSharedPreferences(String name, int mode) &#123;</div><div class="line">        SharedPreferencesImpl sp;</div><div class="line">        synchronized (ContextImpl.class) &#123;</div><div class="line">            if (sSharedPrefs == null) &#123;</div><div class="line">                sSharedPrefs = new ArrayMap&lt;String, ArrayMap&lt;String, SharedPreferencesImpl&gt;&gt;();</div><div class="line">            &#125;</div><div class="line">            final String packageName = getPackageName();</div><div class="line">            ArrayMap&lt;String, SharedPreferencesImpl&gt; packagePrefs = sSharedPrefs.get(packageName);</div><div class="line">            if (packagePrefs == null) &#123;</div><div class="line">                packagePrefs = new ArrayMap&lt;String, SharedPreferencesImpl&gt;();</div><div class="line">                sSharedPrefs.put(packageName, packagePrefs);</div><div class="line">            &#125;</div><div class="line">            // At least one application in the world actually passes in a null</div><div class="line">            // name.  This happened to work because when we generated the file name</div><div class="line">            // we would stringify it to &quot;null.xml&quot;.  Nice.</div><div class="line">            if (mPackageInfo.getApplicationInfo().targetSdkVersion &lt;</div><div class="line">                    Build.VERSION_CODES.KITKAT) &#123;</div><div class="line">                if (name == null) &#123;</div><div class="line">                    name = &quot;null&quot;;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            sp = packagePrefs.get(name);</div><div class="line">            if (sp == null) &#123;</div><div class="line">                File prefsFile = getSharedPrefsFile(name);</div><div class="line">                sp = new SharedPreferencesImpl(prefsFile, mode);</div><div class="line">                packagePrefs.put(name, sp);</div><div class="line">                return sp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if ((mode &amp; Context.MODE_MULTI_PROCESS) != 0 ||</div><div class="line">            getApplicationInfo().targetSdkVersion &lt; android.os.Build.VERSION_CODES.HONEYCOMB) &#123;</div><div class="line">            // If somebody else (some other process) changed the prefs</div><div class="line">            // file behind our back, we reload it.  This has been the</div><div class="line">            // historical (if undocumented) behavior.</div><div class="line">            sp.startReloadIfChangedUnexpectedly();</div><div class="line">        &#125;</div><div class="line">        return sp;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p>使用到了单例模式，sSharedPrefs 是一个ArrayMap，packagePrefs也是一个ArrayMap，它们的关系是这样的：<br>packagePrefs存放文件name与SharedPreferencesImpl键值对，sSharedPrefs存放包名与ArrayMap键值对。注意sSharedPrefs是static变量，也就是一个类只有一个实例，因此你每次getSharedPreferences其实拿到的都是同一个SharedPreferences对象。这里回答第一个问题，对于一个相同的SharedPreferences name，获取到的都是同一个SharedPreferences对象，它其实是SharedPreferencesImpl对象。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">SharedPreferencesImpl(File file, int mode) &#123;</div><div class="line">    mFile = file;</div><div class="line">    mBackupFile = makeBackupFile(file);</div><div class="line">    mMode = mode;</div><div class="line">    mLoaded = false;</div><div class="line">    mMap = null;</div><div class="line">    startLoadFromDisk();</div><div class="line">&#125;</div><div class="line">private void startLoadFromDisk() &#123;</div><div class="line">    synchronized (this) &#123;</div><div class="line">        mLoaded = false;</div><div class="line">    &#125;</div><div class="line">    new Thread(&quot;SharedPreferencesImpl-load&quot;) &#123;</div><div class="line">        public void run() &#123;</div><div class="line">            synchronized (SharedPreferencesImpl.this) &#123;</div><div class="line">                loadFromDiskLocked();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -511,127 +48,29 @@
 <p>先定义一个Runnable，注意实现Runnable与继承Thread的区别，Runnable表示一个任务，不一定要在子线程中执行，一般优先考虑使用Runnable。这个Runnable中先调用writeToFile进行写操作，写操作需要先获得mWritingToDiskLock，也就是写锁。然后执行mDiskWritesInFlight–，表示正在等待写的操作减少1。最后判断postWriteRunnable是否为null，调用commit时它为null，而调用apply时它不为null。<br>Runnable定义完，就判断这次是commit还是apply，如果是commit，即isFromSyncCommit为true，而且有1个写操作需要执行，那么就调用writeToDiskRunnable.run()，注意这个调用是在当前线程中进行的。如果不是commit，那就是apply，这时调用QueuedWork.singleThreadExecutor().execute(writeToDiskRunnable)，这个QueuedWork类其实很简单，里面有一个SingleThreadExecutor，用于异步执行这个writeToDiskRunnable。<br>这里就可以回答第四个问题了，commit的写操作是在调用线程中执行的，而apply内部是用一个单线程的线程池实现的，因此写操作是在子线程中执行的。</p>
 <p>说一下那个mBackupFile，SharedPreferences在写入时会先把之前的xml文件改成名成一个备份文件，然后再将要写入的数据写到一个新的文件中，如果这个过程执行成功的话，就会把备份文件删除。由此可见每次即使只是添加一个键值对，也会重新写入整个文件的数据，这也说明SharedPreferences只适合保存少量数据，文件太大会有性能问题。这里回答第五个问题，SharedPreferences每次写入都是整个文件重新写入，不是增量写入。</p>
 <p>SharedPreferences几种模式：<br>Context.MODE_PRIVATE：应用私有，只有相同的UID才能进行读写<br>Context.MODE_MULTI_PROCESS：多进程安全标志，Android2.3之前该标志是默认被设置的，Android2.3开始需要自己设置。<br>MODE_APPEND：首次创建时如果文件存在不会删除文件。<br>注意这些模式可以使用位与进行设置，比如MODE_PRIVATE | MODE_APPEND。</p>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> 存储 </tag>
+            
+            <tag> SharedPreferences </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/2017-04-13-Android内存优化相关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/13/2017-04-13-Android内存优化相关/" itemprop="url">
-                  Android内存优化相关
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-13T00:00:00+08:00">
-                2017-04-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Android内存优化相关"><a href="#Android内存优化相关" class="headerlink" title="Android内存优化相关"></a>Android内存优化相关</h2><h3 id="Java内存分配策略概述"><a href="#Java内存分配策略概述" class="headerlink" title="Java内存分配策略概述"></a>Java内存分配策略概述</h3><p><img src="/images/memory/memory.jpeg" alt="Overdraw"></p>
+    <entry>
+      <title><![CDATA[Android内存优化相关]]></title>
+      <url>/2017/04/13/2017-04-13-Android%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/</url>
+      <content type="html"><![CDATA[<h2 id="Android内存优化相关"><a href="#Android内存优化相关" class="headerlink" title="Android内存优化相关"></a>Android内存优化相关</h2><h3 id="Java内存分配策略概述"><a href="#Java内存分配策略概述" class="headerlink" title="Java内存分配策略概述"></a>Java内存分配策略概述</h3><p><img src="/images/memory/memory.jpeg" alt="Overdraw"></p>
 <ul>
 <li><p>虚拟机栈（Stack）<br>存放基本数据类型和局部变量引用，但是对象本身不存放在栈中，而是存放在堆中。<br>当一个方法即将被运行时，Java虚拟机栈首先会在Java虚拟机栈中为该方法创建一块“栈帧”，栈帧中包含局部变量表、操作数栈、动态链接、方法出口信息等。当方法在运行过程中需要创建局部变量时，就将局部变量的值存入栈帧的局部变量表中。当方法执行完毕后，这个方法所对应的栈帧将会出栈，并释放内存空间。<br>Java虚拟机栈会出现两种异常：StackOverFlowError和OutOfMemoryError。<br>Java虚拟机栈也是线程私有的，每个线程都有各自的Java虚拟机栈，而且随着线程的创建而创建，随着线程的死亡而死亡。</p>
 </li>
@@ -825,127 +264,27 @@
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.android.com/topic/performance/memory.html" target="_blank" rel="external">https://developer.android.com/topic/performance/memory.html</a></p>
 <p><a href="http://blog.csdn.net/qq_23191031/article/details/63685756" target="_blank" rel="external">Android性能优化详解内存优化的来龙去脉</a></p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&amp;mid=2653578816&amp;idx=1&amp;sn=20b6160e92167dde676561f3a43d0860&amp;chksm=84b3b447b3c43d51c8042b58fef7dcb2755bdb4ceffaf8244b1e88acc6231411e3e9a5f0368f&amp;mpshare=1&amp;scene=24&amp;srcid=0407gek6TWkslG13uVNKgWnp&amp;key=3b2e3b347972bda0160ce87a12f2ac4023e07bae8d2643824f5099d643f67bc11fda267841bc5d474d01ae1bb79b1a07ea270e4f0e22c2a233e564a8f0513fdc8774006a07712f5dd523b4a48d7fb994&amp;ascene=0&amp;uin=MzU5MTI3NQ%3D%3D&amp;devicetype=iMac+MacBookPro11%2C5+OSX+OSX+10.11.6+build(15G1108" target="_blank" rel="external">Android 内存优化总结</a></p>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> 内存优化 </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/20/2017-05-01-Create an Android Library/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/2017-05-01-Create an Android Library/" itemprop="url">
-                  创建 Android 库
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T00:00:00+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="创建-Android-库"><a href="#创建-Android-库" class="headerlink" title="创建 Android 库"></a>创建 Android 库</h2><p>Android 库在结构上与 Android 应用模块相同。它可以提供构建应用所需的一切内容，包括源代码、资源文件和 Android 清单。不过，Android 库将编译到您可以用作 Android 应用模块依赖项的 Android 归档 (AAR) 文件，而不是在设备上运行的 APK。与 JAR 文件不同，AAR 文件可以包含 Android 资源和一个清单文件，这样，除了 Java 类与方法外，您还可以捆绑布局和可绘制对象等共享资源。</p>
+    <entry>
+      <title><![CDATA[创建 Android 库]]></title>
+      <url>/2017/03/20/2017-05-01-Create%20an%20Android%20Library/</url>
+      <content type="html"><![CDATA[<h2 id="创建-Android-库"><a href="#创建-Android-库" class="headerlink" title="创建 Android 库"></a>创建 Android 库</h2><p>Android 库在结构上与 Android 应用模块相同。它可以提供构建应用所需的一切内容，包括源代码、资源文件和 Android 清单。不过，Android 库将编译到您可以用作 Android 应用模块依赖项的 Android 归档 (AAR) 文件，而不是在设备上运行的 APK。与 JAR 文件不同，AAR 文件可以包含 Android 资源和一个清单文件，这样，除了 Java 类与方法外，您还可以捆绑布局和可绘制对象等共享资源。</p>
 <p>库模块在以下情况下非常有用：</p>
 <ul>
 <li>构建使用某些相同组件（例如 Activity、服务或 UI 布局）的多个应用。</li>
@@ -1034,127 +373,27 @@
 <li>/lint.jar</li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developer.android.com/studio/projects/android-library.html#aar-contents" target="_blank" rel="external">https://developer.android.com/studio/projects/android-library.html#aar-contents</a></p>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> Library </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/10/2017-03-10-hello-world-hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/10/2017-03-10-hello-world-hexo/" itemprop="url">
-                  Hello World, Hexo
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-10T00:00:00+08:00">
-                2017-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+    <entry>
+      <title><![CDATA[Hello World, Hexo]]></title>
+      <url>/2017/03/10/2017-03-10-hello-world-hexo/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
@@ -1163,127 +402,21 @@
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Another Tag </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/13/2016-10-14-Android ipc进程间通信/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/13/2016-10-14-Android ipc进程间通信/" itemprop="url">
-                  Android进程间通信
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-13T00:00:00+08:00">
-                2016-10-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h2><h3 id="几种方式"><a href="#几种方式" class="headerlink" title="几种方式:"></a>几种方式:</h3><p>文件</p>
+    <entry>
+      <title><![CDATA[Android进程间通信]]></title>
+      <url>/2016/10/13/2016-10-14-Android%20ipc%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</url>
+      <content type="html"><![CDATA[<h2 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h2><h3 id="几种方式"><a href="#几种方式" class="headerlink" title="几种方式:"></a>几种方式:</h3><p>文件</p>
 <p>SharedPreferences</p>
 <p>BroadcastReceiver</p>
 <p>ContentProvider</p>
@@ -1387,127 +520,27 @@
 <p>品茗论道说广播(Broadcast内部机制讲解)</p>
 <p><a href="https://my.oschina.net/youranhongcha/blog/226274" target="_blank" rel="external">https://my.oschina.net/youranhongcha/blog/226274</a></p>
 <p><a href="http://www.cnblogs.com/xingchenkn/p/3637137.html" target="_blank" rel="external">http://www.cnblogs.com/xingchenkn/p/3637137.html</a></p>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> 进程间通信 </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/14/2016-04-14-Android hot-fix/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/14/2016-04-14-Android hot-fix/" itemprop="url">
-                  Android hot-fix热修复
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-14T00:00:00+08:00">
-                2016-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="AndFix"><a href="#AndFix" class="headerlink" title="AndFix"></a>AndFix</h1><hr>
+    <entry>
+      <title><![CDATA[Android hot-fix热修复]]></title>
+      <url>/2016/04/14/2016-04-14-Android%20hot-fix/</url>
+      <content type="html"><![CDATA[<h1 id="AndFix"><a href="#AndFix" class="headerlink" title="AndFix"></a>AndFix</h1><hr>
 <p>项目地址：<a href="https://github.com/alibaba/AndFix" target="_blank" rel="external">https://github.com/alibaba/AndFix</a></p>
 <p>AndFix is a solution to fix the bugs online instead of redistributing Android App.<br>Andfix is an acronym for “Android hot-fix”.<br>AndFix supports Android version from 2.3 to 6.0, both ARM and X86 architecture, both Dalvik and ART runtime.</p>
 <p>The compressed file format of AndFix’s patch is .apatch. It is dispatched from your own server to client to fix your App’s bugs.</p>
@@ -1639,127 +672,27 @@
 <p><a href="http://blog.csdn.net/qxs965266509/article/details/49816007" target="_blank" rel="external">Alibaba-AndFix Bug热修复框架原理及源码解析</a></p>
 <p><a href="http://myeyeofjava.iteye.com/blog/2125348" target="_blank" rel="external">Android签名与认证详细分析之一（CERT.RSA剖析）</a></p>
 <p><a href="http://www.cnblogs.com/0616--ataozhijia/p/4482667.html" target="_blank" rel="external">[Android Pro] Android签名与认证详细分析之二（CERT.RSA剖析）</a></p>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> hot-fix </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/04/2016-03-04-Handler-Message-Android/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/04/2016-03-04-Handler-Message-Android/" itemprop="url">
-                  Handler、Message、MessageQueue随笔
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-04T00:00:00+08:00">
-                2016-03-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Handler、Message"><a href="#Handler、Message" class="headerlink" title="Handler、Message"></a>Handler、Message</h2><h3 id="1、基本用法"><a href="#1、基本用法" class="headerlink" title="1、基本用法:"></a>1、基本用法:</h3><p>创建Handler重写handlerMessage（Message msg）处理消息</p>
+    <entry>
+      <title><![CDATA[Handler、Message、MessageQueue随笔]]></title>
+      <url>/2016/03/04/2016-03-04-Handler-Message-Android/</url>
+      <content type="html"><![CDATA[<h2 id="Handler、Message"><a href="#Handler、Message" class="headerlink" title="Handler、Message"></a>Handler、Message</h2><h3 id="1、基本用法"><a href="#1、基本用法" class="headerlink" title="1、基本用法:"></a>1、基本用法:</h3><p>创建Handler重写handlerMessage（Message msg）处理消息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Handler handler = new Handler()&#123;</div><div class="line">    @Override</div><div class="line">    public void handleMessage(Message msg) &#123;</div><div class="line">        super.handleMessage(msg);</div><div class="line">        // TODO 处理消息</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">Handler handler = new Handler(new Handler.Callback()&#123;</div><div class="line">    @Override</div><div class="line">    public boolean handleMessage(Message msg) &#123;</div><div class="line">        // TODO 处理消息</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">handler.sendMessage(msg);</div><div class="line">handler.post(new Runnable()&#123;...&#125;);</div></pre></td></tr></table></figure>
 <h3 id="2、主线程默认已经创建Looper，无须重复创建"><a href="#2、主线程默认已经创建Looper，无须重复创建" class="headerlink" title="2、主线程默认已经创建Looper，无须重复创建"></a>2、主线程默认已经创建Looper，无须重复创建</h3><p>ActivityThread.java</p>
@@ -1827,127 +760,27 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">// 移除MQ所有的延迟消息 n.when &gt; now</div><div class="line">private void removeAllFutureMessagesLocked() &#123;</div><div class="line">    final long now = SystemClock.uptimeMillis();</div><div class="line">    Message p = mMessages;</div><div class="line">    if (p != null) &#123;</div><div class="line">        if (p.when &gt; now) &#123;   // 如果队列头部消息为延迟消息，则清空MQ</div><div class="line">            removeAllMessagesLocked();</div><div class="line">        &#125; else &#123;</div><div class="line">            Message n;</div><div class="line">            for (;;) &#123;</div><div class="line">                n = p.next;</div><div class="line">                if (n == null) &#123;</div><div class="line">                    return;</div><div class="line">                &#125;</div><div class="line">                if (n.when &gt; now) &#123;  // 遍历找到延迟消息，退出循环</div><div class="line">                    break;</div><div class="line">                &#125;</div><div class="line">                p = n;</div><div class="line">            &#125;</div><div class="line">            p.next = null; </div><div class="line">            // 清空所有的延迟消息</div><div class="line">            do &#123;</div><div class="line">                p = n;</div><div class="line">                n = p.next;</div><div class="line">                p.recycleUnchecked();</div><div class="line">            &#125; while (n != null);</div><div class="line">        &#125;</div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="Handler-memory-leak"><a href="#Handler-memory-leak" class="headerlink" title="Handler-memory-leak"></a>Handler-memory-leak</h2><p><a href="http://www.androiddesignpatterns.com/2013/01/inner-class-handler-memory-leak.html" target="_blank" rel="external">http://www.androiddesignpatterns.com/2013/01/inner-class-handler-memory-leak.html</a></p>
 <h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="http://bbs.9ria.com/thread-247435-1-1.html" target="_blank" rel="external">http://bbs.9ria.com/thread-247435-1-1.html</a><br><a href="http://www.mamicode.com/info-detail-984722.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-984722.html</a><br><a href="http://www.cnblogs.com/codingmyworld/archive/2011/09/14/2174255.html" target="_blank" rel="external">http://www.cnblogs.com/codingmyworld/archive/2011/09/14/2174255.html</a><br><a href="http://my.oschina.net/youranhongcha/blog/492591?fromerr=d6t15a3t#OSC_h3_10" target="_blank" rel="external">http://my.oschina.net/youranhongcha/blog/492591?fromerr=d6t15a3t#OSC_h3_10</a></p>
-
-          
+]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> Handler、Message </tag>
+            
+        </tags>
+        
+    </entry>
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/25/2016-02-26-Rxjava-Android/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="android9527">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/25/2016-02-26-Rxjava-Android/" itemprop="url">
-                  Rxjava-learn
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-25T00:00:00+08:00">
-                2016-02-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Rxjava-learn"><a href="#Rxjava-learn" class="headerlink" title="Rxjava-learn"></a>Rxjava-learn</h1><h2 id="1、github-项目地址：-https-github-com-ReactiveX-RxJava"><a href="#1、github-项目地址：-https-github-com-ReactiveX-RxJava" class="headerlink" title="1、github 项目地址：  https://github.com/ReactiveX/RxJava"></a>1、github 项目地址：  <a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">https://github.com/ReactiveX/RxJava</a></h2><p>（RxAndroid 是一个专门为Android开发做出最小适配框架，可以方便的写出响应式的组件和一站式服务）</p>
+    <entry>
+      <title><![CDATA[Rxjava-learn]]></title>
+      <url>/2016/02/25/2016-02-26-Rxjava-Android/</url>
+      <content type="html"><![CDATA[<h1 id="Rxjava-learn"><a href="#Rxjava-learn" class="headerlink" title="Rxjava-learn"></a>Rxjava-learn</h1><h2 id="1、github-项目地址：-https-github-com-ReactiveX-RxJava"><a href="#1、github-项目地址：-https-github-com-ReactiveX-RxJava" class="headerlink" title="1、github 项目地址：  https://github.com/ReactiveX/RxJava"></a>1、github 项目地址：  <a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">https://github.com/ReactiveX/RxJava</a></h2><p>（RxAndroid 是一个专门为Android开发做出最小适配框架，可以方便的写出响应式的组件和一站式服务）</p>
 <h2 id="2、rxjava是一个响应式的编程框架，基于观察者模式。"><a href="#2、rxjava是一个响应式的编程框架，基于观察者模式。" class="headerlink" title="2、rxjava是一个响应式的编程框架，基于观察者模式。"></a>2、rxjava是一个响应式的编程框架，基于观察者模式。</h2><p>其中关键的要素就是Observable(事件产生者,也是事件的观察者)  Operator（操作符） Subscriber（事件的消费者，也是事件的订阅者）</p>
 <p>特点：使用可观察序列编写异步和事件驱动的库，扩展了观察者模式以支持数据和事件序列，并且加入了operator操作符来实现数据转换和事件过滤</p>
 <ol>
@@ -2438,433 +1271,25 @@ Observable.combineLatest(_emailChangeObservable,
             }
         });
     }
-</code></pre>
-          
+</code></pre>]]></content>
+      
         
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> Rxjava </tag>
+            
+            <tag> 响应式编程 </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
+            
+        </tags>
+        
+    </entry>
     
-  </section>
-
-  
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpeg"
-               alt="android9527" />
-          <p class="site-author-name" itemprop="name">android9527</p>
-           
-              <p class="site-description motion-element" itemprop="description"></p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/android9527" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2013 - 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">android9527</span>
-</div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-  
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
-
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length == 0) {
-      search_path = "search.xml";
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.popup').toggle();
-    }
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-      $.ajax({
-        url: path,
-        dataType: "xml",
-        async: true,
-        success: function( xmlResponse ) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
-            return {
-              title: $( "title", this ).text(),
-              content: $("content",this).text(),
-              url: $( "url" , this).text()
-            };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
-                      }
-                    }
-
-                  });
-                }
-                // show search results
-                if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
-                    // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if(start == 0){
-                      end = 50;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
-                  }
-                  str += "</li>";
-                }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
-          proceedsearch();
-        }
-      });}
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched == false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+</search>
