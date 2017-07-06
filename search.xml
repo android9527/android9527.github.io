@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title><![CDATA[Kotlin与Dagger2 ButterKnife冲突解决]]></title>
+      <url>/2017/06/25/2017-06-25-Kotlin%E4%B8%8EDagger2%20ButterKnife%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
+      <content type="html"><![CDATA[<h3 id="Kotlin与Dagger2-ButterKnife冲突解决"><a href="#Kotlin与Dagger2-ButterKnife冲突解决" class="headerlink" title="Kotlin与Dagger2 ButterKnife冲突解决"></a>Kotlin与Dagger2 ButterKnife冲突解决</h3><h4 id="1-Kotlin-与-Dagger2冲突"><a href="#1-Kotlin-与-Dagger2冲突" class="headerlink" title="1. Kotlin 与 Dagger2冲突"></a>1. Kotlin 与 Dagger2冲突</h4><p>在kotlin中加入dagger注入代码时出现<br>Unresolved reference dagger的错误时<br>需要在 Kotlin 中则需要添加 kotlin-kapt 插件激活 kapt，并使用 kapt 替换 annotationProcessor：<br>在app/build.gradle文件中增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">apply plugin: &apos;kotlin-kapt&apos;</div><div class="line"></div><div class="line">kapt &#123;</div><div class="line">    generateStubs = true</div><div class="line">&#125;</div><div class="line">dependencies &#123;</div><div class="line">    kapt &quot;com.google.dagger:dagger-compiler:$dagger-version&quot;</div><div class="line">    compile &quot;com.google.dagger:dagger:$&#123;daggerVersion&#125;&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>特别提示：kapt 也能够处理 Java 文件，所以不需要再保留 annotationProcessor 的依赖。</p>
+<h4 id="2-出现ButterKnife不生效问题处理"><a href="#2-出现ButterKnife不生效问题处理" class="headerlink" title="2.出现ButterKnife不生效问题处理"></a>2.出现ButterKnife不生效问题处理</h4><p>在项目级 build.gradle中增加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在 Kotlin 中使用 ButterKnife 与 Java 中完全一致。 在 Gradle 构建脚本的修改如下，后面将重点介绍代码部分的差异。<br>在 Gradle 依赖中添加 kotlin-kapt 插件，并使用 kapt 替代 annotationProcessor。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">apply plugin: ‘kotlin-kapt‘</div><div class="line">dependencies &#123;</div><div class="line">    ...</div><div class="line">    compile &quot;com.jakewharton:butterknife:$butterknife-version&quot;</div><div class="line">    kapt &quot;com.jakewharton:butterknife-compiler:$butterknife-version&quot;</div><div class="line">    </div><div class="line"> // 处理butterknife与support-compat冲突</div><div class="line">    compile (&quot;com.jakewharton:butterknife:$butterknife-version&quot;) &#123;</div><div class="line">        exclude group: &apos;com.android.support&apos;, module: &apos;support-compat&apos;</div><div class="line">    &#125;</div><div class="line">//    apt &quot;com.jakewharton:butterknife-compiler:$butterknife-version&quot;</div><div class="line">    kapt &quot;com.jakewharton:butterknife-compiler:$butterknife-version&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> Blog </tag>
+            
+            <tag> Dagger2 </tag>
+            
+            <tag> ButterKnife </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Glide 设置超时时间]]></title>
       <url>/2017/06/22/2017-06-22-Glide%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4/</url>
       <content type="html"><![CDATA[<p>Glide 系列文章<br><a href="https://mrfu.me/2016/02/27/Glide_Request_Priorities/" target="_blank" rel="external">https://mrfu.me/2016/02/27/Glide_Request_Priorities/</a></p>
@@ -17,8 +42,6 @@
         <tags>
             
             <tag> Android </tag>
-            
-            <tag> 分享 </tag>
             
             <tag> Blog </tag>
             
