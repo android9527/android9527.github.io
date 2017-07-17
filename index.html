@@ -291,6 +291,184 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/07/2017-07-07-fir.im Jenkins 插件使用方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenfeiyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/07/2017-07-07-fir.im Jenkins 插件使用方法/" itemprop="url">
+                  fir.im Jenkins 插件使用方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T00:00:00+08:00">
+                2017-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="fir-im-Jenkins-插件使用方法"><a href="#fir-im-Jenkins-插件使用方法" class="headerlink" title="fir.im Jenkins 插件使用方法"></a>fir.im Jenkins 插件使用方法</h3><p>fir.im Jenkins 插件可以更快速地上传 apk/ipa 安装包到 fir.im.</p>
+<h3 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h3><ol>
+<li><p>方法一：直接下载安装包<br>Download Jenkins <a href="https://jenkins.io/index.html" target="_blank" rel="external">https://jenkins.io/index.html</a><br>安装完成后在 Terminal 中输入，即可打开 Jenkins。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open /Applications/Jenkins/jenkins.war</div></pre></td></tr></table></figure>
+</li>
+<li><p>方法二：使用命令行安装</p>
+</li>
+</ol>
+<p>安装 homebrew<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure></p>
+<p>安装 Jenkins<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install jenkins</div></pre></td></tr></table></figure></p>
+<p>启动 Jenkins<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ jenkins</div></pre></td></tr></table></figure></p>
+<h4 id="访问-Jenkins"><a href="#访问-Jenkins" class="headerlink" title="访问 Jenkins"></a>访问 Jenkins</h4><p>请在浏览器输入地址:<br><a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a><br>使用安装包安装后会自动打开，如果端口冲突那么请修改端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">defaults write /Library/Preferences/org.jenkins-ci httpPort xxxx</div></pre></td></tr></table></figure></p>
+<p>如果下载的是war的包，用这个命令更改端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar jenkins.war --httpPort=8090</div></pre></td></tr></table></figure></p>
+<h3 id="安装-fir-im-的上传插件"><a href="#安装-fir-im-的上传插件" class="headerlink" title="安装 fir.im 的上传插件"></a>安装 fir.im 的上传插件</h3><h4 id="插件介绍"><a href="#插件介绍" class="headerlink" title="插件介绍"></a>插件介绍</h4><p>该插件主要功能有2点：</p>
+<ol>
+<li>上传 apk/ipa 安装包 到 fir.im</li>
+<li>上传符号表到 BugHD，方便查看混淆后的 Log 日志</li>
+</ol>
+<p>注意：在使用之前，请确认自己创建的 Jenkins 项目可以正常编译生成 ipa/apk 文件。 该插件的一般使用情景是编译完生成 apk/ipa 后，如果未指定 apk/ipa 生成目录，插件会默认选择 Jenkins 项目目录。</p>
+<h4 id="下载插件"><a href="#下载插件" class="headerlink" title="下载插件"></a>下载插件</h4><p>Jenkins 插件下载地址 <a href="http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin-1.9.5.hpi" target="_blank" rel="external">http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin-1.9.5.hpi</a></p>
+<h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><ul>
+<li>进入 Jenkins 管理界面后，点击左侧进入 <code>系统管理</code><br><img src="../images/jenkins/jenkins-1.jpg" alt="jenkins-1"></li>
+<li>然后找到 <code>管理插件</code> 并点击进入<br><img src="../images/jenkins/jenkins-2.jpg" alt="jenkins-2"></li>
+<li>进入插件管理后，点击 <code>高级</code> 选项卡<br><img src="../images/jenkins/jenkins-3.jpg" alt="jenkins-3"></li>
+<li>然后在页面找到 <code>上传插件</code>，选择已下载好的 <code>fir.im jenkins 插件文件路径</code>，并点击 <code>上传</code> 等待安装成功。<br><img src="../images/jenkins/jenkins-4.jpg" alt="jenkins-4"></li>
+<li>安装成功后，如果没有创建 Jenkins 项目，请先创建项目。如果需要配置已存在的项目，请进入在 <code>配置</code> 中找到 <code>增加构建后操作步骤</code> ，并选择 <code>Upload to fir.im</code> 添加到 Jenkins 项目中。<br><img src="../images/jenkins/jenkins-5.jpg" alt="jenkins-5"></li>
+<li>添加成功后开始配置各种参数，如图显示：<br><img src="../images/jenkins/jenkins-6.jpg" alt="jenkins-6"></li>
+</ul>
+<h4 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h4><ul>
+<li><p>fir.im Token（必填）<br>fir.im Token 查看方法：直接点击 <code>API token</code> (<a href="http://fir.im/apps/apitoken" target="_blank" rel="external">http://fir.im/apps/apitoken</a>) 进行查看.<br><img src="../images/jenkins/plugins-1.jpg" alt="plugins-1"></p>
+</li>
+<li><p>IPA/APK Files（可选）<br>接下来，选择生成 ipa/apk 文件路径<br>注意：如果没有填写该选项，插会件自动默认查找 Jenkins 创建的项目目录下的 apk/ipa 文件</p>
+</li>
+<li><p>BugHD token（可选）<br>作用：BugHD上传 mapping.txt/dSYM 文件 API 的调用权限<br>注意：如果需要上传符号表则是必填项；不需要上传混淆表，则不需要填写<br><code>BugHD token 查看方法</code>：请访问 BugHD API token(<a href="http://bughd.com/account)，登录后进行查看。" target="_blank" rel="external">http://bughd.com/account)，登录后进行查看。</a><br><img src="../images/jenkins/plugins-3.jpg" alt="plugins-1"></p>
+</li>
+<li><p>BugHD project ID(可选)<br>作用：判断具体上传到指定的 bughd 项目<br>注意：如果需要上传符号表，则是必填项；不需要上传则不用填写<br><code>BugHD project ID</code> 查看方法： 请访问 BugHD Projects (<a href="http://bughd.com/projects)，登录后找到你要上传符号表的项目，进入该项目，选择" target="_blank" rel="external">http://bughd.com/projects)，登录后找到你要上传符号表的项目，进入该项目，选择</a> <code>项目设置</code> 选项卡进行查看。<br><img src="../images/jenkins/plugins-4.jpg" alt="plugins-1"></p>
+</li>
+<li><p>dSYM File or mapping File(可选)<br>作用：选择生成 dSYM/mapping.txt 文件路径<br>注意：如果需要上传符号表，则是必填项；不需要上传则不用填写</p>
+</li>
+<li><p>Build Notes(可选)<br>作用：上传 fir.im 后，可显示出更新日志</p>
+</li>
+</ul>
+<h4 id="Jenkins-插件更新日志"><a href="#Jenkins-插件更新日志" class="headerlink" title="Jenkins 插件更新日志"></a>Jenkins 插件更新日志</h4><ul>
+<li>2015-11-13      V1.1     上线</li>
+<li>2015-11-25      V1.2     修复 slave 状态下上传失败的Bug</li>
+<li>2015-11-30      V1.3     修复 上传 apk 图标过小的问题</li>
+<li>2015-12-01      V1.4     修复 ipa文件解析 icon 出错的问题</li>
+<li>2015-12-08      V1.5     增加 上传apk/ipa文件的过滤条件</li>
+<li>2015-12-16      V1.6     Bug fix</li>
+<li>2016-01-08      V1.7     Bug fix</li>
+<li>2016-03-14      V1.9.1   修复 解析图标失败后导致无法上传 &amp; 获取git log失败的问题</li>
+<li>2016-03-18      V1.9.2   更新 dsym/mapping 路径支持环境变量 changelog支持环境变量</li>
+<li>2016-06-29      V1.9.2.3   修复 应用上传问题</li>
+<li>2016-09-06      V1.9.3   修复 apk/ipa解析的错误</li>
+<li>2016-09-16      V1.9.4   修复 ChangeLog选项环境变量不变的bug</li>
+<li>2016-11-09      V1.9.4   修复 解析ipa的问题<br>最后，关于更多 Jenkins 的问题推荐阅读 fir.im 的用户写的 Jenkins+GitHub+Xcode+fir搭了一个持续集成环境<a href="http://www.jianshu.com/p/a17167274463" target="_blank" rel="external">http://www.jianshu.com/p/a17167274463</a>)</li>
+</ul>
+<h4 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h4><p><a href="http://blog.fir.im/jenkins/" target="_blank" rel="external">http://blog.fir.im/jenkins/</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/25/2017-06-25-Kotlin与Dagger2 ButterKnife冲突解决/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -785,10 +963,10 @@
 <li><p>垃圾对象回收</p>
 <ul>
 <li><p>标记-清除</p>
-<p>  该算法有如下缺点：<br>（1）标记和清除过程的效率都不高。<br>（2）标记清除后会产生大量不连续的内存碎片，当程序在以后的运行过程中需要分配较大对象时无法找到足够的连续内存而不得不触发另一次垃圾收集动作。<br><img src="/images/memory/mark_sweep.jpg" alt="Overdraw"></p>
+<p>  该算法有如下缺点：<br>（1）标记和清除过程的效率都不高。<br>（2）标记清除后会产生大量不连续的内存碎片，当程序在以后的运行过程中需要分配较大对象时无法找到足够的连续内存而不得不触发另一次垃圾收集动作。<br><img src="/images/memory/mark_sweep.jpg" alt="mark_sweep"></p>
 </li>
-<li>复制算法<br><img src="/images/memory/copying.jpg" alt="Overdraw"></li>
-<li>标记-整理<br><img src="/images/memory/mark_compact.jpg" alt="Overdraw"></li>
+<li>复制算法<br><img src="/images/memory/copying.jpg" alt="copying"></li>
+<li>标记-整理<br><img src="/images/memory/mark_compact.jpg" alt="mark_compact"></li>
 <li>分代回收算法</li>
 </ul>
 </li>
@@ -1907,7 +2085,7 @@
 <p>message的处理比较简单，先判断Message中有没有指定的callback对象（Runnable），有的话就调用callback的run方法，没有则调用我们自己创建Handler对象时实现的handleMessage(Message msg)方法，就这样实现了消息的分发。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public void dispatchMessage(Message msg) &#123;</div><div class="line">    if (msg.callback != null) &#123;  </div><div class="line">    // 处理Runnable消息调用runnable.run();</div><div class="line">        handleCallback(msg);</div><div class="line">    &#125; else &#123;</div><div class="line">        if (mCallback != null) &#123;</div><div class="line">            if (mCallback.handleMessage(msg)) &#123;</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        handleMessage(msg);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>###5、子线程中创建Handler<br>在一个子线程中创建Handler时，必须初始化该线程的Looper对象，因为普通的Thread默认是没有消息队列的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class MyThread extends Thread &#123;</div><div class="line">    public Handler mHandler;</div><div class="line">	public void run() &#123;</div><div class="line">		Looper.prepare();</div><div class="line">		mHandler = new Handler() &#123;</div><div class="line">			public void handleMessage(Message msg) &#123;</div><div class="line">				/* 处理接收到的消息 */</div><div class="line">			&#125;</div><div class="line">		&#125;;</div><div class="line">		Looper.loop();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class MyThread extends Thread &#123;</div><div class="line">    public Handler mHandler;</div><div class="line">    public void run() &#123;</div><div class="line">        Looper.prepare();</div><div class="line">        mHandler = new Handler() &#123;</div><div class="line">            public void handleMessage(Message msg) &#123;</div><div class="line">                /* 处理接收到的消息 */</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        Looper.loop();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="6、Handler的特点"><a href="#6、Handler的特点" class="headerlink" title="6、Handler的特点"></a>6、Handler的特点</h3><p>1.handler可以在任意线程发送消息，这些消息会被添加到关联的MQ上。<br>2.handler是在它关联的looper线程中处理消息的。<br>3.<strong>一个线程可以有多个Handler，但是只能有一个Looper和一个MessageQueue！</strong> </p>
 <p>Q？<br>同一个线程中的所有消息是否共享MQ？<br>MQ如何分发到不同的Handler处理消息？</p>
 <p>A：是<br>handler.target</p>
@@ -1929,7 +2107,7 @@
 <p>Message.obtain();<br><img src="/images/handler/obtain_message.jpg" alt="这里写图片描述"></p>
 <h3 id="3、msg-markInUse"><a href="#3、msg-markInUse" class="headerlink" title="3、msg. markInUse();"></a>3、msg. markInUse();</h3><p>// 标记msg为FLAG_IN_USE，加入MQ时做检查（此状态的msg不能多次加入MQ），调用Message.obtain()清除flags；</p>
 <h3 id="4、将一个消息设置为异步"><a href="#4、将一个消息设置为异步" class="headerlink" title="4、将一个消息设置为异步"></a>4、将一个消息设置为异步</h3><p>Message.setAsynchronous(Boolean async) // 详见“MessageQueue同步分割栏”</p>
-<h2 id="Looper解析"><a href="#Looper解析" class="headerlink" title="Looper解析"></a>Looper解析</h2><h3 id="1、Looper-prepare"><a href="#1、Looper-prepare" class="headerlink" title="1、Looper.prepare()"></a>1、Looper.prepare()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">private static void prepare(boolean quitAllowed) &#123;</div><div class="line">	if (sThreadLocal.get() != null) &#123;</div><div class="line">		throw new RuntimeException(&quot;Only one Looper may be created per thread&quot;);</div><div class="line">	&#125;</div><div class="line">	sThreadLocal.set(new Looper(quitAllowed));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Looper解析"><a href="#Looper解析" class="headerlink" title="Looper解析"></a>Looper解析</h2><h3 id="1、Looper-prepare"><a href="#1、Looper-prepare" class="headerlink" title="1、Looper.prepare()"></a>1、Looper.prepare()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">private static void prepare(boolean quitAllowed) &#123;</div><div class="line">    if (sThreadLocal.get() != null) &#123;</div><div class="line">        throw new RuntimeException(&quot;Only one Looper may be created per thread&quot;);</div><div class="line">    &#125;</div><div class="line">    sThreadLocal.set(new Looper(quitAllowed));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>创建一个Looper对象，它的内部维护了一个消息队列MQ。注意，一个Thread只能有一个Looper对象，不能多次调用Looper.prepare()，否则将抛出异常。</p>
 <h3 id="2、Looper-loop"><a href="#2、Looper-loop" class="headerlink" title="2、Looper.loop()"></a>2、Looper.loop()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public static void loop() &#123;</div><div class="line">    final Looper me = myLooper();  // 获取当前线程所在                                                   Looper，不能为空</div><div class="line">    if (me == null) &#123;</div><div class="line">        throw new RuntimeException(&quot;No Looper; Looper.prepare() wasn&apos;t called on this thread.&quot;);</div><div class="line">    &#125;</div><div class="line">    final MessageQueue queue = me.mQueue;</div><div class="line">    Binder.clearCallingIdentity();</div><div class="line">    final long ident = Binder.clearCallingIdentity();</div><div class="line">    for (;;) &#123; // 循环从MQ中取出消息,没有消息则阻塞</div><div class="line">        Message msg = queue.next(); // might block   </div><div class="line">        if (msg == null) &#123;</div><div class="line">        // No message indicates that the message queue is quitting.</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        // 交给相关Handler处理消息</div><div class="line">        **msg.target.dispatchMessage(msg);**   </div><div class="line">        // Make sure that during the course of dispatching the</div><div class="line">        // identity of the thread wasn&apos;t corrupted.</div><div class="line">        final long newIdent = Binder.clearCallingIdentity();</div><div class="line">        msg.recycleUnchecked();   // 消息回收</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="3、Looper-quit-quitSafely"><a href="#3、Looper-quit-quitSafely" class="headerlink" title="3、Looper.quit()  quitSafely();"></a>3、Looper.quit()  quitSafely();</h3><p>调用mQueue.quit();</p>
@@ -1942,7 +2120,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">// 添加消息到消息队列, 最终的mMessages是按照when的由小到大排列</div><div class="line">boolean enqueueMessage(Message msg, long when) &#123;</div><div class="line">    // 检查msg合法性，必须包含handler且非FLAG_IN_USE状态</div><div class="line">    if (msg.target == null) &#123;</div><div class="line">        throw new IllegalArgumentException(&quot;Message must have a target.&quot;);</div><div class="line">    &#125;</div><div class="line">    if (msg.isInUse()) &#123;</div><div class="line">        throw new IllegalStateException(msg + &quot; This message is already in use.&quot;);</div><div class="line">    &#125;</div><div class="line">    synchronized (this) &#123;</div><div class="line">        if (mQuitting) &#123;  //如果已经调用MessageQueue.quit，                                      那么不再接收新的Message    </div><div class="line">            msg.recycle();</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">        msg.markInUse();// msg  in_use_flag</div><div class="line">        msg.when = when;</div><div class="line">        Message p = mMessages;</div><div class="line">        boolean needWake;</div><div class="line">        // 队列为空或msg.when == 0或 msg.when &lt; mMessages.when时</div><div class="line">        // 将msg直接插入到队列头部</div><div class="line">        if (p == null || when == 0 || when &lt; p.when) &#123;</div><div class="line">            // New head, wake up the event queue if blocked.</div><div class="line">            msg.next = p;</div><div class="line">            mMessages = msg;</div><div class="line">            needWake = mBlocked;</div><div class="line">        &#125; else &#123;</div><div class="line">        // Inserted within the middle of the queue.  Usually we don&apos;t have to wake</div><div class="line">        // up the event queue unless there is a barrier at the head of the queue</div><div class="line">        // and the message is the earliest asynchronous message in the queue.       </div><div class="line">            needWake = mBlocked &amp;&amp; p.target == null &amp;&amp; msg.isAsynchronous();</div><div class="line">            Message prev;</div><div class="line">            // 根据when的大小顺序，插入到合适的位置</div><div class="line">            for (;;) &#123;</div><div class="line">                prev = p;</div><div class="line">                p = p.next;</div><div class="line">                if (p == null || when &lt; p.when) &#123;</div><div class="line">                    break;</div><div class="line">                &#125;</div><div class="line">                // 如果在插入位置以前，发现异步消息，则不需要唤醒</div><div class="line">                if (needWake &amp;&amp; p.isAsynchronous()) &#123;</div><div class="line">                    needWake = false;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            msg.next = p; // invariant: p == prev.next</div><div class="line">            prev.next = msg;</div><div class="line">        &#125;</div><div class="line">        // We can assume mPtr != 0 because mQuitting is false.</div><div class="line">        if (needWake) &#123;</div><div class="line">            nativeWake(mPtr);  //唤醒nativeMessageQueue</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>nativeWake，和natePollonce的作用：<br>　　nativePollOnce(mPtr, nextPollTimeoutMillis);暂时无视mPtr参数，阻塞等待nextPollTimeoutMillis毫秒的时间返回，与Object.wait(long timeout)相似<br>　　nativeWake(mPtr);暂时无视mPtr参数，唤醒等待的nativePollOnce函数返回的线程，从这个角度解释nativePollOnce函数应该是最多等待nextPollTimeoutMillis毫秒</p>
 <h3 id="2、removeMessage-int-what"><a href="#2、removeMessage-int-what" class="headerlink" title="2、removeMessage(int what);"></a>2、removeMessage(int what);</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">//删除所有what 和obj = object 的msg</div><div class="line">void removeMessages(Handler h, int what, Object object) &#123;</div><div class="line">    if (h == null) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    synchronized (this) &#123;</div><div class="line">        Message p = mMessages;</div><div class="line">        // Remove all messages at front.</div><div class="line">        // 循环移除MQ 队列头部所有符合要求的Message</div><div class="line">        while (p != null &amp;&amp; p.target == h &amp;&amp; p.what == what</div><div class="line">                  &amp;&amp; (object == null || p.obj == object)) &#123;</div><div class="line">            Message n = p.next;</div><div class="line">            mMessages = n;</div><div class="line">            p.recycleUnchecked();</div><div class="line">            p = n;</div><div class="line">        &#125;</div><div class="line">        // Remove all messages after front.</div><div class="line">        // 循环移除MQ中间所有符合要求的Message</div><div class="line">        while (p != null) &#123;</div><div class="line">            Message n = p.next;</div><div class="line">            if (n != null) &#123;</div><div class="line">                if (n.target == h &amp;&amp; n.what == what</div><div class="line">                    &amp;&amp; (object == null || n.obj == object)) &#123;</div><div class="line">                    // 移除message并交换位置</div><div class="line">                    Message nn = n.next;</div><div class="line">                    n.recycleUnchecked();</div><div class="line">                    p.next = nn;</div><div class="line">                    continue;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            p = n;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3、Message-next"><a href="#3、Message-next" class="headerlink" title="3、Message next()"></a>3、Message next()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">Message next() &#123;</div><div class="line">    // Return here if the message loop has already quit and been disposed.</div><div class="line">    // This can happen if the application tries to restart a looper after quit</div><div class="line">    // which is not supported.</div><div class="line">    final long ptr = mPtr;</div><div class="line">    if (ptr == 0) &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">    int pendingIdleHandlerCount = -1; // -1 only during first iteration   空闲handler数量</div><div class="line">    int nextPollTimeoutMillis = 0;   // MQ阻塞时间</div><div class="line">    for (;;) &#123;</div><div class="line">        if (nextPollTimeoutMillis != 0) &#123;</div><div class="line">            Binder.flushPendingCommands();</div><div class="line">        &#125;</div><div class="line">        nativePollOnce(ptr, nextPollTimeoutMillis);   //MessageQueue阻塞nextPollTimeoutMillis 指定时间</div><div class="line">        synchronized (this) &#123;</div><div class="line">            // Try to retrieve the next message.  Return if found.</div><div class="line">            final long now = SystemClock.uptimeMillis();  // 开机相对时间（不包含休眠时间）</div><div class="line">            Message prevMsg = null;</div><div class="line">            Message msg = mMessages;</div><div class="line">		    // 遇到同步分隔栏，忽略该消息，取下一个 异步消息</div><div class="line">            if (msg != null &amp;&amp; msg.target == null) &#123;</div><div class="line">                // Stalled by a barrier.  Find the next asynchronous message in the queue.</div><div class="line">                do &#123;</div><div class="line">                    prevMsg = msg;</div><div class="line">                    msg = msg.next;</div><div class="line">                &#125; while (msg != null &amp;&amp; !msg.isAsynchronous());</div><div class="line">            &#125;</div><div class="line">            if (msg != null) &#123;</div><div class="line">                if (now &lt; msg.when) &#123;     // 遇到延迟消息，则阻塞一段时间 nextPollTimeoutMillis</div><div class="line">                    // Next message is not ready.  Set a timeout to wake up when it is ready.</div><div class="line">                    nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);</div><div class="line">                &#125; else &#123;</div><div class="line">                    // Got a message.  // 得到Message，从MQ里移除此消息</div><div class="line">                    mBlocked = false;</div><div class="line">                    if (prevMsg != null) &#123;    // prevMsg != null,说明是同步分隔栏消息，</div><div class="line">                        prevMsg.next = msg.next;  // 保留MQ头部为同步分隔栏消息（为了取出下一个异步消息），替换next消息</div><div class="line">                    &#125; else &#123;</div><div class="line">                        mMessages = msg.next;   // 不包含同步分隔栏消息，替换当前head为next消息</div><div class="line">                    &#125;</div><div class="line">                    msg.next = null;</div><div class="line">                    if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);</div><div class="line">                    msg.markInUse();</div><div class="line">                    return msg;</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                // No more messages.</div><div class="line">                nextPollTimeoutMillis = -1;</div><div class="line">            &#125;</div><div class="line">            // Process the quit message now that all pending messages have been handled.</div><div class="line">            if (mQuitting) &#123;</div><div class="line">                dispose();</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line">            // If first time idle, then get the number of idlers to run.</div><div class="line">            // Idle handles only run if the queue is empty or if the first message</div><div class="line">            // in the queue (possibly a barrier) is due to be handled in the future.</div><div class="line">            if (pendingIdleHandlerCount &lt; 0</div><div class="line">                    &amp;&amp; (mMessages == null || now &lt; mMessages.when)) &#123;</div><div class="line">                    // 线程空闲，计算IdleHandler的数量</div><div class="line">                pendingIdleHandlerCount = mIdleHandlers.size();</div><div class="line">            &#125;</div><div class="line">            // 没有IdleHandler   阻塞队列</div><div class="line">            if (pendingIdleHandlerCount &lt;= 0) &#123;</div><div class="line">                // No idle handlers to run.  Loop and wait some more.</div><div class="line">                mBlocked = true;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">            if (mPendingIdleHandlers == null) &#123;</div><div class="line">                mPendingIdleHandlers = new IdleHandler[Math.max(pendingIdleHandlerCount, 4)];</div><div class="line">            &#125;</div><div class="line">                mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);</div><div class="line">            &#125;</div><div class="line">        // Run the idle handlers.</div><div class="line">        // We only ever reach this code block during the first iteration.</div><div class="line">        // 处理IdleHandler部分</div><div class="line">        for (int i = 0; i &lt; pendingIdleHandlerCount; i++) &#123;</div><div class="line">            final IdleHandler idler = mPendingIdleHandlers[i];</div><div class="line">            mPendingIdleHandlers[i] = null; // release the reference to the handler</div><div class="line">            boolean keep = false;</div><div class="line">            try &#123;</div><div class="line">                keep = idler.queueIdle();</div><div class="line">            &#125; catch (Throwable t) &#123;</div><div class="line">                Log.wtf(TAG, &quot;IdleHandler threw exception&quot;, t);</div><div class="line">            &#125;</div><div class="line">            // 是否需要移除IdleHandler</div><div class="line">            if (!keep) &#123;</div><div class="line">                synchronized (this) &#123;</div><div class="line">                    mIdleHandlers.remove(idler);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        // Reset the idle handler count to 0 so we do not run them again.</div><div class="line">        pendingIdleHandlerCount = 0;</div><div class="line">        // While calling an idle handler, a new message could have been delivered</div><div class="line">        // so go back and look again for a pending message without waiting.</div><div class="line">        nextPollTimeoutMillis = 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3、Message-next"><a href="#3、Message-next" class="headerlink" title="3、Message next()"></a>3、Message next()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line">Message next() &#123;</div><div class="line">    // Return here if the message loop has already quit and been disposed.</div><div class="line">    // This can happen if the application tries to restart a looper after quit</div><div class="line">    // which is not supported.</div><div class="line">    final long ptr = mPtr;</div><div class="line">    if (ptr == 0) &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">    int pendingIdleHandlerCount = -1; // -1 only during first iteration   空闲handler数量</div><div class="line">    int nextPollTimeoutMillis = 0;   // MQ阻塞时间</div><div class="line">    for (;;) &#123;</div><div class="line">        if (nextPollTimeoutMillis != 0) &#123;</div><div class="line">            Binder.flushPendingCommands();</div><div class="line">        &#125;</div><div class="line">        nativePollOnce(ptr, nextPollTimeoutMillis);   //MessageQueue阻塞nextPollTimeoutMillis 指定时间</div><div class="line">        synchronized (this) &#123;</div><div class="line">            // Try to retrieve the next message.  Return if found.</div><div class="line">            final long now = SystemClock.uptimeMillis();  // 开机相对时间（不包含休眠时间）</div><div class="line">            Message prevMsg = null;</div><div class="line">            Message msg = mMessages;</div><div class="line">            // 遇到同步分隔栏，忽略该消息，取下一个 异步消息</div><div class="line">            if (msg != null &amp;&amp; msg.target == null) &#123;</div><div class="line">                // Stalled by a barrier.  Find the next asynchronous message in the queue.</div><div class="line">                do &#123;</div><div class="line">                    prevMsg = msg;</div><div class="line">                    msg = msg.next;</div><div class="line">                &#125; while (msg != null &amp;&amp; !msg.isAsynchronous());</div><div class="line">            &#125;</div><div class="line">            if (msg != null) &#123;</div><div class="line">                if (now &lt; msg.when) &#123;     // 遇到延迟消息，则阻塞一段时间 nextPollTimeoutMillis</div><div class="line">                    // Next message is not ready.  Set a timeout to wake up when it is ready.</div><div class="line">                    nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);</div><div class="line">                &#125; else &#123;</div><div class="line">                    // Got a message.  // 得到Message，从MQ里移除此消息</div><div class="line">                    mBlocked = false;</div><div class="line">                    if (prevMsg != null) &#123;    // prevMsg != null,说明是同步分隔栏消息，</div><div class="line">                        prevMsg.next = msg.next;  // 保留MQ头部为同步分隔栏消息（为了取出下一个异步消息），替换next消息</div><div class="line">                    &#125; else &#123;</div><div class="line">                        mMessages = msg.next;   // 不包含同步分隔栏消息，替换当前head为next消息</div><div class="line">                    &#125;</div><div class="line">                    msg.next = null;</div><div class="line">                    if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);</div><div class="line">                    msg.markInUse();</div><div class="line">                    return msg;</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                // No more messages.</div><div class="line">                nextPollTimeoutMillis = -1;</div><div class="line">            &#125;</div><div class="line">            // Process the quit message now that all pending messages have been handled.</div><div class="line">            if (mQuitting) &#123;</div><div class="line">                dispose();</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line">            // If first time idle, then get the number of idlers to run.</div><div class="line">            // Idle handles only run if the queue is empty or if the first message</div><div class="line">            // in the queue (possibly a barrier) is due to be handled in the future.</div><div class="line">            if (pendingIdleHandlerCount &lt; 0</div><div class="line">                    &amp;&amp; (mMessages == null || now &lt; mMessages.when)) &#123;</div><div class="line">                    // 线程空闲，计算IdleHandler的数量</div><div class="line">                pendingIdleHandlerCount = mIdleHandlers.size();</div><div class="line">            &#125;</div><div class="line">            // 没有IdleHandler   阻塞队列</div><div class="line">            if (pendingIdleHandlerCount &lt;= 0) &#123;</div><div class="line">                // No idle handlers to run.  Loop and wait some more.</div><div class="line">                mBlocked = true;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">            if (mPendingIdleHandlers == null) &#123;</div><div class="line">                mPendingIdleHandlers = new IdleHandler[Math.max(pendingIdleHandlerCount, 4)];</div><div class="line">            &#125;</div><div class="line">                mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);</div><div class="line">            &#125;</div><div class="line">        // Run the idle handlers.</div><div class="line">        // We only ever reach this code block during the first iteration.</div><div class="line">        // 处理IdleHandler部分</div><div class="line">        for (int i = 0; i &lt; pendingIdleHandlerCount; i++) &#123;</div><div class="line">            final IdleHandler idler = mPendingIdleHandlers[i];</div><div class="line">            mPendingIdleHandlers[i] = null; // release the reference to the handler</div><div class="line">            boolean keep = false;</div><div class="line">            try &#123;</div><div class="line">                keep = idler.queueIdle();</div><div class="line">            &#125; catch (Throwable t) &#123;</div><div class="line">                Log.wtf(TAG, &quot;IdleHandler threw exception&quot;, t);</div><div class="line">            &#125;</div><div class="line">            // 是否需要移除IdleHandler</div><div class="line">            if (!keep) &#123;</div><div class="line">                synchronized (this) &#123;</div><div class="line">                    mIdleHandlers.remove(idler);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        // Reset the idle handler count to 0 so we do not run them again.</div><div class="line">        pendingIdleHandlerCount = 0;</div><div class="line">        // While calling an idle handler, a new message could have been delivered</div><div class="line">        // so go back and look again for a pending message without waiting.</div><div class="line">        nextPollTimeoutMillis = 0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="4、MessageQueue-IdleHandler"><a href="#4、MessageQueue-IdleHandler" class="headerlink" title="4、MessageQueue.IdleHandler"></a>4、MessageQueue.IdleHandler</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">messageQueue.addIdleHandler(new MessageQueue.IdleHandler() &#123;</div><div class="line">    /**</div><div class="line">     * 返回值boolean 意思是needKeep</div><div class="line">     * true，表示要保留保留， 代表不移除这个idleHandler，可以反复执行</div><div class="line">     * false代表执行完毕之后就移除这个idleHandler, 也就是只执行一次</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public boolean queueIdle() &#123;</div><div class="line">        Log.e(TAG, &quot;--------------&gt;queueIdle  主线程空闲了&quot;);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h3 id="5、同步分割栏"><a href="#5、同步分割栏" class="headerlink" title="5、同步分割栏"></a>5、同步分割栏</h3><p>也是一个targer = null 的Message</p>
 <p>“同步分割栏”是起什么作用的呢？它就像一个卡子，卡在消息链表中的某个位置，当消息循环不断从消息链表中摘取消息并进行处理时，一旦遇到这种“同步分割栏”，那么即使在分割栏之后还有若干已经到时的普通Message，也不会摘取这些消息了。请注意，此时只是不会摘取“普通Message”了，如果队列中还设置有“异步Message”，那么还是会摘取已到时的“异步Message”的。<br>在Android的消息机制里，“普通Message”和“异步Message”也就是这点儿区别啦，也就是说，<strong>如果消息列表中根本没有设置“同步分割栏”的话，那么“普通Message”和“异步Message”的处理就没什么大的不同了</strong>。</p>
@@ -1986,620 +2164,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/25/2016-02-26-Rxjava-Android/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenfeiyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/25/2016-02-26-Rxjava-Android/" itemprop="url">
-                  Rxjava-learn
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-25T00:00:00+08:00">
-                2016-02-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Rxjava-learn"><a href="#Rxjava-learn" class="headerlink" title="Rxjava-learn"></a>Rxjava-learn</h1><h2 id="1、github-项目地址：-https-github-com-ReactiveX-RxJava"><a href="#1、github-项目地址：-https-github-com-ReactiveX-RxJava" class="headerlink" title="1、github 项目地址：  https://github.com/ReactiveX/RxJava"></a>1、github 项目地址：  <a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">https://github.com/ReactiveX/RxJava</a></h2><p>（RxAndroid 是一个专门为Android开发做出最小适配框架，可以方便的写出响应式的组件和一站式服务）</p>
-<h2 id="2、rxjava是一个响应式的编程框架，基于观察者模式。"><a href="#2、rxjava是一个响应式的编程框架，基于观察者模式。" class="headerlink" title="2、rxjava是一个响应式的编程框架，基于观察者模式。"></a>2、rxjava是一个响应式的编程框架，基于观察者模式。</h2><p>其中关键的要素就是Observable(事件产生者,也是事件的观察者)  Operator（操作符） Subscriber（事件的消费者，也是事件的订阅者）</p>
-<p>特点：使用可观察序列编写异步和事件驱动的库，扩展了观察者模式以支持数据和事件序列，并且加入了operator操作符来实现数据转换和事件过滤</p>
-<ol>
-<li>易于并发从而更好的利用服务器的能力      （可以自由指定运行的线程）</li>
-<li>易于有条件的异步执行                               （通过操作符控制流程）</li>
-<li>一种更好的方式来避免回调地狱                 （多个事件源基于组合而不是嵌套）</li>
-<li>一种响应式方法                                          （编码更简单）</li>
-</ol>
-<p>优点：将开发者的注意力从低级别的线程同步、线程安全、并发数据对象这些问题中转移</p>
-<h2 id="3、一个简单的示例"><a href="#3、一个简单的示例" class="headerlink" title="3、一个简单的示例"></a>3、一个简单的示例</h2><h4 id="A、创建一个Observable"><a href="#A、创建一个Observable" class="headerlink" title="A、创建一个Observable"></a>A、创建一个Observable</h4><pre><code>Observable&lt;String&gt; myObservable = Observable.create(
-    new Observable.OnSubscribe&lt;String&gt;() {
-         @Override
-        public void call(Subscriber&lt;? super String&gt;sub) {
-        sub.onNext(&quot;Hello, world!&quot;);
-        sub.onCompleted();
-        }
-    });
-</code></pre><h4 id="B、创建一个Subscriber"><a href="#B、创建一个Subscriber" class="headerlink" title="B、创建一个Subscriber"></a>B、创建一个Subscriber</h4><pre><code>Subscriber&lt;String&gt; mySubscriber = new Subscriber&lt;String&gt;() {
-    @Override
-    public void onNext(String s) {
-        System.out.println(s);
-    }
-    @Override
-    public void onCompleted() {
-    }
-    @Override
-    public void onError(Throwable e) {
-    }
-};
-</code></pre><h4 id="C、将两者联系起来"><a href="#C、将两者联系起来" class="headerlink" title="C、将两者联系起来"></a>C、将两者联系起来</h4><pre><code>myObservable.subscribe(mySubscriber); // Outputs &quot;Hello, world!&quot;
-</code></pre><p>这是一个展示流程的例子：myObservable是事件源，mySubscriber是订阅者，<br>通过Observable的subscribe方法，将事件输出给订阅者去消费。</p>
-<h2 id="4、什么是Observable-Observer-Subscriber-Subscription"><a href="#4、什么是Observable-Observer-Subscriber-Subscription" class="headerlink" title="4、什么是Observable   Observer   Subscriber   Subscription"></a>4、什么是Observable   Observer   Subscriber   Subscription</h2><p>Observable  事件观察者或者事件生产者  这两种叫法是针对不同的对象而言的。第一：对于Subscriber它是事件的生产者，因为当使用subscribe方法对一个Observable添加一个订阅者的时候，这个时候会立即调用onSubscribe的call方法，将产生的一个字符串“Hello，world”这个事件交给订阅者的onNext()方法。第二：对于产生的这个字符串“Hello， world”而言，Observable就是一个事件观察者，它观察到了这个字符串的产生，然后将这个字符串产生的事件发送给了订阅者。</p>
-<p>Observer和Subscriber是一个东西，Subscriber继承自Observer。</p>
-<p>Subscription是一个接口，提供了对一个Subscriber进行取消订阅（unSubscribe）和是否取消订阅（isUnsubscribe）的功能，它的具体实现就是Subscriber。上例中的第三步中subscribe方法将会返回一个Subscription，用户可以方便的取消订阅。</p>
-<h2 id="5、其他的创建Observable的方式"><a href="#5、其他的创建Observable的方式" class="headerlink" title="5、其他的创建Observable的方式"></a>5、其他的创建Observable的方式</h2><pre><code>Observable.From(DataCollection) 使用一个数据集创建一个Observable，自动遍历发射集合中每条数据
-Observable.just(a java method return )  根据一个或多个其他的方法返回值创建一个Observable，因为just可以接受1-9各参数，然后按照参数顺序发射他们。也可以是一个数据集合，像from方法，但他是发射整个列表。
-</code></pre><h2 id="6、Subject-Observable-Observer-（既是事件产生者，又是事件订阅者）"><a href="#6、Subject-Observable-Observer-（既是事件产生者，又是事件订阅者）" class="headerlink" title="6、Subject = Observable + Observer （既是事件产生者，又是事件订阅者）"></a>6、Subject = Observable + Observer （既是事件产生者，又是事件订阅者）</h2><pre><code>Subject有四种类型 PublishSubject  BehaviorSubject     ReplaySubject     AsyncSubject
-</code></pre><p>PublishSubject 是一个可以在任何时候发射事件的事件产生者，而不一定是在订阅者开始订阅的时候。<br>BehaviorSubject会首先向他的订阅者发送截至订阅前最新的一个数据对象（或初始值），然后正常发送订阅后的数据流。<br>ReplaySubject会缓存它所订阅的所有数据，向任意一个订阅它的观察者重发。<br>AsyncSubject只会发布最后一个数据 给已经订阅的每一个观察者。</p>
-<hr>
-<p>最最关键的几个概念：**Observable   Observer    Action(Observer observer)</p>
-<p>当Observable被subscribe（订阅）的时候，调用action的call方法</p>
-<p>和观察者模式对比：  被观察者     观察者      被观察持有观察者的引用，当数据变化时通知观察者</p>
-<hr>
-<h2 id="7、操作符"><a href="#7、操作符" class="headerlink" title="7、操作符"></a>7、操作符</h2><ul>
-<li><p> <strong>repeat()  对一个Observable重复发射数据</strong>例：</p>
-<p>  Observable.just(1, 2).repeat(5).subscribe(new Subscriber<integer>() {</integer></p>
-<pre><code>@Override
-public void onCompleted() {
-
-}
-
-@Override
-public void onError(Throwable e) {
-
-}
-
-@Override
-public void onNext(Integer integer) {
-    System.out.println(&quot;integer------&gt;&quot; + integer);
-}
-</code></pre><p>  });</p>
-</li>
-<li><p><strong>defer() 延迟Observable的创建直到观察者订阅</strong>例</p>
-<p>  private Observable<long> getDeferObservable() {</long></p>
-<pre><code>return Observable.defer(new Func0&lt;Observable&lt;Long&gt;&gt;() {
-    @Override
-    public Observable&lt;Long&gt; call() {
-        return getJustObservable();
-    }
-});
-</code></pre><p>  }</p>
-</li>
-</ul>
-<p><strong>每次生成新的observable</strong></p>
-<pre><code>@Test
-public void testDefer() {
-    Observable&lt;Long&gt; observable = getDeferObservable();
-    for (int i = 0; i &lt; 10; i++) {
-        observable.subscribe(new Action1&lt;Long&gt;() {
-            @Override
-            public void call(Long aLong) {
-                System.out.println(&quot;aLong------&gt;&quot; + aLong);
-            }
-        });
-    }
-}
-</code></pre><ul>
-<li><p><strong>interval() 在指定的时间间隔内重复数字 0到正无穷</strong></p>
-<p>  Subscription topeMePlease = Observable.interval(3, TimeUnit.SECONDS)</p>
-<pre><code>.subscribe(new Observer&lt;Long&gt;() {
-    @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(Long aLong) {
-        System.out.println(&quot;aLong----&gt;&quot;+aLong);
-    }
-});
-</code></pre></li>
-<li><p><strong>timer()  指定延迟时间指定间隔发射</strong></p>
-<p>  Observable.timer(3, 100, TimeUnit.MILLISECONDS).subscribe(new Action1<long>() {</long></p>
-<pre><code>@Override
-public void call(Long aLong) {
-    System.out.println(&quot;aLong------&gt;&quot; + aLong);
-}
-</code></pre><p>  });</p>
-</li>
-<li><p><strong>filter()  过滤出符合要求的数据</strong></p>
-<p>  filter((appInfo) -&gt; appInfo.getName().startWith(“C”)) //过滤出C开头的应用名称</p>
-</li>
-<li><p><strong>take()  指定原始序列中的前几条数据发射</strong></p>
-<p>  take(3)</p>
-</li>
-<li><p><strong>takeLast()  指定原始序列中的最后几条数据发射</strong></p>
-<p>  takeLast(3)</p>
-</li>
-<li><p><strong>distinct()  去除重复数据  可以用来防止界面控件重复点击</strong></p>
-</li>
-<li><p><strong>distinctUntilChanged()  去除与上一个重复的值</strong></p>
-</li>
-<li><p><strong>first()和last() 发射原始序列中的第一个或最后一个值</strong></p>
-</li>
-</ul>
-<p>-<br><strong>firstOrDefault()和lastOrDefault()  当观测序列完成时发送默认值</strong></p>
-<ul>
-<li><p><strong>skip()和skipLast()   不发射前N个值或者后N个值</strong></p>
-</li>
-<li><p><strong>ElementAt()   elementAtOrDefault()     发射指定位置的元素 ，如果没有就发送默认值</strong></p>
-</li>
-<li><p><strong>sample(30, TimeUnit.SECONDS)  在指定时间间隔内由Observable发射最近一次的数值  再加一个throttleFirst()就是发射第一个而不是最近一个元素</strong></p>
-</li>
-<li><p><strong>timeout()   每隔一定时间发射至少一次数据，如果在指定时间间隔内没有得到一个值则发送一个错误</strong></p>
-</li>
-<li><p><strong>debounce()   过滤掉由Observable发射的速率过快的数据</strong></p>
-</li>
-<li><p><strong>map  指定一个fun对象，然后将它应用到每一个由Observable发射的值上</strong></p>
-</li>
-<li><p><strong>flatMap()  根据上一个Observable发射的数据生成新的Observable，注意新产生的Observable是平铺的，也就是说最终得到数据顺序是不定的，并且有一个产生error，此次调用就会结束</strong></p>
-</li>
-<li><p><strong>concatMap()   解决的flatMap()的交叉问题，能够把发射的值连续在一起，而不是合并他们</strong></p>
-</li>
-<li><p><strong>scan()   累加器  对原始Observable发射的每一项数据都应用一个函数，计算出函数的结果值，并将该值填回可观测序列，等待和下一次发射的数据一起使用。</strong>例：</p>
-<p>  Observable.just(1,2,3,4,5)</p>
-<pre><code>        .scan((sum, item) -&gt; sum + item)
-        .subscribe(new Subscriber&lt;Interger&gt; () {
-@Override
-public void onCompleted() {
-
-}
-
-@Override
-public void onError(Throwable e) {
-
-}
-
-@Override
-public void onNext(Integer integer) {
-    System.out.println(&quot;integer------&gt;&quot; + integer);
-}
-</code></pre><p>  });</p>
-</li>
-</ul>
-<p><strong>输出结果为：1   3  6  10  15</strong><br>（这个操作符可用来对数据进行排序）</p>
-<ul>
-<li><p><strong>groupBy()  将原Observable变换成哼一个发射Observables的新的Observable。他们中的每一个新的Observable都发射一组指定的数据</strong></p>
-</li>
-<li><p><strong>buffer()    将原Observable变换一个新的Observable，这个新的Observable每次发射一组列表而不是一个个发射</strong></p>
-</li>
-<li><p><strong>merge()   多个Observable合并成一个最终发射的Observable  （多个Observable发射的数据类型一般相同）</strong></p>
-</li>
-<li><p><strong>zip   合并多个Observable数据，生成新的数据</strong></p>
-</li>
-</ul>
-<h2 id="8、调度器"><a href="#8、调度器" class="headerlink" title="8、调度器"></a>8、调度器</h2><p>RxJava提供了5种调度器：<br>    <strong>.io()  .computation()  .immediate()  .newThread()  .trampoline()</strong></p>
-<ul>
-<li><p>Schedulers.io()  专用于io操作，但是大量的io操作会创建多个线程并占用内存</p>
-</li>
-<li><p>Schedulers.computation()  计算工作默认的调度器，与io无关</p>
-</li>
-<li><p>Schedulers.immedidate()  在当前线程立即执行指定的工作</p>
-</li>
-<li><p>Schedulers.newThread()   为指定任务启动一个新的线程</p>
-</li>
-<li><p>schedulers.tramppline()  把要执行的任务加入到当前线程任务队列中，调度器会顺序执行队列中的任务</p>
-</li>
-</ul>
-<p>Executors.newScheduledThreadPool(1, threadFactory);<br>ScheduledExecutorService</p>
-<p>SubscribeOn(Schedulers.io())  指定任务工作线程<br>ObserveOn(AndroidSchedulers.mainThread())  指定观察者处理返回结果所在线程为ui线程</p>
-<h2 id="9、在Android中使用场景"><a href="#9、在Android中使用场景" class="headerlink" title="9、在Android中使用场景"></a>9、在Android中使用场景</h2><p>(1). 先检查本地是否有数据缓存，有的话直接返回，没有的话再请求网路数据<br>    对应操作符为  contact(Observable1, Observable2 …)</p>
-<p>(2). 多个接口并发请求，等所有结果返回再统一刷新页面<br>    这种情况需要分两种条件：</p>
-<pre><code>a、不同接口返回数据格式相同，不需要做类型判断和转换，可以用merge(Observable1, Observable2 ...)
-
-b、不同接口返回数据格式不同，需要经过处理再合并成新的数据结构，可以用
-    zip(Observable1, Observable2,                                     
-    new Fun2&lt;firstResult, SecondResult, newResult&gt;) 
-    或combineLatest(Observable1, Observable2, new                                         
-    Fun2&lt;firstResult, SecondResult, newResult&gt;)
-    对于combineLatest和zip，在网络请求的使用情景下，Observable只发射一次数据，二者是没有区别的。
-    如果是Observable多次发射数据的话，combineLatest会有对不同实际发射出的事件的合并有不同的合并结果。
-    而zip则是一一对应的。
-
-    Observable1  1  2  3
-    Observable2  1  2  3 
-</code></pre><p>(3). 一个任务的执行依赖上一个任务的返回结果,<br>    对应操作符为flatmap(object,Observable)，根据上一个任务的返回结构再次生成新的Observable</p>
-<p>(4). 界面按钮防止连续点击，对应操作符为throttleFisrt(时间段， 时间单位)，在指定时间段内只发送一次数据</p>
-<p>(5). 替代Handler实现定时器的操作符  timer(delaytime, time, timeUnit)  X秒后执行某操作</p>
-<p>(6). 替代Handler.postDelay实现文本搜索的操作符为debounce(400, TimeUnit.MILLISECONDS)</p>
-<p>(7). 替代Handler.postDelay实现倒计时的操作符为interval(1, TimeUnit.SECONDS) ，每隔1秒发射一次事件</p>
-<p>(8). 使用schedulePeriodically做轮询请求</p>
-<pre><code>Observable.create(new Observable.OnSubscribe&lt;String&gt;() {  
-    @Override  
-    public void call(final Subscriber&lt;? super String&gt; observer) {  
-        Schedulers.newThread().createWorker()  
-              .schedulePeriodically(new Action0() {  
-                  @Override  
-                  public void call() {  
-                      observer.onNext(doNetworkCallAndGetStringResult());  
-                  }  
-              }, INITIAL_DELAY, POLLING_INTERVAL, TimeUnit.MILLISECONDS);  
-    }  
-}).subscribe(new Action1&lt;String&gt;() {  
-    @Override  
-    public void call(String s) {  
-        log.d(&quot;polling….”));  
-    }  
-})  
-</code></pre><p>(9)、注册界面信息填写完整，下一步操作按钮才点亮 combineLatest</p>
-<pre><code>Observable&lt;CharSequence&gt; _emailChangeObservable = RxTextView.textChanges(_email).skip(1);  
-Observable&lt;CharSequence&gt; _passwordChangeObservable = RxTextView.textChanges(_password).skip(1);  
-Observable&lt;CharSequence&gt;   _numberChangeObservable = RxTextView.textChanges(_number).skip(1);  
-
-Observable.combineLatest(_emailChangeObservable,  
-      _passwordChangeObservable,  
-      _numberChangeObservable,  
-      new Func3&lt;CharSequence, CharSequence, CharSequence, Boolean&gt;() {  
-          @Override  
-          public Boolean call(CharSequence newEmail,  
-                              CharSequence newPassword,  
-                              CharSequence newNumber) {  
-
-              Log.d(&quot;xiayong&quot;,newEmail+&quot; &quot;+newPassword+&quot; &quot;+newNumber);  
-              boolean emailValid = !isEmpty(newEmail) &amp;&amp;  
-                                   EMAIL_ADDRESS.matcher(newEmail).matches();  
-              if (!emailValid) {  
-                  _email.setError(&quot;Invalid Email!&quot;);  
-              }  
-
-              boolean passValid = !isEmpty(newPassword) &amp;&amp; newPassword.length() &gt; 8;  
-              if (!passValid) {  
-                  _password.setError(&quot;Invalid Password!&quot;);  
-              }  
-
-              boolean numValid = !isEmpty(newNumber);  
-              if (numValid) {  
-                  int num = Integer.parseInt(newNumber.toString());  
-                  numValid = num &gt; 0 &amp;&amp; num &lt;= 100;  
-              }  
-              if (!numValid) {  
-                  _number.setError(&quot;Invalid Number!&quot;);  
-              }  
-
-              return emailValid &amp;&amp; passValid &amp;&amp; numValid;  
-
-          }  
-      })//  
-      .subscribe(new Observer&lt;Boolean&gt;() {  
-          @Override  
-          public void onCompleted() {  
-              log.d(&quot;completed&quot;);  
-          }  
-
-          @Override  
-          public void onError(Throwable e) {  
-             log.d(&quot;Error&quot;);  
-          }  
-
-          @Override  
-          public void onNext(Boolean formValid) {  
-             _btnValidIndicator.setEnabled(formValid);    
-          }  
-      });  
-</code></pre><p>(10)、取缓存同时取网络数据，然后更新。 ？？？</p>
-<h2 id="10-源码剖析"><a href="#10-源码剖析" class="headerlink" title="10. 源码剖析"></a>10. 源码剖析</h2><p>1.</p>
-<pre><code>protected Observable(OnSubscribe&lt;T&gt; f) {
-    this.onSubscribe = f;
-}
-</code></pre><p>Observable的构造方法，即保存构造方法中的参数OnSubscribe</p>
-<ol>
-<li></li>
-</ol>
-<pre><code>public static interface OnSubscribe&lt;T&gt; extends Action1&lt;Subscriber&lt;? super T&gt;&gt; {
-    // cover for generics insanity
-}
-</code></pre><p>OnSubscribe是一个带一个参数的Action1，它的参数是一个Subscriber</p>
-<pre><code>public interface Action1&lt;T1&gt; extends Action {
-    public void call(T1 t1);
-}
-</code></pre><p>Action1中有一个call方法，其中的参数就是就是第二步创建的Subscriber</p>
-<p>3.</p>
-<pre><code>Observable observable = Observable.create(new Observable.OnSubscribe&lt;ShopList&gt;() {
-    @Override
-    public void call(Subscriber&lt;? super ShopList&gt; subscriber) {
-        ShopList discountShops = companyRepository.getPayBillShops(offset, pageSize, regionId, longitude, latitude);
-        subscriber.onNext(discountShops);
-        subscriber.onCompleted();
-    }
-});
-</code></pre><p>在创建Observable的时候，传入了一个新建的OnSubscribe，然后再OnSubscribe中的call方法中，调用了call方法的参数（Subscriber）的onNext() onCompleted() 方法！！！</p>
-<p><strong>注：此时的Subscriber（订阅者）并不知道是谁。</strong></p>
-<p>至此，被观察者已经基本创建完成，这个被观察者是一个Action，这个Action的具体动作是从网络获取数据。<br>那么，当Action动作完成，会把结果传递给不知道是谁的一个订阅者。。。</p>
-<ol>
-<li>订阅者的创建</li>
-</ol>
-<pre><code>public final Subscription subscribe(Subscriber&lt;? super T&gt; subscriber) {
-    // validate and proceed
-    if (subscriber == null) {
-        throw new IllegalArgumentException(&quot;observer can not be null&quot;);
-    }
-    if (onSubscribe == null) {
-        throw new IllegalStateException(&quot;onSubscribe function can not be null.&quot;);
-        /*
-         * the subscribe function can also be overridden but generally that&apos;s not the appropriate approach
-         * so I won&apos;t mention that in the exception
-         */
-    }
-
-    // new Subscriber so onStart it
-    subscriber.onStart();
-
-    /*
-     * See https://github.com/ReactiveX/RxJava/issues/216 for discussion on &quot;Guideline 6.4: Protect calls
-     * to user code from within an Observer&quot;
-     */
-    // if not already wrapped
-    if (!(subscriber instanceof SafeSubscriber)) {
-        // assign to `observer` so we return the protected version
-        subscriber = new SafeSubscriber&lt;T&gt;(subscriber);
-    }
-
-    // The code below is exactly the same an unsafeSubscribe but not used because it would add a sigificent depth to alreay huge call stacks.
-    try {
-        // allow the hook to intercept and/or decorate
-        hook.onSubscribeStart(this, onSubscribe).call(subscriber);
-        return hook.onSubscribeReturn(subscriber);
-    } catch (Throwable e) {
-        // special handling for certain Throwable/Error/Exception types
-        Exceptions.throwIfFatal(e);
-        // if an unhandled error occurs executing the onSubscribe we will propagate it
-        try {
-            subscriber.onError(hook.onSubscribeError(e));
-        } catch (OnErrorNotImplementedException e2) {
-            // special handling when onError is not implemented ... we just rethrow
-            throw e2;
-        } catch (Throwable e2) {
-            // if this happens it means the onError itself failed (perhaps an invalid function implementation)
-            // so we are unable to propagate the error correctly and will just throw
-            RuntimeException r = new RuntimeException(&quot;Error occurred attempting to subscribe [&quot; + e.getMessage() + &quot;] and the again while trying to pass to onError.&quot;, e2);
-            // TODO could the hook be the cause of the error in the on error handling.
-            hook.onSubscribeError(r);
-            // TODO why aren&apos;t we throwing the hook&apos;s return value.
-            throw r;
-        }
-        return Subscriptions.unsubscribed();
-    }
-}
-
-关键代码:
-</code></pre><p><strong>hook.onSubscribeStart(this, onSubscribe).call(subscriber);</strong><br><strong>hook.onSubscribeStart(this, onSubscribe)返回的就是Observable创建时构造方法中的参数OnSubcribe</strong></p>
-<p>然后调用onSubscribe的call方法，参数就是我们subscribe方法中的参数Subscriber，接下来就一目了然了，第三步中那个不知道是谁的订阅者，就是通过subscribe方法传入的订阅者。<br>至此，订阅者和观察就联系起来了。</p>
-<h2 id="11、-多个订阅者的两种实现方法"><a href="#11、-多个订阅者的两种实现方法" class="headerlink" title="11、 多个订阅者的两种实现方法"></a>11、 多个订阅者的两种实现方法</h2><p> a、使用PublishSubject</p>
-<pre><code>PublishSubject&lt;String&gt; stringPublishSubject = PublishSubject.create();
-    Subscriber subscriber1 = new Subscriber() {
-        @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Object o) {
-                System.out.println(&quot;subscriber1----&gt;&quot; + o.toString());
-            }
-        };
-
-    Subscriber subscriber2 = new Subscriber() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-
-        }
-
-        @Override
-        public void onNext(Object o) {
-            System.out.println(&quot;subscriber2----&gt;&quot; + o.toString());
-        }
-    };
-    stringPublishSubject.subscribe(subscriber1);
-    stringPublishSubject.subscribe(subscriber2);
-    stringPublishSubject.onNext(&quot;a&quot;);
-</code></pre><p>b、使用ConnectableObservable</p>
-<pre><code>ConnectableObservable&lt;String&gt; stringConnectableObservable = getMemoryObservable().publish();
-
-   Subscriber subscriber1 = new Subscriber() {
-       @Override
-       public void onCompleted() {
-
-       }
-
-       @Override
-       public void onError(Throwable e) {
-
-       }
-
-       @Override
-       public void onNext(Object o) {
-           System.out.println(&quot;subscriber1----&gt;&quot; + o.toString());
-           System.out.println(&quot;subscriber1----&gt;&quot; + System.currentTimeMillis());
-       }
-   };
-
-   Subscriber subscriber2 = new Subscriber() {
-       @Override
-       public void onCompleted() {
-
-       }
-
-       @Override
-       public void onError(Throwable e) {
-
-       }
-
-       @Override
-       public void onNext(Object o) {
-           System.out.println(&quot;subscriber2----&gt;&quot; + o.toString());
-           System.out.println(&quot;subscriber2----&gt;&quot; + System.currentTimeMillis());
-       }
-   };
-
-   stringConnectableObservable.subscribe(subscriber1);
-   stringConnectableObservable.subscribe(subscriber2);
-
-   stringConnectableObservable.connect();
-</code></pre><h2 id="12、操作符使用原理"><a href="#12、操作符使用原理" class="headerlink" title="12、操作符使用原理"></a>12、操作符使用原理</h2><pre><code>关键方法：Observable lift(Operator)
-
-
-    public final &lt;R&gt; Observable&lt;R&gt; lift(final Operator&lt;? extends R, ? super T&gt; lift) {
-        return new Observable&lt;R&gt;(new OnSubscribe&lt;R&gt;() {
-            @Override
-            public void call(Subscriber&lt;? super R&gt; o) {
-                try {
-                    Subscriber&lt;? super T&gt; st = hook.onLift(lift).call(o);
-                    try {
-                        // new Subscriber created and being subscribed with so &apos;onStart&apos; it
-                        st.onStart();
-                        onSubscribe.call(st);
-                    } catch (Throwable e) {
-                        // localized capture of errors rather than it skipping all operators 
-                        // and ending up in the try/catch of the subscribe method which then
-                        // prevents onErrorResumeNext and other similar approaches to error handling
-                        if (e instanceof OnErrorNotImplementedException) {
-                            throw (OnErrorNotImplementedException) e;
-                        }
-                        st.onError(e);
-                    }
-                } catch (Throwable e) {
-                    if (e instanceof OnErrorNotImplementedException) {
-                        throw (OnErrorNotImplementedException) e;
-                    }
-                    // if the lift function failed all we can do is pass the error to the final Subscriber
-                    // as we don&apos;t have the operator available to us
-                    o.onError(e);
-                }
-            }
-        });
-    }
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2642,7 +2213,7 @@ Observable.combineLatest(_emailChangeObservable,
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2655,7 +2226,7 @@ Observable.combineLatest(_emailChangeObservable,
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
