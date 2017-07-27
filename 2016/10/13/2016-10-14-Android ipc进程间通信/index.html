@@ -87,23 +87,23 @@
 
 
 
-<meta name="description" content="进程间通信几种方式:文件 SharedPreferences BroadcastReceiver ContentProvider AIDL 序列化Serialable 和 Parcelable （1）序列化 ID 的问题 （2）静态变量序列化 （3）Transient 关键字 （4）序列化存储规则 静态成员变量属于类，而不是对象，所以不会参与序列化；使用transient关键字标记的成员变量不参与">
+<meta name="description" content="进程间通信几种方式:文件SharedPreferencesBroadcastReceiverContentProviderAIDL">
 <meta name="keywords" content="Android,分享,Blog,进程间通信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android进程间通信">
 <meta property="og:url" content="http://yoursite.com/2016/10/13/2016-10-14-Android ipc进程间通信/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="进程间通信几种方式:文件 SharedPreferences BroadcastReceiver ContentProvider AIDL 序列化Serialable 和 Parcelable （1）序列化 ID 的问题 （2）静态变量序列化 （3）Transient 关键字 （4）序列化存储规则 静态成员变量属于类，而不是对象，所以不会参与序列化；使用transient关键字标记的成员变量不参与">
+<meta property="og:description" content="进程间通信几种方式:文件SharedPreferencesBroadcastReceiverContentProviderAIDL">
 <meta property="og:image" content="http://yoursite.com/images/binder/RegistReceiver.png">
 <meta property="og:image" content="http://yoursite.com/images/binder/SendBroadcast.png">
 <meta property="og:image" content="http://yoursite.com/images/binder/mReceivers.png">
 <meta property="og:image" content="http://yoursite.com/images/binder/receives_list.png">
 <meta property="og:image" content="http://yoursite.com/images/binder/am_proxy.jpg">
 <meta property="og:image" content="http://yoursite.com/images/binder/ams.png">
-<meta property="og:updated_time" content="2017-06-22T10:58:12.000Z">
+<meta property="og:updated_time" content="2017-07-27T07:13:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android进程间通信">
-<meta name="twitter:description" content="进程间通信几种方式:文件 SharedPreferences BroadcastReceiver ContentProvider AIDL 序列化Serialable 和 Parcelable （1）序列化 ID 的问题 （2）静态变量序列化 （3）Transient 关键字 （4）序列化存储规则 静态成员变量属于类，而不是对象，所以不会参与序列化；使用transient关键字标记的成员变量不参与">
+<meta name="twitter:description" content="进程间通信几种方式:文件SharedPreferencesBroadcastReceiverContentProviderAIDL">
 <meta name="twitter:image" content="http://yoursite.com/images/binder/RegistReceiver.png">
 
 
@@ -368,6 +368,39 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/进程间通信/" itemprop="url" rel="index">
+                    <span itemprop="name">进程间通信</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -393,12 +426,9 @@
       
 
       
-        <h2 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h2><h3 id="几种方式"><a href="#几种方式" class="headerlink" title="几种方式:"></a>几种方式:</h3><p>文件</p>
-<p>SharedPreferences</p>
-<p>BroadcastReceiver</p>
-<p>ContentProvider</p>
-<p>AIDL</p>
-<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>Serialable 和 Parcelable</p>
+        <h4 id="进程间通信几种方式"><a href="#进程间通信几种方式" class="headerlink" title="进程间通信几种方式:"></a>进程间通信几种方式:</h4><p>文件<br>SharedPreferences<br>BroadcastReceiver<br>ContentProvider<br>AIDL</p>
+<a id="more"></a>
+<h4 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h4><p>Serializable 和 Parcelable</p>
 <p>（1）序列化 ID 的问题</p>
 <p>（2）静态变量序列化</p>
 <p>（3）Transient 关键字</p>
@@ -408,7 +438,7 @@
 <p>自己实现序列化与反序列化过程需要重写writeObject()和readObject()</p>
 <p>（5）多次writeObject问题</p>
 <p>第二次写入对象时文件只增加了 5 字节，并且两个对象是相等的，这是为什么呢？<br>解答：Java 序列化机制为了节省磁盘空间，具有特定的存储规则，当写入文件的为同一对象时，并不会再将对象的内容进行存储，而只是再次存储一份引用，上面增加的 5 字节的存储空间就是新增引用和一些控制信息的空间。反序列化时，恢复引用关系，使得清单 3 中的 t1 和 t2 指向唯一的对象，二者相等，输出 true。该存储规则极大的节省了存储空间。</p>
-<h3 id="1、SharedPreferences"><a href="#1、SharedPreferences" class="headerlink" title="1、SharedPreferences"></a>1、SharedPreferences</h3><p>取SharedPreferences实际上是在ContextImpl这个类中完成的。</p>
+<h4 id="1、SharedPreferences"><a href="#1、SharedPreferences" class="headerlink" title="1、SharedPreferences"></a>1、SharedPreferences</h4><p>取SharedPreferences实际上是在ContextImpl这个类中完成的。</p>
 <p>1、context.getSharedPreferences(pref_name, mode)的流程：</p>
 <p>A 在sSharedPrefs这个map(同步的)中以pref_name为键取SharedPreferencesImp对象sp。如果sp不为空并且对应的pref文件未被异常修改，就返回这个对象。否则进入B。</p>
 <p>B 如果sp为空，重新生成一个SharedPreferenceImp对象并且加入到sSharedPrefs这个map中。</p>
@@ -433,7 +463,7 @@
 <p>HashMap</p>
 <p>SparseArray</p>
 <p>ArrayMap</p>
-<h3 id="2、BroadcastReceiver"><a href="#2、BroadcastReceiver" class="headerlink" title="2、BroadcastReceiver"></a>2、BroadcastReceiver</h3><p>它和Binder机制不一样的地方在于，广播的发送者和接收者事先是不需要知道对方的存在的<br>BroadcastReceiver(注册过程，发送接收)</p>
+<h4 id="2、BroadcastReceiver"><a href="#2、BroadcastReceiver" class="headerlink" title="2、BroadcastReceiver"></a>2、BroadcastReceiver</h4><p>它和Binder机制不一样的地方在于，广播的发送者和接收者事先是不需要知道对方的存在的<br>BroadcastReceiver(注册过程，发送接收)</p>
 <p>（1）注册方式 静态注册，动态注册</p>
 <p>（2）广播分类 粘性广播，有序广播，无序广播</p>
 <p>（3）前台广播(10s超时)、后台广播(60s超时)（intent.FLAG_RECEIVER_FOREGROUND）</p>
@@ -449,13 +479,13 @@
 <p>9） 整合（剩下的）并行receivers，以及静态receivers，形成一个串行receivers表； </p>
 <p>10） 尝试逐个向串行receivers递送广播。</p>
 <p>RegistReceiver</p>
-<p><img src="/images/binder/RegistReceiver.png" alt="RegistReceiver"></p>
+<p><img src="/images/binder/RegistReceiver.png" alt="RegisterReceiver"></p>
 <p>SendBroadcast</p>
 <p><img src="/images/binder/SendBroadcast.png" alt="SendBroadcast"></p>
 <p>图：客户进程中的mReceivers表</p>
 <p>mReceivers<br><img src="/images/binder/mReceivers.png" alt="mReceivers"></p>
 <p>receives_list</p>
-<p><img src="/images/binder/receives_list.png" alt="RegistReceiver"></p>
+<p><img src="/images/binder/receives_list.png" alt="RegisterReceiver"></p>
 <p>该表的key项是我们比较熟悉的Context，也就是说可以是Activity、Service或Application。而value项则是另一张“子哈希表”。这是个“表中表”的形式。言下之意就是，每个Context（比如一个activity），是可以注册多个receiver的，这个很好理解。mReceivers里的“子哈希表”的key值为BroadcastReceiver，value项为ReceiverDispatcher，示意图如下：</p>
 <p>到这里其实开始走两个分支，</p>
 <p>1，如果是动态注册的receiver，其实可以知道，运行进程是活的，接收对象是存在的，deliverToRegisteredReceiverLocked(r, (BroadcastFilter)target, false)，</p>
@@ -492,11 +522,9 @@
 <p>am_proxy.jpg<br><img src="/images/binder/am_proxy.jpg" alt="am_proxy.jpg"></p>
 <p>AMS基本架构</p>
 <p><img src="/images/binder/ams.png" alt="ams"></p>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>老罗的Android之旅</p>
-<p><a href="http://shyluo.blog.51cto.com/5725845/966376" target="_blank" rel="external">http://shyluo.blog.51cto.com/5725845/966376</a></p>
-<p>品茗论道说广播(Broadcast内部机制讲解)</p>
-<p><a href="https://my.oschina.net/youranhongcha/blog/226274" target="_blank" rel="external">https://my.oschina.net/youranhongcha/blog/226274</a></p>
-<p><a href="http://www.cnblogs.com/xingchenkn/p/3637137.html" target="_blank" rel="external">http://www.cnblogs.com/xingchenkn/p/3637137.html</a></p>
+<h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h4><p><a href="http://blog.csdn.net/luoshengyang" target="_blank" rel="external">老罗的Android之旅</a></p>
+<p><a href="https://my.oschina.net/youranhongcha/blog/226274" target="_blank" rel="external">品茗论道说广播(Broadcast内部机制讲解)</a></p>
+<p><a href="http://www.cnblogs.com/xingchenkn/p/3637137.html" target="_blank" rel="external">Android ActivityManagerService 基本介绍</a></p>
 
       
     </div>
@@ -629,12 +657,21 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -642,7 +679,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -688,7 +725,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程间通信"><span class="nav-number">1.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几种方式"><span class="nav-number">1.1.</span> <span class="nav-text">几种方式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化"><span class="nav-number">1.2.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1、SharedPreferences"><span class="nav-number">1.3.</span> <span class="nav-text">1、SharedPreferences</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、BroadcastReceiver"><span class="nav-number">1.4.</span> <span class="nav-text">2、BroadcastReceiver</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4、AIDL"><span class="nav-number">1.4.1.</span> <span class="nav-text">4、AIDL</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-number">2.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程间通信几种方式"><span class="nav-number">1.</span> <span class="nav-text">进程间通信几种方式:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列化"><span class="nav-number">2.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1、SharedPreferences"><span class="nav-number">3.</span> <span class="nav-text">1、SharedPreferences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、BroadcastReceiver"><span class="nav-number">4.</span> <span class="nav-text">2、BroadcastReceiver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、AIDL"><span class="nav-number">5.</span> <span class="nav-text">4、AIDL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考："><span class="nav-number">6.</span> <span class="nav-text">参考：</span></a></li></ol></div>
             
 
           </div>

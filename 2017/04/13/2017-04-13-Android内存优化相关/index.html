@@ -87,21 +87,21 @@
 
 
 
-<meta name="description" content="Android内存优化相关Java内存分配策略概述  虚拟机栈（Stack）存放基本数据类型和局部变量引用，但是对象本身不存放在栈中，而是存放在堆中。当一个方法即将被运行时，Java虚拟机栈首先会在Java虚拟机栈中为该方法创建一块“栈帧”，栈帧中包含局部变量表、操作数栈、动态链接、方法出口信息等。当方法在运行过程中需要创建局部变量时，就将局部变量的值存入栈帧的局部变量表中。当方法执行完毕后，这个">
+<meta name="description" content="Java内存分配策略概述">
 <meta name="keywords" content="Android,分享,Blog,内存优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android内存优化相关">
 <meta property="og:url" content="http://yoursite.com/2017/04/13/2017-04-13-Android内存优化相关/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="Android内存优化相关Java内存分配策略概述  虚拟机栈（Stack）存放基本数据类型和局部变量引用，但是对象本身不存放在栈中，而是存放在堆中。当一个方法即将被运行时，Java虚拟机栈首先会在Java虚拟机栈中为该方法创建一块“栈帧”，栈帧中包含局部变量表、操作数栈、动态链接、方法出口信息等。当方法在运行过程中需要创建局部变量时，就将局部变量的值存入栈帧的局部变量表中。当方法执行完毕后，这个">
+<meta property="og:description" content="Java内存分配策略概述">
 <meta property="og:image" content="http://yoursite.com/images/memory/memory.jpeg">
 <meta property="og:image" content="http://yoursite.com/images/memory/mark_sweep.jpg">
 <meta property="og:image" content="http://yoursite.com/images/memory/copying.jpg">
 <meta property="og:image" content="http://yoursite.com/images/memory/mark_compact.jpg">
-<meta property="og:updated_time" content="2017-07-17T03:50:24.000Z">
+<meta property="og:updated_time" content="2017-07-27T07:23:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android内存优化相关">
-<meta name="twitter:description" content="Android内存优化相关Java内存分配策略概述  虚拟机栈（Stack）存放基本数据类型和局部变量引用，但是对象本身不存放在栈中，而是存放在堆中。当一个方法即将被运行时，Java虚拟机栈首先会在Java虚拟机栈中为该方法创建一块“栈帧”，栈帧中包含局部变量表、操作数栈、动态链接、方法出口信息等。当方法在运行过程中需要创建局部变量时，就将局部变量的值存入栈帧的局部变量表中。当方法执行完毕后，这个">
+<meta name="twitter:description" content="Java内存分配策略概述">
 <meta name="twitter:image" content="http://yoursite.com/images/memory/memory.jpeg">
 
 
@@ -366,6 +366,39 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/内存优化/" itemprop="url" rel="index">
+                    <span itemprop="name">内存优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -391,7 +424,8 @@
       
 
       
-        <h2 id="Android内存优化相关"><a href="#Android内存优化相关" class="headerlink" title="Android内存优化相关"></a>Android内存优化相关</h2><h3 id="Java内存分配策略概述"><a href="#Java内存分配策略概述" class="headerlink" title="Java内存分配策略概述"></a>Java内存分配策略概述</h3><p><img src="/images/memory/memory.jpeg" alt="Overdraw"></p>
+        <h4 id="Java内存分配策略概述"><a href="#Java内存分配策略概述" class="headerlink" title="Java内存分配策略概述"></a>Java内存分配策略概述</h4><p><img src="/images/memory/memory.jpeg" alt="Overdraw"></p>
+<a id="more"></a>
 <ul>
 <li><p>虚拟机栈（Stack）<br>存放基本数据类型和局部变量引用，但是对象本身不存放在栈中，而是存放在堆中。<br>当一个方法即将被运行时，Java虚拟机栈首先会在Java虚拟机栈中为该方法创建一块“栈帧”，栈帧中包含局部变量表、操作数栈、动态链接、方法出口信息等。当方法在运行过程中需要创建局部变量时，就将局部变量的值存入栈帧的局部变量表中。当方法执行完毕后，这个方法所对应的栈帧将会出栈，并释放内存空间。<br>Java虚拟机栈会出现两种异常：StackOverFlowError和OutOfMemoryError。<br>Java虚拟机栈也是线程私有的，每个线程都有各自的Java虚拟机栈，而且随着线程的创建而创建，随着线程的死亡而死亡。</p>
 </li>
@@ -402,7 +436,7 @@
 <li><p>运行时常量池（Runtime Constant Pool）<br>是方法区的一部分。Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池（Constant Pool Table），用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。运行期间也可能将新的常量放入池中。</p>
 </li>
 </ul>
-<h3 id="JVM垃圾回收"><a href="#JVM垃圾回收" class="headerlink" title="JVM垃圾回收"></a>JVM垃圾回收</h3><ol>
+<h4 id="JVM垃圾回收"><a href="#JVM垃圾回收" class="headerlink" title="JVM垃圾回收"></a>JVM垃圾回收</h4><ol>
 <li><p>垃圾对象的判定</p>
 <p>Java堆中存放着几乎所有的对象实例，垃圾收集器对堆中的对象进行回收前，要先确定这些对象是否还有用，判定对象是否为垃圾对象有如下算法：</p>
 <ul>
@@ -428,7 +462,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="Android的内存区域"><a href="#Android的内存区域" class="headerlink" title="Android的内存区域"></a>Android的内存区域</h3><ol>
+<h4 id="Android的内存区域"><a href="#Android的内存区域" class="headerlink" title="Android的内存区域"></a>Android的内存区域</h4><ol>
 <li><p>Dalvik Heap，这部分的内存区域是由Dalvik虚拟机管理，通过Java中 new 关键字来申请一块新内存。这块区域的内存是由GC直接管理，能够自动回收内存。这块内存的大小会受到系统限制，当内存超过APP最大可用内存时会OOM</p>
 </li>
 <li><p>Native Heap，这部分内存区域是在C++中申请的，它不受限于APP的最大可用内存限制，而只是受限于设备的物理可用内存限制。它的缺点在于没有自动回收机制，只能通过C++语法来释放申请的内存</p>
@@ -437,9 +471,9 @@
 </li>
 </ol>
 <p>Android Dalvik Heap与原生Java一样，将堆的内存空间分为三个区域，Young Generation，Old Generation， Permanent Generation。<br>最近分配的对象会存放在Young Generation区域，对象在某个时机触发GC回收垃圾，而没有回收的就根据不同规则，有可能被移动到Old Generation，最后积累一定时间再移动到Permanent Generation区域。系统会根据不同的内存数据类型分别采用不同的回收机制。每一个Generation的内存区域都有固定的大小。执行GC占用的时间和它发生在哪一个Generation的内存区域有关，Young Generation中的每次GC操作时间是最短的，Old Generation其次，Permanent Generation最长。同时GC的执行时间也和当前Generation中的对象数量有关，数量越多，执行时间越长。<br>GC时会导致线程暂停，导致卡顿，在ART中对GC过程做了优化，据说内存分配的效率提高了10倍，GC的效率提高了2-3倍，不过主要还是优化中断和阻塞的时间，频繁的GC还是会导致卡顿。</p>
-<h3 id="Android-App为什么会OOM呢？"><a href="#Android-App为什么会OOM呢？" class="headerlink" title="Android App为什么会OOM呢？"></a>Android App为什么会OOM呢？</h3><p>其实就是申请的内存超过了Dalvik Heap的最大值。于是也诞生了一些比较”黑科技”的内存优化方案，比如将耗内存的操作放到Native层，或者使用分进程的方式突破每个进程的Dalvik Heap内存限制。</p>
-<h3 id="自身内存占用监控"><a href="#自身内存占用监控" class="headerlink" title="自身内存占用监控"></a>自身内存占用监控</h3><p>对于onLowMemory()与onTrimMemory(int)等是针对整个系统而言的。<br>通过Runtime.totalMemory-freeMemory即为当前应用使用的内存。<br>Runtime.getRuntime().maxMemory();<br>Runtime.getRuntime().totalMemory(); Runtime.getRuntime().freeMemory();</p>
-<h3 id="避免内存泄漏"><a href="#避免内存泄漏" class="headerlink" title="避免内存泄漏"></a>避免内存泄漏</h3><p>内存泄漏是指应用不再使用的内存对象，但垃圾回收时没有辨认出来，不能及时回收，一直保留在内存中长期占用一定的空间不能释放。</p>
+<h4 id="Android-App为什么会OOM呢？"><a href="#Android-App为什么会OOM呢？" class="headerlink" title="Android App为什么会OOM呢？"></a>Android App为什么会OOM呢？</h4><p>其实就是申请的内存超过了Dalvik Heap的最大值。于是也诞生了一些比较”黑科技”的内存优化方案，比如将耗内存的操作放到Native层，或者使用分进程的方式突破每个进程的Dalvik Heap内存限制。</p>
+<h4 id="自身内存占用监控"><a href="#自身内存占用监控" class="headerlink" title="自身内存占用监控"></a>自身内存占用监控</h4><p>对于onLowMemory()与onTrimMemory(int)等是针对整个系统而言的。<br>通过Runtime.totalMemory-freeMemory即为当前应用使用的内存。<br>Runtime.getRuntime().maxMemory();<br>Runtime.getRuntime().totalMemory(); Runtime.getRuntime().freeMemory();</p>
+<h4 id="避免内存泄漏"><a href="#避免内存泄漏" class="headerlink" title="避免内存泄漏"></a>避免内存泄漏</h4><p>内存泄漏是指应用不再使用的内存对象，但垃圾回收时没有辨认出来，不能及时回收，一直保留在内存中长期占用一定的空间不能释放。</p>
 <h4 id="内存泄露的危害："><a href="#内存泄露的危害：" class="headerlink" title="内存泄露的危害："></a>内存泄露的危害：</h4><ul>
 <li>过多的内存泄露最终会导致内存溢出（OOM）</li>
 <li>内存泄露导致可用内存不足，会触发频繁GC，不管是Android2.2以前的单线程GC还是现在的CMS和G1，都有一部分的操作会导致用户线程停止（就是所谓的Stop the world），从而导致UI卡顿。</li>
@@ -485,7 +519,7 @@
 <p> 就可以实现自己的处理方式，如丰富提示信息、把数据保存到本地、上传到服务器分析等。</p>
 </li>
 </ul>
-<h3 id="优化内存空间"><a href="#优化内存空间" class="headerlink" title="优化内存空间"></a>优化内存空间</h3><ol>
+<h4 id="优化内存空间"><a href="#优化内存空间" class="headerlink" title="优化内存空间"></a>优化内存空间</h4><ol>
 <li><p>序列化 Serizable Parcelable<br>Serializable 序列化时会调用ObjectOutputStream.writeObject 反序列化会调用ObjectInputStream.readObject()引用了大量反射机制，导致GC频繁触发。<br>自己实现序列化与反序列化过程需要重写writeObject()和readObject()</p>
 </li>
 <li><p>避免AutoBoxing</p>
@@ -544,7 +578,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;service</div><div class="line">android:name=&quot;.PushService&quot;</div><div class="line">android:process=&quot;:remote&quot;/&gt;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class MyApplication extends Application &#123;</div><div class="line">    private static final String LOGTAG = &quot;MyApplication&quot;;</div><div class="line">    @Override</div><div class="line">    public void onCreate() &#123;</div><div class="line">        super.onCreate();</div><div class="line">        String currentProcessName = getCurrentProcessName();</div><div class="line">        if (getPackageName().equals(currentProcessName)) &#123;</div><div class="line">            //init for default process</div><div class="line">        &#125; else if (currentProcessName.endsWith(&quot;:remote&quot;)) &#123;</div><div class="line">            //init for netowrk process</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>合理使用StringBuffer,StringBuilder,String<br>在简单的字符串拼接中，String的效率是最高的，例如String s = “hello” + “world”;<br>如果你的字符串是来自另外的String对象的话，速度就没那么快了，例如：<br>　　　　String str2 = “This is”;<br>　　　　String str3 = “ a ”;<br>　　　　String str4 = “ test”;<br>　　　　String str1 = str2 +str3 + str4;<br>这里就要求使用StringBuilder了。
+<li><p>合理使用StringBuffer,StringBuilder,String<br>在简单的字符串拼接中，String的效率是最高的，例如String s = “hello” + “world”;<br>如果你的字符串是来自另外的String对象的话，速度就没那么快了，例如：<br>   String str2 = “This is”;<br>   String str3 = “ a ”;<br>   String str4 = “ test”;<br>   String str1 = str2 +str3 + str4;<br>这里就要求使用StringBuilder了。
 　　</p>
 </li>
 <li><p>珍惜Services资源<br>如果你的应用需要在后台使用service，除非它被触发并执行一个任务，否则其他时候Service都应该是停止状态。另外需要注意当这个service完成任务之后因为停止service失败而引起的内存泄漏。 当你启动一个Service，系统会倾向为了保留这个Service而一直保留Service所在的进程。IntentService。</p>
@@ -582,9 +616,9 @@
 </ul>
 </li>
 </ol>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.android.com/topic/performance/memory.html" target="_blank" rel="external">https://developer.android.com/topic/performance/memory.html</a></p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://developer.android.com/topic/performance/memory.html" target="_blank" rel="external">https://developer.android.com/topic/performance/memory.html</a></p>
 <p><a href="http://blog.csdn.net/qq_23191031/article/details/63685756" target="_blank" rel="external">Android性能优化详解内存优化的来龙去脉</a></p>
-<p><a href="https://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&amp;mid=2653578816&amp;idx=1&amp;sn=20b6160e92167dde676561f3a43d0860&amp;chksm=84b3b447b3c43d51c8042b58fef7dcb2755bdb4ceffaf8244b1e88acc6231411e3e9a5f0368f&amp;mpshare=1&amp;scene=24&amp;srcid=0407gek6TWkslG13uVNKgWnp&amp;key=3b2e3b347972bda0160ce87a12f2ac4023e07bae8d2643824f5099d643f67bc11fda267841bc5d474d01ae1bb79b1a07ea270e4f0e22c2a233e564a8f0513fdc8774006a07712f5dd523b4a48d7fb994&amp;ascene=0&amp;uin=MzU5MTI3NQ%3D%3D&amp;devicetype=iMac+MacBookPro11%2C5+OSX+OSX+10.11.6+build(15G1108" target="_blank" rel="external">Android 内存优化总结</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&amp;mid=2653578816&amp;idx=1&amp;sn=20b6160e92167dde676561f3a43d0860&amp;chksm=84b3b447b3c43d51c8042b58fef7dcb2755bdb4ceffaf8244b1e88acc6231411e3e9a5f0368f&amp;mpshare=1&amp;scene=24&amp;srcid=0407gek6TWkslG13uVNKgWnp&amp;key=3b2e3b347972bda0160ce87a12f2ac4023e07bae8d2643824f5099d643f67bc11fda267841bc5d474d01ae1bb79b1a07ea270e4f0e22c2a233e564a8f0513fdc8774006a07712f5dd523b4a48d7fb994&amp;ascene=0&amp;uin=MzU5MTI3NQ%3D%3D&amp;devicetype=iMac+MacBookPro11%2C5+OSX+OSX+10.11.6+build(15G1108" target="_blank" rel="external">Android 内存优化总结</a>)</p>
 
       
     </div>
@@ -717,12 +751,21 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -730,7 +773,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -776,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android内存优化相关"><span class="nav-number">1.</span> <span class="nav-text">Android内存优化相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java内存分配策略概述"><span class="nav-number">1.1.</span> <span class="nav-text">Java内存分配策略概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM垃圾回收"><span class="nav-number">1.2.</span> <span class="nav-text">JVM垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android的内存区域"><span class="nav-number">1.3.</span> <span class="nav-text">Android的内存区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-App为什么会OOM呢？"><span class="nav-number">1.4.</span> <span class="nav-text">Android App为什么会OOM呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自身内存占用监控"><span class="nav-number">1.5.</span> <span class="nav-text">自身内存占用监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免内存泄漏"><span class="nav-number">1.6.</span> <span class="nav-text">避免内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄露的危害："><span class="nav-number">1.6.1.</span> <span class="nav-text">内存泄露的危害：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见内存泄漏场景"><span class="nav-number">1.6.2.</span> <span class="nav-text">常见内存泄漏场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄漏监控"><span class="nav-number">1.6.3.</span> <span class="nav-text">内存泄漏监控</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化内存空间"><span class="nav-number">1.7.</span> <span class="nav-text">优化内存空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.8.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java内存分配策略概述"><span class="nav-number">1.</span> <span class="nav-text">Java内存分配策略概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM垃圾回收"><span class="nav-number">2.</span> <span class="nav-text">JVM垃圾回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android的内存区域"><span class="nav-number">3.</span> <span class="nav-text">Android的内存区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-App为什么会OOM呢？"><span class="nav-number">4.</span> <span class="nav-text">Android App为什么会OOM呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自身内存占用监控"><span class="nav-number">5.</span> <span class="nav-text">自身内存占用监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免内存泄漏"><span class="nav-number">6.</span> <span class="nav-text">避免内存泄漏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄露的危害："><span class="nav-number">7.</span> <span class="nav-text">内存泄露的危害：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见内存泄漏场景"><span class="nav-number">8.</span> <span class="nav-text">常见内存泄漏场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存泄漏监控"><span class="nav-number">9.</span> <span class="nav-text">内存泄漏监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化内存空间"><span class="nav-number">10.</span> <span class="nav-text">优化内存空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">11.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="Glide 系列文章https://mrfu.me/2016/02/27/Glide_Request_Priorities/ Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms设置超时时间方法1、使用Volley作为协议栈compile ‘com.github.bumptech.glide:volley-integration:1.5.0@aar’">
+<meta name="description" content="Glide 系列文章https://mrfu.me/2016/02/27/Glide_Request_Priorities/ Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms设置超时时间方法">
 <meta name="keywords" content="Android,Blog,Glide">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Glide 设置超时时间">
 <meta property="og:url" content="http://yoursite.com/2017/06/22/2017-06-22-Glide设置超时时间/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="Glide 系列文章https://mrfu.me/2016/02/27/Glide_Request_Priorities/ Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms设置超时时间方法1、使用Volley作为协议栈compile ‘com.github.bumptech.glide:volley-integration:1.5.0@aar’">
-<meta property="og:updated_time" content="2017-07-06T12:30:57.000Z">
+<meta property="og:description" content="Glide 系列文章https://mrfu.me/2016/02/27/Glide_Request_Priorities/ Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms设置超时时间方法">
+<meta property="og:updated_time" content="2017-07-27T07:02:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide 设置超时时间">
-<meta name="twitter:description" content="Glide 系列文章https://mrfu.me/2016/02/27/Glide_Request_Priorities/ Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms设置超时时间方法1、使用Volley作为协议栈compile ‘com.github.bumptech.glide:volley-integration:1.5.0@aar’">
+<meta name="twitter:description" content="Glide 系列文章https://mrfu.me/2016/02/27/Glide_Request_Priorities/ Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms设置超时时间方法">
 
 
 
@@ -361,6 +361,39 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Glide/" itemprop="url" rel="index">
+                    <span itemprop="name">Glide</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -387,7 +420,9 @@
 
       
         <p>Glide 系列文章<br><a href="https://mrfu.me/2016/02/27/Glide_Request_Priorities/" target="_blank" rel="external">https://mrfu.me/2016/02/27/Glide_Request_Priorities/</a></p>
-<p>Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms<br>设置超时时间方法<br>1、使用Volley作为协议栈<br>compile ‘com.github.bumptech.glide:volley-integration:1.5.0@aar’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class CustomGlideModule implements GlideModule &#123;</div><div class="line">    @Override</div><div class="line">    public void applyOptions(Context context, GlideBuilder builder) &#123;</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public void registerComponents(Context context, Glide glide) &#123;</div><div class="line">        RequestQueue queue = new RequestQueue( // params hardcoded from Volley.newRequestQueue()</div><div class="line">                new DiskBasedCache(new File(context.getCacheDir(), &quot;volley&quot;)),</div><div class="line">                new BasicNetwork(new HurlStack())) &#123;</div><div class="line">            @Override public &lt;T&gt; Request&lt;T&gt; add(Request&lt;T&gt; request) &#123;</div><div class="line">                request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1));</div><div class="line">                return super.add(request);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        queue.start();</div><div class="line">        glide.register(GlideUrl.class, InputStream.class, new VolleyUrlLoader.Factory(queue));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Glide默认使用HttpUrlConnection作为协议栈进行网络连接默认超时时间为2500ms<br>设置超时时间方法</p>
+<a id="more"></a>
+<p>1、使用Volley作为协议栈<br>compile ‘com.github.bumptech.glide:volley-integration:1.5.0@aar’<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomGlideModule</span> <span class="keyword">implements</span> <span class="title">GlideModule</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">applyOptions</span><span class="params">(Context context, GlideBuilder builder)</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">(Context context, Glide glide)</span> </span>&#123;</div><div class="line">        RequestQueue queue = <span class="keyword">new</span> RequestQueue( <span class="comment">// params hardcoded from Volley.newRequestQueue()</span></div><div class="line">                <span class="keyword">new</span> DiskBasedCache(<span class="keyword">new</span> File(context.getCacheDir(), <span class="string">"volley"</span>)),</div><div class="line">                <span class="keyword">new</span> BasicNetwork(<span class="keyword">new</span> HurlStack())) &#123;</div><div class="line">            <span class="meta">@Override</span> <span class="keyword">public</span> &lt;T&gt; <span class="function">Request&lt;T&gt; <span class="title">add</span><span class="params">(Request&lt;T&gt; request)</span> </span>&#123;</div><div class="line">                request.setRetryPolicy(<span class="keyword">new</span> DefaultRetryPolicy(<span class="number">10000</span>, <span class="number">1</span>, <span class="number">1</span>));</div><div class="line">                <span class="keyword">return</span> <span class="keyword">super</span>.add(request);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        queue.start();</div><div class="line">        glide.register(GlideUrl.class, InputStream.class, <span class="keyword">new</span> VolleyUrlLoader.Factory(queue));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;meta-data</div><div class="line">    android:name=&quot;&#123;packageName&#125;.CustomGlideModule&quot;</div><div class="line">    android:value=&quot;GlideModule&quot; /&gt;</div></pre></td></tr></table></figure>
 <p>2、使用OkHttp作为协议栈<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile &apos;com.github.bumptech.glide:okhttp-integration:1.5.0@aar&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class CustomGlideModule extends GlideModule &#123;</div><div class="line">    @Override</div><div class="line">    public void applyOptions(Context context, GlideBuilder builder) &#123;</div><div class="line">        // stub</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void registerComponents(Context context, Glide glide) &#123;</div><div class="line">        final OkHttpClient.Builder builder = new OkHttpClient.Builder();</div><div class="line"></div><div class="line">        // set your timeout here</div><div class="line">        builder.readTimeout(30, TimeUnit.SECONDS);</div><div class="line">        builder.writeTimeout(30, TimeUnit.SECONDS);</div><div class="line">        builder.connectTimeout(30, TimeUnit.SECONDS);</div><div class="line"></div><div class="line">        glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -513,12 +548,21 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -526,7 +570,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

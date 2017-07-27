@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="理解Android中的SharedPreferencesSharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：（1）每次调用getSharedPreferences时都会创建一个SharedPreferenc">
+<meta name="description" content="SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：">
 <meta name="keywords" content="Android,分享,Blog,存储,SharedPreferences">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解Android中的SharedPreferences">
 <meta property="og:url" content="http://yoursite.com/2017/05/13/2017-05-13-理解Android中的SharedPreferences/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="理解Android中的SharedPreferencesSharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：（1）每次调用getSharedPreferences时都会创建一个SharedPreferenc">
-<meta property="og:updated_time" content="2017-06-22T09:15:15.000Z">
+<meta property="og:description" content="SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：">
+<meta property="og:updated_time" content="2017-07-27T07:03:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解Android中的SharedPreferences">
-<meta name="twitter:description" content="理解Android中的SharedPreferencesSharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：（1）每次调用getSharedPreferences时都会创建一个SharedPreferenc">
+<meta name="twitter:description" content="SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：">
 
 
 
@@ -361,6 +361,39 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/SharedPreferences/" itemprop="url" rel="index">
+                    <span itemprop="name">SharedPreferences</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -386,7 +419,9 @@
       
 
       
-        <h1 id="理解Android中的SharedPreferences"><a href="#理解Android中的SharedPreferences" class="headerlink" title="理解Android中的SharedPreferences"></a>理解Android中的SharedPreferences</h1><p>SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：<br>（1）每次调用getSharedPreferences时都会创建一个SharedPreferences对象吗？这个对象具体是哪个类对象？<br>（2）在UI线程中调用getXXX有可能导致ANR吗？<br>（3）为什么SharedPreferences只适合用来存放少量数据，为什么不能把SharedPreferences对应的xml文件当成普通文件一样存放大量数据？<br>（4）commit和apply有什么区别？<br>（5）SharedPreferences每次写入时是增量写入吗？</p>
+        <p>SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题： </p>
+<a id="more"></a>
+<p>（1）每次调用getSharedPreferences时都会创建一个SharedPreferences对象吗？这个对象具体是哪个类对象？<br>（2）在UI线程中调用getXXX有可能导致ANR吗？<br>（3）为什么SharedPreferences只适合用来存放少量数据，为什么不能把SharedPreferences对应的xml文件当成普通文件一样存放大量数据？<br>（4）commit和apply有什么区别？<br>（5）SharedPreferences每次写入时是增量写入吗？</p>
 <p>要想弄清楚上面几个问题，需要查看SharedPreferences的源码实现才能解决。先从Context的getSharedPreferences开始：<br>我们知道Android中的Context类体系其实是使用了装饰者模式，而被装饰对象就这个mBase，它其实就是一个ContextImpl对象，ContextImpl的getSharedPreferences方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">    public SharedPreferences getSharedPreferences(String name, int mode) &#123;</div><div class="line">        SharedPreferencesImpl sp;</div><div class="line">        synchronized (ContextImpl.class) &#123;</div><div class="line">            if (sSharedPrefs == null) &#123;</div><div class="line">                sSharedPrefs = new ArrayMap&lt;String, ArrayMap&lt;String, SharedPreferencesImpl&gt;&gt;();</div><div class="line">            &#125;</div><div class="line">            final String packageName = getPackageName();</div><div class="line">            ArrayMap&lt;String, SharedPreferencesImpl&gt; packagePrefs = sSharedPrefs.get(packageName);</div><div class="line">            if (packagePrefs == null) &#123;</div><div class="line">                packagePrefs = new ArrayMap&lt;String, SharedPreferencesImpl&gt;();</div><div class="line">                sSharedPrefs.put(packageName, packagePrefs);</div><div class="line">            &#125;</div><div class="line">            // At least one application in the world actually passes in a null</div><div class="line">            // name.  This happened to work because when we generated the file name</div><div class="line">            // we would stringify it to &quot;null.xml&quot;.  Nice.</div><div class="line">            if (mPackageInfo.getApplicationInfo().targetSdkVersion &lt;</div><div class="line">                    Build.VERSION_CODES.KITKAT) &#123;</div><div class="line">                if (name == null) &#123;</div><div class="line">                    name = &quot;null&quot;;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            sp = packagePrefs.get(name);</div><div class="line">            if (sp == null) &#123;</div><div class="line">                File prefsFile = getSharedPrefsFile(name);</div><div class="line">                sp = new SharedPreferencesImpl(prefsFile, mode);</div><div class="line">                packagePrefs.put(name, sp);</div><div class="line">                return sp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if ((mode &amp; Context.MODE_MULTI_PROCESS) != 0 ||</div><div class="line">            getApplicationInfo().targetSdkVersion &lt; android.os.Build.VERSION_CODES.HONEYCOMB) &#123;</div><div class="line">            // If somebody else (some other process) changed the prefs</div><div class="line">            // file behind our back, we reload it.  This has been the</div><div class="line">            // historical (if undocumented) behavior.</div><div class="line">            sp.startReloadIfChangedUnexpectedly();</div><div class="line">        &#125;</div><div class="line">        return sp;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p>使用到了单例模式，sSharedPrefs 是一个ArrayMap，packagePrefs也是一个ArrayMap，它们的关系是这样的：<br>packagePrefs存放文件name与SharedPreferencesImpl键值对，sSharedPrefs存放包名与ArrayMap键值对。注意sSharedPrefs是static变量，也就是一个类只有一个实例，因此你每次getSharedPreferences其实拿到的都是同一个SharedPreferences对象。这里回答第一个问题，对于一个相同的SharedPreferences name，获取到的都是同一个SharedPreferences对象，它其实是SharedPreferencesImpl对象。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">SharedPreferencesImpl(File file, int mode) &#123;</div><div class="line">    mFile = file;</div><div class="line">    mBackupFile = makeBackupFile(file);</div><div class="line">    mMode = mode;</div><div class="line">    mLoaded = false;</div><div class="line">    mMap = null;</div><div class="line">    startLoadFromDisk();</div><div class="line">&#125;</div><div class="line">private void startLoadFromDisk() &#123;</div><div class="line">    synchronized (this) &#123;</div><div class="line">        mLoaded = false;</div><div class="line">    &#125;</div><div class="line">    new Thread(&quot;SharedPreferencesImpl-load&quot;) &#123;</div><div class="line">        public void run() &#123;</div><div class="line">            synchronized (SharedPreferencesImpl.this) &#123;</div><div class="line">                loadFromDiskLocked();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -512,17 +547,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpeg"
@@ -537,12 +563,21 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -550,7 +585,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -586,22 +621,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理解Android中的SharedPreferences"><span class="nav-number">1.</span> <span class="nav-text">理解Android中的SharedPreferences</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

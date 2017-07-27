@@ -87,19 +87,19 @@
 
 
 
-<meta name="description" content="Android绘制相关卡顿场景Android系统显示原理Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的surface缓存数据，通过SurfaceFlinger把数据渲染到屏幕上，通过 UI优化 Overdraw的检测 设置 -&amp;gt; 开发者选项 -&amp;gt; 调试GPU过度绘制 -&amp;gt; 显示GPU过度绘制对比一张Overdraw的参考图： 移除Activi">
+<meta name="description" content="Android绘制相关Android系统显示原理Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的surface缓存数据，通过SurfaceFlinger把数据渲染到屏幕上">
 <meta name="keywords" content="Android,Blog,View,绘制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android绘制相关">
 <meta property="og:url" content="http://yoursite.com/2016/05/10/2016-05-10-Android布局优化相关/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="Android绘制相关卡顿场景Android系统显示原理Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的surface缓存数据，通过SurfaceFlinger把数据渲染到屏幕上，通过 UI优化 Overdraw的检测 设置 -&amp;gt; 开发者选项 -&amp;gt; 调试GPU过度绘制 -&amp;gt; 显示GPU过度绘制对比一张Overdraw的参考图： 移除Activi">
+<meta property="og:description" content="Android绘制相关Android系统显示原理Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的surface缓存数据，通过SurfaceFlinger把数据渲染到屏幕上">
 <meta property="og:image" content="http://yoursite.com/images/memory/overdraw.png">
-<meta property="og:image" content="http://yoursite.com/images/memory/hierarchy_view.png">
-<meta property="og:updated_time" content="2017-07-25T06:36:01.000Z">
+<meta property="og:image" content="http://yoursite.com/images/memory/hierarchy_view.jpeg">
+<meta property="og:updated_time" content="2017-07-27T07:23:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android绘制相关">
-<meta name="twitter:description" content="Android绘制相关卡顿场景Android系统显示原理Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的surface缓存数据，通过SurfaceFlinger把数据渲染到屏幕上，通过 UI优化 Overdraw的检测 设置 -&amp;gt; 开发者选项 -&amp;gt; 调试GPU过度绘制 -&amp;gt; 显示GPU过度绘制对比一张Overdraw的参考图： 移除Activi">
+<meta name="twitter:description" content="Android绘制相关Android系统显示原理Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的surface缓存数据，通过SurfaceFlinger把数据渲染到屏幕上">
 <meta name="twitter:image" content="http://yoursite.com/images/memory/overdraw.png">
 
 
@@ -364,6 +364,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -389,8 +411,9 @@
       
 
       
-        <h5 id="Android绘制相关"><a href="#Android绘制相关" class="headerlink" title="Android绘制相关"></a>Android绘制相关</h5><h5 id="卡顿场景"><a href="#卡顿场景" class="headerlink" title="卡顿场景"></a>卡顿场景</h5><p>Android系统显示原理<br>Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的<code>surface</code>缓存数据，通过SurfaceFlinger把数据渲染到屏幕上，通过</p>
-<h3 id="UI优化"><a href="#UI优化" class="headerlink" title="UI优化"></a>UI优化</h3><ol>
+        <h4 id="Android绘制相关"><a href="#Android绘制相关" class="headerlink" title="Android绘制相关"></a>Android绘制相关</h4><p>Android系统显示原理<br>Android的显示过程简单概括为：Adnroid应用程序把经过测量、布局、绘制后的<code>surface</code>缓存数据，通过SurfaceFlinger把数据渲染到屏幕上</p>
+<a id="more"></a>
+<h4 id="UI优化"><a href="#UI优化" class="headerlink" title="UI优化"></a>UI优化</h4><ol>
 <li><p>Overdraw的检测</p>
 <p>设置 -&gt; 开发者选项 -&gt; 调试GPU过度绘制 -&gt; 显示GPU过度绘制<br>对比一张Overdraw的参考图：<br><img src="/images/memory/overdraw.png" alt="overdraw"></p>
 <p>移除Activity的默认背景。 </p>
@@ -398,13 +421,11 @@
 <p>ListView背景 </p>
 <p>ListView的Header背景和item背景 </p>
 </li>
-</ol>
-<ol>
 <li><p>减少不必要的嵌套</p>
 <p>使用Hierarchy Viewer查看布局层级</p>
 </li>
 </ol>
-<p><img src="/images/memory/hierarchy_view.png" alt="hierarchy_view"></p>
+<p><img src="/images/memory/hierarchy_view.jpeg" alt="hierarchy_view"></p>
 <p> <code>&lt;include&gt;</code>标签可以允许在一个布局当中引入另外一个布局。</p>
 <p> <code>&lt;merge&gt;</code>标签是作为<include>标签的一种辅助扩展来使用的，它的主要作用是为了防止在引用布局文件时产生多余的布局嵌套。</include></p>
 <p> <code>&lt;ViewStub&gt;</code>虽说也是View的一种，但是它没有大小，没有绘制功能，也不参与布局，资源消耗非常低，将它放置在布局当中基本可以认为是完全不会影响性能的</p>
@@ -540,12 +561,21 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -553,7 +583,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -599,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Android绘制相关"><span class="nav-number">1.</span> <span class="nav-text">Android绘制相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#卡顿场景"><span class="nav-number">2.</span> <span class="nav-text">卡顿场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI优化"><span class="nav-number"></span> <span class="nav-text">UI优化</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android绘制相关"><span class="nav-number">1.</span> <span class="nav-text">Android绘制相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI优化"><span class="nav-number">2.</span> <span class="nav-text">UI优化</span></a></li></ol></div>
             
 
           </div>

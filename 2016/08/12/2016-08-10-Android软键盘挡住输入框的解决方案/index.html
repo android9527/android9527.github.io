@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/08/12/2016-08-10-Android软键盘挡住输入框的解决方案/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="Android软键盘挡住输入框的解决方案在Android开发的路上，『软键盘挡住了输入框』这个坑，可谓是一个旷日持久的巨坑，我们慢慢看。 入门篇最基本的情况：在页面底部有一个EditText，如果不做任何处理，那么在软键盘弹出的时候，就有可能会挡住EditText。对于这种情况的处理其实很简单，只需要在AndroidManifest文件中对activity设置：android:windowSoft">
-<meta property="og:updated_time" content="2017-07-20T07:51:18.000Z">
+<meta property="og:updated_time" content="2017-07-27T07:09:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android软键盘挡住输入框的解决方案">
 <meta name="twitter:description" content="Android软键盘挡住输入框的解决方案在Android开发的路上，『软键盘挡住了输入框』这个坑，可谓是一个旷日持久的巨坑，我们慢慢看。 入门篇最基本的情况：在页面底部有一个EditText，如果不做任何处理，那么在软键盘弹出的时候，就有可能会挡住EditText。对于这种情况的处理其实很简单，只需要在AndroidManifest文件中对activity设置：android:windowSoft">
@@ -387,7 +387,9 @@
 
       
         <h4 id="Android软键盘挡住输入框的解决方案"><a href="#Android软键盘挡住输入框的解决方案" class="headerlink" title="Android软键盘挡住输入框的解决方案"></a>Android软键盘挡住输入框的解决方案</h4><p>在Android开发的路上，『软键盘挡住了输入框』这个坑，可谓是一个旷日持久的巨坑，我们慢慢看。</p>
-<h4 id="入门篇"><a href="#入门篇" class="headerlink" title="入门篇"></a>入门篇</h4><p>最基本的情况：在页面底部有一个EditText，如果不做任何处理，那么在软键盘弹出的时候，就有可能会挡住EditText。<br>对于这种情况的处理其实很简单，只需要在AndroidManifest文件中对activity设置：<code>android:windowSoftInputMode</code>的值<code>adjustPan</code>或者<code>adjustResize</code>即可，像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;activity android:name=&quot;.MainActivity&quot;</div><div class="line">    android:windowSoftInputMode=&quot;adjustPan&quot;  &gt;</div><div class="line">    ...</div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="入门篇"><a href="#入门篇" class="headerlink" title="入门篇"></a>入门篇</h4><p>最基本的情况：在页面底部有一个EditText，如果不做任何处理，那么在软键盘弹出的时候，就有可能会挡住EditText。<br>对于这种情况的处理其实很简单，只需要在AndroidManifest文件中对activity设置：<code>android:windowSoftInputMode</code>的值<code>adjustPan</code>或者<code>adjustResize</code>即可，像这样：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;activity android:name=&quot;.MainActivity&quot;</div><div class="line">    android:windowSoftInputMode=&quot;adjustPan&quot;  &gt;</div><div class="line">    ...</div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure>
 <p>一般来说，他们都可以解决问题，当然，<code>adjustPan</code>跟<code>adjustResize</code>的效果略有区别。</p>
 <p><code>adjustPan</code>是把整个界面向上平移，使输入框露出，不会改变界面的布局；<br><code>adjustResize</code>则是重新计算弹出软键盘之后的界面大小，相当于是用更少的界面区域去显示内容，输入框一般自然也就在内了。</p>
 <p>加上WebView试试看？坑来了……<br>上面的入门篇中，软键盘是由原生的EditText触发弹出的。而在H5、Hybrid几乎已经成为App标配的时候，我们经常还会碰到的情况是：软键盘是由WebView中的网页元素所触发弹出的。</p>
@@ -607,12 +609,21 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -620,7 +631,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
