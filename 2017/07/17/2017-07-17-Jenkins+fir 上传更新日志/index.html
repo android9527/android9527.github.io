@@ -94,14 +94,14 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/17/2017-07-17-Jenkins+fir 上传更新日志/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="背景在日常开发中持续集成可以节省开发者很多时间和精力，fir下载地址和邮件没有更新日志内容，这样无法通知测试人员具体修改内容，造成了很多不便，所以有了这个需求">
-<meta property="og:image" content="http://yoursite.com/2017/07/17/images/jenkins/upload_log_1.jpeg">
-<meta property="og:image" content="http://yoursite.com/2017/07/17/images/jenkins/upload_log_2.jpeg">
-<meta property="og:image" content="http://yoursite.com/2017/07/17/images/jenkins/upload_log_3.jpeg">
-<meta property="og:updated_time" content="2017-07-27T07:00:03.000Z">
+<meta property="og:image" content="http://yoursite.com/images/jenkins/upload_log_1.jpeg">
+<meta property="og:image" content="http://yoursite.com/images/jenkins/upload_log_2.jpeg">
+<meta property="og:image" content="http://yoursite.com/images/jenkins/upload_log_3.jpeg">
+<meta property="og:updated_time" content="2017-07-27T09:42:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins+fir 上传更新日志">
 <meta name="twitter:description" content="背景在日常开发中持续集成可以节省开发者很多时间和精力，fir下载地址和邮件没有更新日志内容，这样无法通知测试人员具体修改内容，造成了很多不便，所以有了这个需求">
-<meta name="twitter:image" content="http://yoursite.com/2017/07/17/images/jenkins/upload_log_1.jpeg">
+<meta name="twitter:image" content="http://yoursite.com/images/jenkins/upload_log_1.jpeg">
 
 
 
@@ -417,16 +417,16 @@
 <h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>前提：首先你得先折腾好打包工具吧，现在的教程都已经很多了</p>
 <ul>
 <li><p>首先安装插件：Environment Injector Plugin (<a href="http://updates.jenkins-ci.org/download/plugins/envinject/)，下载成功后打开`Jenkins-&gt;系统管理-&gt;管理插件-&gt;高级-&gt;拖至页面底部上传插件-&gt;选中文件点击上传`，提示成功后返回首页。" target="_blank" rel="external">http://updates.jenkins-ci.org/download/plugins/envinject/)，下载成功后打开`Jenkins-&gt;系统管理-&gt;管理插件-&gt;高级-&gt;拖至页面底部上传插件-&gt;选中文件点击上传`，提示成功后返回首页。</a></p>
-<p><img src="../images/jenkins/upload_log_1.jpeg" alt="jenkins-1"></p>
+<p><img src="/images/jenkins/upload_log_1.jpeg" alt="jenkins-1"></p>
 </li>
 <li><p>进入现有的项目，输出commit日志内容：<code>增加构建步骤-&gt;Execute shell</code>-&gt;在Command输入以下内容（注意替换username和password）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GIT_LOG=$(git log --pretty=format:&quot;%cd : %s&quot; --no-merges -3)</div><div class="line">echo GIT_LOG=$GIT_LOG &gt; log.txt</div></pre></td></tr></table></figure>
-<p><img src="../images/jenkins/upload_log_2.jpeg" alt="jenkins-1"></p>
+<p><img src="/images/jenkins/upload_log_2.jpeg" alt="jenkins-1"></p>
 </li>
 </ul>
 <ul>
 <li><p>设置commit日志保存路径：增加构建步骤-&gt;Inject environment variables-&gt;在Properties File Path输入log.txt。</p>
-<p><img src="../images/jenkins/upload_log_3.jpeg" alt="jenkins-1"></p>
+<p><img src="/images/jenkins/upload_log_3.jpeg" alt="jenkins-1"></p>
 </li>
 <li><p>获取到commit日志后发给fir:<code>增加构建后操作步骤-&gt;Upload to fir.im-&gt;在fir.im Token</code>中输入你从fir获得的token，然后在<code>Build Notes</code>中输入:<br>$GIT_LOG</p>
 </li>
@@ -513,8 +513,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/27/2017-07-27-Aop技术在Android中的简单应用/" rel="prev" title="Aop技术在Android中的简单应用">
-                Aop技术在Android中的简单应用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/27/2017-07-27-Aop技术在Android中的应用/" rel="prev" title="Aop技术在Android中的应用">
+                Aop技术在Android中的应用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
