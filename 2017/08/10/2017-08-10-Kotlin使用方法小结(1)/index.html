@@ -90,14 +90,17 @@
 <meta name="description" content="Kotlin语法特点 兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。 性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambda">
 <meta name="keywords" content="Android,Kotlin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kotlin使用方法小结">
+<meta property="og:title" content="Kotlin使用方法小结(1)">
 <meta property="og:url" content="http://yoursite.com/2017/08/10/2017-08-10-Kotlin使用方法小结(1)/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="Kotlin语法特点 兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。 性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambda">
-<meta property="og:updated_time" content="2017-08-18T10:44:33.000Z">
+<meta property="og:image" content="http://yoursite.com/images/kotlin/kotlin1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/kotlin/kotlin2.jpg">
+<meta property="og:updated_time" content="2017-09-26T04:11:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kotlin使用方法小结">
+<meta name="twitter:title" content="Kotlin使用方法小结(1)">
 <meta name="twitter:description" content="Kotlin语法特点 兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。 性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambda">
+<meta name="twitter:image" content="http://yoursite.com/images/kotlin/kotlin1.jpg">
 
 
 
@@ -131,7 +134,7 @@
 
 
 
-  <title> Kotlin使用方法小结 | 个人博客 </title>
+  <title> Kotlin使用方法小结(1) | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -335,7 +338,7 @@
             
             
               
-                Kotlin使用方法小结
+                Kotlin使用方法小结(1)
               
             
           </h1>
@@ -420,6 +423,19 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> positiveNumbers = list.filter &#123; it &gt; <span class="number">0</span> &#125;</div></pre></td></tr></table></figure>
 <p>想要单例？创建一个 object 就可以了：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">object</span> ThisIsASingleton &#123;</div><div class="line">    <span class="keyword">val</span> companyName: String = <span class="string">"JetBrains"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><p>彻底告别那些烦人的 NullPointerException，毕竟价值万亿。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> output: String</div><div class="line">output = <span class="literal">null</span>   <span class="comment">// 编译错误</span></div></pre></td></tr></table></figure>
+<p>Kotlin 可以保护你避免对可空类型的误操作</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> name: String? = <span class="literal">null</span>    <span class="comment">// 可控类型</span></div><div class="line">println(name.length())      <span class="comment">// 编译错误</span></div></pre></td></tr></table></figure>
+<p>并且如果你检查类型是正确的，编译器会为你做自动类型转换</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">calculateTotal</span><span class="params">(obj: <span class="type">Any</span>)</span></span> &#123;</div><div class="line">    <span class="keyword">if</span> (obj <span class="keyword">is</span> Invoice)</div><div class="line">        obj.calculateTotal()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="互操作性"><a href="#互操作性" class="headerlink" title="互操作性"></a>互操作性</h4><p>使用 JVM 上的任何现有库，因为有 100％ 的兼容性，包括 SAM 支持。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> io.reactivex.Flowable</div><div class="line"><span class="keyword">import</span> io.reactivex.schedulers.Schedulers</div><div class="line"></div><div class="line">Flowable</div><div class="line">    .fromCallable &#123;</div><div class="line">        Thread.sleep(<span class="number">1000</span>) <span class="comment">//  模仿高开销的计算</span></div><div class="line">        <span class="string">"Done"</span></div><div class="line">    &#125;</div><div class="line">    .subscribeOn(Schedulers.io())</div><div class="line">    .observeOn(Schedulers.single())</div><div class="line">    .subscribe(::println, Throwable::printStackTrace)</div></pre></td></tr></table></figure>
+<p>无论是 JVM 还是 JavaScript 目标平台，都可用 Kotlin 写代码然后部署到你想要的地方</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> kotlin.browser.window</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">onLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    window.document.body!!.innerHTML += <span class="string">"&lt;br/&gt;Hello, Kotlin!"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="工具友好"><a href="#工具友好" class="headerlink" title="工具友好"></a>工具友好</h4><p>工具化</p>
+<p>一门语言需要工具化，而在 JetBrains，这正是我们做得最好的地方！<br><img src="/images/kotlin/kotlin1.jpg" alt="TCP"></p>
+<p><img src="/images/kotlin/kotlin2.jpg" alt="TCP"></p>
 <h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>当Kotlin中的类需要构造函数时，可以有一个主构造函数和多个次构造函数，可以没有次构造函数。主构造函数在类名后。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 常规用法</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People1</span></span>(name: String) &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 当主构造函数有注解或者可见性修饰符，需加 constructor 关键字</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People2</span> <span class="keyword">public</span> <span class="meta">@Inject</span> <span class="keyword">constructor</span></span>(name: String) &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//若主构造函数中，不进行初始化, 可放在init&#123;&#125;中</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People3</span></span>(name: String) &#123;</div><div class="line">    <span class="keyword">val</span> name: String</div><div class="line"></div><div class="line">    init &#123;</div><div class="line">        println(<span class="string">"initialize"</span>)</div><div class="line">        <span class="keyword">this</span>.name = name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 如果类有一个主构造函数（无论有无参数），每个次构造函数需要直接或间接委托给主构造函数，用this关键字</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People4</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>() &#123;</div><div class="line">        println(<span class="string">"constructor"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">constructor</span>(name: String) : <span class="keyword">this</span>() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">constructor</span>(name: String, age: <span class="built_in">Int</span>) : <span class="keyword">this</span>(name) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="TODO关键字"><a href="#TODO关键字" class="headerlink" title="TODO关键字"></a>TODO关键字</h4><p>调用含有<code>TODO</code>关键字的方法将直接抛出异常</p>
@@ -645,7 +661,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -667,7 +683,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -713,7 +729,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kotlin语法特点"><span class="nav-number">1.</span> <span class="nav-text">Kotlin语法特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简洁"><span class="nav-number">2.</span> <span class="nav-text">简洁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数"><span class="nav-number">3.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TODO关键字"><span class="nav-number">4.</span> <span class="nav-text">TODO关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kotlin控制流"><span class="nav-number">5.</span> <span class="nav-text">Kotlin控制流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#延迟初始化成员变量"><span class="nav-number">6.</span> <span class="nav-text">延迟初始化成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数重载"><span class="nav-number">7.</span> <span class="nav-text">函数重载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中缀表示法"><span class="nav-number">8.</span> <span class="nav-text">中缀表示法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#局部函数"><span class="nav-number">9.</span> <span class="nav-text">局部函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展属性及扩展函数"><span class="nav-number">10.</span> <span class="nav-text">扩展属性及扩展函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口"><span class="nav-number">11.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高阶函数和-lambda-表达式"><span class="nav-number">12.</span> <span class="nav-text">高阶函数和 lambda 表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高阶函数"><span class="nav-number">13.</span> <span class="nav-text">高阶函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">14.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数"><span class="nav-number">15.</span> <span class="nav-text">内联函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">16.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kotlin语法特点"><span class="nav-number">1.</span> <span class="nav-text">Kotlin语法特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简洁"><span class="nav-number">2.</span> <span class="nav-text">简洁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">3.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#互操作性"><span class="nav-number">4.</span> <span class="nav-text">互操作性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工具友好"><span class="nav-number">5.</span> <span class="nav-text">工具友好</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数"><span class="nav-number">6.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TODO关键字"><span class="nav-number">7.</span> <span class="nav-text">TODO关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kotlin控制流"><span class="nav-number">8.</span> <span class="nav-text">Kotlin控制流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#延迟初始化成员变量"><span class="nav-number">9.</span> <span class="nav-text">延迟初始化成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数重载"><span class="nav-number">10.</span> <span class="nav-text">函数重载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中缀表示法"><span class="nav-number">11.</span> <span class="nav-text">中缀表示法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#局部函数"><span class="nav-number">12.</span> <span class="nav-text">局部函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展属性及扩展函数"><span class="nav-number">13.</span> <span class="nav-text">扩展属性及扩展函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口"><span class="nav-number">14.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高阶函数和-lambda-表达式"><span class="nav-number">15.</span> <span class="nav-text">高阶函数和 lambda 表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高阶函数"><span class="nav-number">16.</span> <span class="nav-text">高阶函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">17.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数"><span class="nav-number">18.</span> <span class="nav-text">内联函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">19.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
