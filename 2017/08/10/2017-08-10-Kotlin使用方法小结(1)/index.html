@@ -96,7 +96,7 @@
 <meta property="og:description" content="Kotlin语法特点 兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。 性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambda">
 <meta property="og:image" content="http://yoursite.com/images/kotlin/kotlin1.jpg">
 <meta property="og:image" content="http://yoursite.com/images/kotlin/kotlin2.jpg">
-<meta property="og:updated_time" content="2017-09-26T04:11:04.000Z">
+<meta property="og:updated_time" content="2018-03-11T15:30:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin使用方法小结(1)">
 <meta name="twitter:description" content="Kotlin语法特点 兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。 性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambda">
@@ -423,7 +423,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> positiveNumbers = list.filter &#123; it &gt; <span class="number">0</span> &#125;</div></pre></td></tr></table></figure>
 <p>想要单例？创建一个 object 就可以了：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">object</span> ThisIsASingleton &#123;</div><div class="line">    <span class="keyword">val</span> companyName: String = <span class="string">"JetBrains"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><p>彻底告别那些烦人的 NullPointerException，毕竟价值万亿。</p>
+<h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><p>彻底告别那些烦人的 NullPointerException。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> output: String</div><div class="line">output = <span class="literal">null</span>   <span class="comment">// 编译错误</span></div></pre></td></tr></table></figure>
 <p>Kotlin 可以保护你避免对可空类型的误操作</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> name: String? = <span class="literal">null</span>    <span class="comment">// 可控类型</span></div><div class="line">println(name.length())      <span class="comment">// 编译错误</span></div></pre></td></tr></table></figure>
@@ -438,6 +438,14 @@
 <p><img src="/images/kotlin/kotlin2.jpg" alt="TCP"></p>
 <h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>当Kotlin中的类需要构造函数时，可以有一个主构造函数和多个次构造函数，可以没有次构造函数。主构造函数在类名后。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 常规用法</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People1</span></span>(name: String) &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 当主构造函数有注解或者可见性修饰符，需加 constructor 关键字</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People2</span> <span class="keyword">public</span> <span class="meta">@Inject</span> <span class="keyword">constructor</span></span>(name: String) &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//若主构造函数中，不进行初始化, 可放在init&#123;&#125;中</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People3</span></span>(name: String) &#123;</div><div class="line">    <span class="keyword">val</span> name: String</div><div class="line"></div><div class="line">    init &#123;</div><div class="line">        println(<span class="string">"initialize"</span>)</div><div class="line">        <span class="keyword">this</span>.name = name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 如果类有一个主构造函数（无论有无参数），每个次构造函数需要直接或间接委托给主构造函数，用this关键字</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">People4</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>() &#123;</div><div class="line">        println(<span class="string">"constructor"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">constructor</span>(name: String) : <span class="keyword">this</span>() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">constructor</span>(name: String, age: <span class="built_in">Int</span>) : <span class="keyword">this</span>(name) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>/**</p>
+<ul>
+<li>内部类</li>
+<li>1.kotlin默认的内部类是静态内部类，不能持有外部类的状态（属性、方法等）</li>
+<li>2.给内部类加上inner关键词之后，就会变成非静态内部类，可以访问外部类的属性和方法</li>
+<li>3.非静态内部类想访问外部类的属性，可以使用 this@外部类名.外部类属性名 的形式访问</li>
+<li>4.非静态内部类可以访问到外部静态内部类的方法和属性，静态内部类访问不到外部所有的属性和方法<br>*/</li>
+</ul>
 <h4 id="TODO关键字"><a href="#TODO关键字" class="headerlink" title="TODO关键字"></a>TODO关键字</h4><p>调用含有<code>TODO</code>关键字的方法将直接抛出异常</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">init</span><span class="params">()</span></span>&#123;</div><div class="line">        TODO(<span class="string">"还没有实现!"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</div><div class="line">        <span class="meta">@JvmStatic</span> <span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line">            <span class="keyword">val</span> hello = Hello()</div><div class="line">            hello.init()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Exception in thread &quot;main&quot; kotlin.NotImplementedError: An operation is not implemented: 还没有实现!</div><div class="line">at com.test.kotlin.Hello.init(Hello.kt:13)</div></pre></td></tr></table></figure>
@@ -468,7 +476,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name = <span class="string">"Peter"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>也就是说，如果我要想定义一个可以延迟到一定实际再使用并初始化的 final 变量，这在 Java 中是做不到的。</p>
 <p>Kotlin 有办法，使用 lazy 这个 delegate 即可：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">val</span> name <span class="keyword">by</span> lazy&#123;</div><div class="line">        NameProvider.getName() </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">val</span> name <span class="keyword">by</span> lazy (LazyThreadSafetyMode.SYNCHRONIZED)&#123;</div><div class="line">        NameProvider.getName() </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>只有使用到 name 这个属性的时候，lazy 后面的 Lambda 才会执行，name 的值才会真正计算出来。</p>
 <h4 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h4><ul>
 <li>默认参数<br>Kotlin允许包级函数一级函数参数存在默认值<br>函数参数可以有默认值，当省略相应的参数时使用默认值。与其他语言相比，这可以减少重载数量。+</li>
@@ -577,8 +585,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/10/2017-08-10-Kotlin使用方法小结(2)/" rel="next" title="使用方法小结(2)">
-                <i class="fa fa-chevron-left"></i> 使用方法小结(2)
+              <a href="/2017/07/29/2017-07-29-how-to-correctly-write-singleton-pattern/" rel="next" title="如何正确地写出单例模式">
+                <i class="fa fa-chevron-left"></i> 如何正确地写出单例模式
               </a>
             
           </div>
@@ -587,8 +595,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/10/2017-09-10-Gradle maven配置/" rel="prev" title="Gradle maven配置">
-                Gradle maven配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/10/2017-08-10-Kotlin使用方法小结(2)/" rel="prev" title="使用方法小结(2)">
+                使用方法小结(2) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -661,7 +669,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -683,7 +691,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -752,7 +760,7 @@
         <div class="copyright" >
   
   &copy;  2013 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
