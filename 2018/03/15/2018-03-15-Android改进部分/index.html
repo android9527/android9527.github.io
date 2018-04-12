@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://android9527.github.io/images/app_optimize/image3.png">
 <meta property="og:image" content="http://android9527.github.io/images/app_optimize/mvp1.jpeg">
 <meta property="og:image" content="http://android9527.github.io/images/app_optimize/mvp2.jpeg">
-<meta property="og:updated_time" content="2018-04-11T08:26:33.186Z">
+<meta property="og:updated_time" content="2018-04-12T10:01:41.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android财富星球APP改进部分">
 <meta name="twitter:description" content="摘要主要回顾一下项目中修改的地方，以及目前存在的问题和改进的方向">
@@ -468,7 +468,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@BindView</span>(R2.id.tab_tv_left)</div><div class="line">TextView mTabTvLeft;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> i = view.getId();</div><div class="line">    <span class="keyword">if</span> (i == R.id.act_base_back_ib) &#123;</div><div class="line">        mClickListener.onLeftViewClicked();</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i == R.id.act_base_right_view_tv) &#123;</div><div class="line">        mClickListener.onRightViewClicked();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>3、有些时候不能使用Application的Context，不然会报错（比如启动Activity，显示Dialog等）：</li>
+<li>3、有些时候不能使用Application的Context，不然会报错（比如启动Activity，显示Dialog等）</li>
 <li>4、不要通过Bundle和Msg传递大的对象，尽量避免传递Serializable类型数据（集合类除外）</li>
 <li>5、在引入一个地方库的时候，一定要看文档在proguard文件中加入混淆配置，并且打release安装验证</li>
 </ul>
