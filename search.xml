@@ -1480,9 +1480,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
             <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
             <tag> 存储 </tag>
             
@@ -1705,9 +1705,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
             <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
             <tag> 内存优化 </tag>
             
@@ -1821,9 +1821,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
             <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
             <tag> Library </tag>
             
@@ -1977,9 +1977,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
             <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
             <tag> 进程间通信 </tag>
             
@@ -2211,9 +2211,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
             <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
         </tags>
         
@@ -2246,9 +2246,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
             <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
         </tags>
         
@@ -2288,11 +2288,11 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
+            <tag> Blog </tag>
+            
             <tag> View </tag>
             
             <tag> 绘制 </tag>
-            
-            <tag> Blog </tag>
             
         </tags>
         
@@ -2449,11 +2449,11 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
+            <tag> 分享 </tag>
+            
             <tag> Blog </tag>
             
             <tag> hot-fix </tag>
-            
-            <tag> 分享 </tag>
             
         </tags>
         
@@ -2544,9 +2544,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
             <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
             <tag> Handler、Message </tag>
             
@@ -3062,13 +3062,13 @@ Observable.combineLatest(_emailChangeObservable,
             
             <tag> Android </tag>
             
-            <tag> Blog </tag>
-            
-            <tag> 分享 </tag>
-            
             <tag> Rxjava </tag>
             
             <tag> 响应式编程 </tag>
+            
+            <tag> 分享 </tag>
+            
+            <tag> Blog </tag>
             
         </tags>
         
