@@ -750,9 +750,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> 布局 </tag>
-            
             <tag> 分辨率 </tag>
+            
+            <tag> 布局 </tag>
             
         </tags>
         
@@ -905,9 +905,9 @@ th:nth-of-type(2) {
             
             <tag> Android </tag>
             
-            <tag> 性能 </tag>
-            
             <tag> 布局 </tag>
+            
+            <tag> 性能 </tag>
             
         </tags>
         
