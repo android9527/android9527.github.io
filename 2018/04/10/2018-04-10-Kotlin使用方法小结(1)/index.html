@@ -94,7 +94,7 @@
 <meta property="og:description" content="Kotlin语法特点？ 兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。 性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambd">
 <meta property="og:image" content="http://yoursite.com/images/kotlin/kotlin1.png">
 <meta property="og:image" content="http://yoursite.com/images/kotlin/kotlin2.png">
-<meta property="og:updated_time" content="2018-04-17T10:30:03.361Z">
+<meta property="og:updated_time" content="2018-06-01T09:42:51.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin使用方法小结(1)">
 <meta name="twitter:description" content="Kotlin语法特点？ 兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。 性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambd">
@@ -447,7 +447,7 @@
 <p><img src="/images/kotlin/kotlin2.png" alt="TCP"></p>
 <p>Kotlin相关知识</p>
 <h4 id="一、基础语法"><a href="#一、基础语法" class="headerlink" title="一、基础语法"></a>一、基础语法</h4><h5 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h5><ul>
-<li>基本数据类型<br>在 Kotlin 中，所有东西都是对象，在这个意义上讲我们可以在任何变量上调⽤成员函数和属性。<br>Kotlin 处理数字在某种程度上接近 Java， 但是并不完全相同。 例如， 对于数字没有隐式拓宽转换 （如 Java 中 int 可以隐式转换为 long ⸺译者注)， 另<br>外有些情况的字⾯值略有不同。<br>Kotlin 提供了如下的内置类型来表⽰数字 （与 Java 很相近）</li>
+<li>基本数据类型<br>在 Kotlin 中，所有东西都是对象，在这个意义上讲我们可以在任何变量上调⽤成员函数和属性。<br>Kotlin 处理数字在某种程度上接近 Java， 但是并不完全相同。 例如， 对于数字没有隐式拓宽转换 （如 Java 中 int 可以隐式转换为 long)， 另外有些情况的字⾯值略有不同。<br>Kotlin 提供了如下的内置类型来表⽰数字 （与 Java 很相近）</li>
 </ul>
 <style>
 table th:first-of-type {
@@ -503,10 +503,25 @@ th:nth-of-type(2) {
 </ul>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> string = <span class="string">"Hello World"</span></div><div class="line">println(<span class="string">"result is <span class="variable">$string</span>"</span>)</div><div class="line">println(<span class="string">"result is <span class="subst">$&#123;string.replace(" ", "")&#125;</span>"</span>)</div></pre></td></tr></table></figure>
 <h5 id="2、语法定义"><a href="#2、语法定义" class="headerlink" title="2、语法定义"></a>2、语法定义</h5><ul>
-<li><p>定义包、定义函数、定义常量、变量、变长参数vararg<br>Java变长参数必须放在最后</p>
-</li>
-<li><p>注释</p>
-</li>
+<li>定义包、定义函数、定义常量、变量、变长参数vararg</li>
+</ul>
+<p>（1）定义包：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> my.demo</div><div class="line"><span class="keyword">import</span> java.util.*</div><div class="line"><span class="comment">//...</span></div></pre></td></tr></table></figure>
+<p>包名不必和文件夹路径一致：源文件可以放在任意位置。</p>
+<p>（2）定义函数</p>
+<p>定义一个函数接受两个 int 型参数，返回值为 int ：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span> , b: <span class="type">Int</span>)</span></span> : <span class="built_in">Int</span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数只有一个表达式函数体以及一个自推导型的返回值：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span> = a + b</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line">  println(<span class="string">"sum of 19 and 23 is <span class="subst">$&#123;sum(<span class="number">19</span>, <span class="number">23</span>)&#125;</span>"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>kotlin没有void关键字，用Unit表示返回一个没有意义的值， Unit 的返回类型可以省略：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span>: <span class="built_in">Unit</span> &#123;</div><div class="line">   println(<span class="string">"sum of <span class="variable">$a</span> and <span class="variable">$b</span> is <span class="subst">$&#123;a + b&#125;</span>"</span>)</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span> &#123;</div><div class="line">   println(<span class="string">"sum of <span class="variable">$a</span> and <span class="variable">$b</span> is <span class="subst">$&#123;a + b&#125;</span>"</span>)</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>（3）定义变量、常量</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line">   <span class="keyword">val</span> a: <span class="built_in">Int</span> = <span class="number">1</span>  <span class="comment">// 立即初始化</span></div><div class="line">   <span class="keyword">val</span> b = <span class="number">2</span>   <span class="comment">// 推导出Int型</span></div><div class="line">   <span class="keyword">val</span> c: <span class="built_in">Int</span>  <span class="comment">// 当没有初始化值时必须声明类型</span></div><div class="line">   c = <span class="number">3</span>       <span class="comment">// 赋值</span></div><div class="line">   println(<span class="string">"a = <span class="variable">$a</span>, b = <span class="variable">$b</span>, c = <span class="variable">$c</span>"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line">   <span class="keyword">var</span> x = <span class="number">5</span> <span class="comment">// 推导出Int类型</span></div><div class="line">   x += <span class="number">1</span></div><div class="line">   println(<span class="string">"x = <span class="variable">$x</span>"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>（4）变长参数变长参数 vararg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * kotlin 变长参数</div><div class="line"> */</div><div class="line">fun test(vararg arg: Int, string: String): Int &#123;</div><div class="line">    var sum = 0</div><div class="line">    arg.forEach &#123; n -&gt;</div><div class="line">        sum += n</div><div class="line">    &#125;</div><div class="line">    return sum</div><div class="line">&#125;</div><div class="line"></div><div class="line">test(1, 2, 3, string = &quot;&quot;)</div></pre></td></tr></table></figure>
+<p>在java中变长参数必须放在所有参数的后面，kotlin由于具名参数的存在可以放在任何位置</p>
+<ul>
+<li>注释</li>
 </ul>
 <p>注释正如Java 和 JavaScript， Kotlin ⽀持⾏注释及块注释。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 这是⼀个⾏注释</span></div><div class="line"><span class="comment">/* 这是⼀个多⾏的</span></div><div class="line"> 块注释。 */</div><div class="line"><span class="comment">/** /** */</span> */</div></pre></td></tr></table></figure>
@@ -605,7 +620,7 @@ th:nth-of-type(2) {
 <ul>
 <li>抽象类<br>类和其中的某些成员可以声明为 abstract。 抽象成员在本类中可以不⽤实现。 需要注意的是， 我们并不需要⽤ open 标注⼀个抽象类或者抽象函数</li>
 </ul>
-<h5 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h5><p>open 注解与java 中的 final相反:它允许别的类继承这个类。默认情形下，kotlin 中所有的类和函数都是 final</p>
+<h5 id="open"><a href="#open" class="headerlink" title="open"></a>open</h5><p>open 关键字与java 中的 final相反:它允许别的类继承这个类。默认情形下，kotlin 中所有的类和函数都是 final</p>
 <ul>
 <li>覆盖⽅法</li>
 </ul>
@@ -733,6 +748,10 @@ th:nth-of-type(2) {
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/05/21/2018-05-21-﻿Fiddler抓取HTTPS原理/" rel="prev" title="Fiddler抓取HTTPS原理">
+                Fiddler抓取HTTPS原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -803,7 +822,7 @@ th:nth-of-type(2) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -814,7 +833,7 @@ th:nth-of-type(2) {
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -825,7 +844,7 @@ th:nth-of-type(2) {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -871,7 +890,7 @@ th:nth-of-type(2) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kotlin语法特点？"><span class="nav-number">1.</span> <span class="nav-text">Kotlin语法特点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么选择-Kotlin？"><span class="nav-number">2.</span> <span class="nav-text">为什么选择 Kotlin？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一、基础语法"><span class="nav-number">3.</span> <span class="nav-text">一、基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、数据类型"><span class="nav-number">3.1.</span> <span class="nav-text">1、数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、语法定义"><span class="nav-number">3.2.</span> <span class="nav-text">2、语法定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、import引用，区间使用（参见控制流）"><span class="nav-number">3.3.</span> <span class="nav-text">3、import引用，区间使用（参见控制流）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、程序结构"><span class="nav-number">4.</span> <span class="nav-text">二、程序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、Kotlin访问控制修饰符"><span class="nav-number">4.1.</span> <span class="nav-text">1、Kotlin访问控制修饰符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、控制流：-if、-when、-for、-while、-do-while"><span class="nav-number">4.2.</span> <span class="nav-text">2、控制流： if、 when、 for、 while、 do while</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、返回和跳转"><span class="nav-number">4.3.</span> <span class="nav-text">3、返回和跳转</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、lateinit延迟初始化成员变量"><span class="nav-number">4.4.</span> <span class="nav-text">4、lateinit延迟初始化成员变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异常捕获"><span class="nav-number">4.5.</span> <span class="nav-text">5、异常捕获</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、-面向对象"><span class="nav-number">5.</span> <span class="nav-text">三、 面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类和继承"><span class="nav-number">5.1.</span> <span class="nav-text">类和继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#继承"><span class="nav-number">5.2.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接口"><span class="nav-number">5.3.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-class，object-class，伴生对象和内部类"><span class="nav-number">5.4.</span> <span class="nav-text">data class，object class，伴生对象和内部类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#扩展"><span class="nav-number">5.5.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#属性代理"><span class="nav-number">5.6.</span> <span class="nav-text">属性代理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kotlin语法特点？"><span class="nav-number">1.</span> <span class="nav-text">Kotlin语法特点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么选择-Kotlin？"><span class="nav-number">2.</span> <span class="nav-text">为什么选择 Kotlin？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一、基础语法"><span class="nav-number">3.</span> <span class="nav-text">一、基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、数据类型"><span class="nav-number">3.1.</span> <span class="nav-text">1、数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、语法定义"><span class="nav-number">3.2.</span> <span class="nav-text">2、语法定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、import引用，区间使用（参见控制流）"><span class="nav-number">3.3.</span> <span class="nav-text">3、import引用，区间使用（参见控制流）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、程序结构"><span class="nav-number">4.</span> <span class="nav-text">二、程序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、Kotlin访问控制修饰符"><span class="nav-number">4.1.</span> <span class="nav-text">1、Kotlin访问控制修饰符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、控制流：-if、-when、-for、-while、-do-while"><span class="nav-number">4.2.</span> <span class="nav-text">2、控制流： if、 when、 for、 while、 do while</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、返回和跳转"><span class="nav-number">4.3.</span> <span class="nav-text">3、返回和跳转</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、lateinit延迟初始化成员变量"><span class="nav-number">4.4.</span> <span class="nav-text">4、lateinit延迟初始化成员变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异常捕获"><span class="nav-number">4.5.</span> <span class="nav-text">5、异常捕获</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、-面向对象"><span class="nav-number">5.</span> <span class="nav-text">三、 面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类和继承"><span class="nav-number">5.1.</span> <span class="nav-text">类和继承</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#open"><span class="nav-number">5.2.</span> <span class="nav-text">open</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接口"><span class="nav-number">5.3.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-class，object-class，伴生对象和内部类"><span class="nav-number">5.4.</span> <span class="nav-text">data class，object class，伴生对象和内部类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#扩展"><span class="nav-number">5.5.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#属性代理"><span class="nav-number">5.6.</span> <span class="nav-text">属性代理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
