@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://yoursite.com/images/aop/proxy.jpeg">
 <meta property="og:image" content="http://yoursite.com/images/aop/javassist.jpeg">
 <meta property="og:image" content="http://yoursite.com/images/aop/aspectj_class.jpeg">
-<meta property="og:updated_time" content="2018-11-01T07:13:48.512Z">
+<meta property="og:updated_time" content="2018-11-01T08:08:33.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Aop的几种实现方式">
 <meta name="twitter:description" content="一、AOP概念百度百科中对AOP的解释如下:在软件业，AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。">
@@ -498,10 +498,10 @@
 <h5 id="（3）在Android项目中使用AspectJ"><a href="#（3）在Android项目中使用AspectJ" class="headerlink" title="（3）在Android项目中使用AspectJ"></a>（3）在Android项目中使用AspectJ</h5><ul>
 <li><p>gradle配置的方式：引入AspectJ是有点复杂的，需要引入大量的gradle命令配置有点麻烦，在build文件中添加了一些脚本，文章出处：<a href="https://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/" target="_blank" rel="external">https://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/</a></p>
 </li>
-<li><p>使用 gradle 插件（也是对 gradle 命令进行了包装）：JakeWharton 大神的 hugo 项目（一款日志打印的插件）</p>
-<pre><code>上海沪江团队的 gradle_plugin_android_aspectjx 一个基于AspectJ并在此基础上扩展出来可应用于Android开发平台的AOP框架，可作用于java源码，class文件及jar包，同时支持kotlin的应用。
-</code></pre></li>
+<li><p>使用 gradle 插件（也是对 gradle 命令进行了包装）：Jake<br>Wharton 大神的 hugo 项目（一款日志打印的插件）</p>
+</li>
 </ul>
+<p>上海沪江团队的 gradle_plugin_android_aspectjx 一个基于AspectJ并在此基础上扩展出来可应用于Android开发平台的AOP框架，可作用于java源码，class文件及jar包，同时支持kotlin的应用。</p>
 <p>AOP的用处非常广，从spring到Android，各个地方都有使用，特别是在后端，Spring中已经使用的非常方便了，而且功能非常强大，但是在Android中，AspectJ的实现是略阉割的版本，并不是所有功能都支持，但对于一般的客户端开发来说，已经完全足够用了。</p>
 <h5 id="（4）以-AspectJX-接入说明"><a href="#（4）以-AspectJX-接入说明" class="headerlink" title="（4）以 AspectJX 接入说明"></a>（4）以 AspectJX 接入说明</h5><ul>
 <li>首先，需要在项目根目录的build.gradle中增加依赖：</li>
