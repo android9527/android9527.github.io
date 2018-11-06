@@ -4,15 +4,15 @@
 
 
 <html class="theme-next pisces" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -30,7 +30,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -64,21 +64,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Android,WebView," />
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="Android,WebView,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
 
 
 
@@ -89,17 +89,18 @@
 <meta name="keywords" content="Android,WebView">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android WebView缓存优化">
-<meta property="og:url" content="http://yoursite.com/2018/07/13/2018-07-13-Android WebView缓存优化/index.html">
+<meta property="og:url" content="http://android9527.com/2018/07/13/2018-07-13-Android WebView缓存优化/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="一、前言对于WebView的性能，给人最直观的莫过于：打开速度比native慢。是的，当我们打开一个WebView页面，页面往往会慢吞吞的loading很久，若干秒后才出现你所需要看到的页面。这是为什么呢？">
-<meta property="og:image" content="http://yoursite.com/images/webview_cache/webview_1.png">
-<meta property="og:image" content="http://yoursite.com/images/webview_cache/webview_path.jpeg">
-<meta property="og:image" content="http://yoursite.com/images/webview_cache/webview_cache_3.png">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://android9527.com/images/webview_cache/webview_1.png">
+<meta property="og:image" content="http://android9527.com/images/webview_cache/webview_path.jpeg">
+<meta property="og:image" content="http://android9527.com/images/webview_cache/webview_cache_3.png">
 <meta property="og:updated_time" content="2018-07-27T11:29:29.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android WebView缓存优化">
 <meta name="twitter:description" content="一、前言对于WebView的性能，给人最直观的莫过于：打开速度比native慢。是的，当我们打开一个WebView页面，页面往往会慢吞吞的loading很久，若干秒后才出现你所需要看到的页面。这是为什么呢？">
-<meta name="twitter:image" content="http://yoursite.com/images/webview_cache/webview_1.png">
+<meta name="twitter:image" content="http://android9527.com/images/webview_cache/webview_1.png">
 
 
 
@@ -127,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/13/2018-07-13-Android WebView缓存优化/"/>
+  <link rel="canonical" href="http://android9527.com/2018/07/13/2018-07-13-Android WebView缓存优化/">
 
 
 
@@ -136,21 +137,9 @@
   <title> Android WebView缓存优化 | 个人博客 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   
@@ -161,13 +150,13 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">个人博客</span>
         <span class="logo-line-after"><i></i></span>
@@ -197,7 +186,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -207,7 +196,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -217,7 +206,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -227,7 +216,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -237,7 +226,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -247,7 +236,7 @@
         <li class="menu-item menu-item-commonweal">
           <a href="/404.html" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
             
             公益404
           </a>
@@ -260,7 +249,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
             
             搜索
           </a>
@@ -281,9 +270,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -315,16 +302,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/13/2018-07-13-Android WebView缓存优化/">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://android9527.com/2018/07/13/2018-07-13-Android WebView缓存优化/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈飞跃">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpeg">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="个人博客">
     </span>
 
@@ -373,7 +360,7 @@
 
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -384,7 +371,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/WebView/" itemprop="url" rel="index">
                     <span itemprop="name">WebView</span>
                   </a>
@@ -416,6 +403,36 @@
 
           
 
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
           
 
           
@@ -462,24 +479,24 @@
 <li>LOAD_CACHE_ONLY： 不使用网络，只读取本地缓存数据。</li>
 </ul>
 <p>设置WebView缓存的Cache Mode示例代码如下：</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> webSettings = webView.settings</div><div class="line">webSettings.cacheMode = WebSettings.LOAD_NO_CACHE</div><div class="line"></div><div class="line">webSettings.cacheMode = <span class="keyword">if</span> (YKNetworkUtil.isNetConnected()) &#123;</div><div class="line">    WebSettings.LOAD_NO_CACHE</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    WebSettings.LOAD_CACHE_ELSE_NETWORK</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> webSettings = webView.settings</span><br><span class="line">webSettings.cacheMode = WebSettings.LOAD_NO_CACHE</span><br><span class="line"></span><br><span class="line">webSettings.cacheMode = <span class="keyword">if</span> (YKNetworkUtil.isNetConnected()) &#123;</span><br><span class="line">    WebSettings.LOAD_NO_CACHE</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    WebSettings.LOAD_CACHE_ELSE_NETWORK</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="2、在手机里面的存储路径"><a href="#2、在手机里面的存储路径" class="headerlink" title="2、在手机里面的存储路径"></a>2、在手机里面的存储路径</h5><p>Android 6.0的目录：/data/data/包名/cache/org.chromium.android_webview/下面，如下图所示。<br><img src="/images/webview_cache/webview_path.jpeg" alt="image"></p>
-<h5 id="Application-Cache-缓存机制"><a href="#Application-Cache-缓存机制" class="headerlink" title="Application Cache 缓存机制"></a>Application Cache 缓存机制</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// HTML 在头中通过 manifest 属性引用 manifest 文件</div><div class="line">// manifest 文件：就是上面以 appcache 结尾的文件，是一个普通文件文件，列出了需要缓存的文件</div><div class="line">// 浏览器在首次加载 HTML 文件时，会解析 manifest 属性，并读取 manifest 文件，获取 Section：CACHE MANIFEST 下要缓存的文件列表，再对文件缓存</div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">"cache/demo.appcache"</span>&gt;</span></div><div class="line"></div><div class="line">CACHE MANIFEST</div><div class="line">demo_time.js</div><div class="line">img_logo.gif</div><div class="line">NETWORK:</div><div class="line">*</div><div class="line">FALLBACK:</div><div class="line">404.html</div></pre></td></tr></table></figure>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> webSettings = webView.settings</div><div class="line">webSettings.setAppCacheEnabled(<span class="literal">true</span>)</div></pre></td></tr></table></figure>
+<h5 id="Application-Cache-缓存机制"><a href="#Application-Cache-缓存机制" class="headerlink" title="Application Cache 缓存机制"></a>Application Cache 缓存机制</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// HTML 在头中通过 manifest 属性引用 manifest 文件</span><br><span class="line">// manifest 文件：就是上面以 appcache 结尾的文件，是一个普通文件文件，列出了需要缓存的文件</span><br><span class="line">// 浏览器在首次加载 HTML 文件时，会解析 manifest 属性，并读取 manifest 文件，获取 Section：CACHE MANIFEST 下要缓存的文件列表，再对文件缓存</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">"cache/demo.appcache"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">CACHE MANIFEST</span><br><span class="line">demo_time.js</span><br><span class="line">img_logo.gif</span><br><span class="line">NETWORK:</span><br><span class="line">*</span><br><span class="line">FALLBACK:</span><br><span class="line">404.html</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> webSettings = webView.settings</span><br><span class="line">webSettings.setAppCacheEnabled(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
 <h5 id="3、Dom-Storage-缓存机制"><a href="#3、Dom-Storage-缓存机制" class="headerlink" title="3、Dom Storage 缓存机制"></a>3、Dom Storage 缓存机制</h5><p>a. 通过存储字符串的 Key - Value 对来提供<br>DOM Storage 分为 sessionStorage &amp;  localStorage； 二者使用方法基本相同，区别在于作用范围不同：<br>a. sessionStorage：具备临时性，即存储与页面相关的数据，它在页面关闭后无法使用<br>b. localStorage：具备持久性，即保存的数据在页面关闭后也可以使用。</p>
 <p>b. 特点<br>存储空间大（ 5MB）：存储空间对于不同浏览器不同，如Cookies 才 4KB<br>存储安全、便捷： Dom Storage 存储的数据在本地，不需要经常和服务器进行交互<br>c. 应用场景<br>存储临时、简单的数据</p>
 <p>具体实现，前端</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">localStorage.setItem("lastName", "HaHa");</div><div class="line">var lastName = localStorage.getItem("lastName");</div><div class="line"></div><div class="line">sessionStorage.setItem("lastName", "HaHa");</div><div class="line">var lastName = sessionStorage.getItem("lastName");</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem("lastName", "HaHa");</span><br><span class="line">var lastName = localStorage.getItem("lastName");</span><br><span class="line"></span><br><span class="line">sessionStorage.setItem("lastName", "HaHa");</span><br><span class="line">var lastName = sessionStorage.getItem("lastName");</span><br></pre></td></tr></table></figure>
 <p>Android端</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> webSettings = webView.settings</div><div class="line">webSettings.domStorageEnabled = <span class="literal">true</span></div></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> webSettings = webView.settings</span><br><span class="line">webSettings.domStorageEnabled = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <h5 id="4、Web-SQL-Database-缓存机制"><a href="#4、Web-SQL-Database-缓存机制" class="headerlink" title="4、Web SQL Database 缓存机制"></a>4、Web SQL Database 缓存机制</h5><p>a. 原理<br>基于 SQL 的数据库存储机制</p>
 <p>b. 特点<br>充分利用数据库的优势，可方便对数据进行增加、删除、修改、查询</p>
 <p>c. 应用场景<br>存储适合数据库的结构化数据</p>
 <p>d. 具体实现</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">        var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);</div><div class="line">        var msg;</div><div class="line">        db.transaction(function (context) &#123;</div><div class="line">           context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)');</div><div class="line">           context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")');</div><div class="line">           context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');</div><div class="line">           context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');</div><div class="line">         &#125;);</div><div class="line"></div><div class="line">        db.transaction(function (context) &#123;</div><div class="line">           context.executeSql('SELECT * FROM testTable', [], function (context, results) &#123;</div><div class="line">            var len = results.rows.length, i;</div><div class="line">            console.log('Got '+len+' rows.');</div><div class="line">               for (i = 0; i &lt; len; i++)&#123;</div><div class="line">              console.log('id: '+results.rows.item(i).id);</div><div class="line">              console.log('name: '+results.rows.item(i).name);</div><div class="line">            &#125;</div><div class="line">         &#125;);</div><div class="line">        &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> webSettings = webView.settings</div><div class="line">webSettings.databaseEnabled = <span class="literal">true</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);</span></span><br><span class="line"><span class="undefined">        var msg;</span></span><br><span class="line"><span class="undefined">        db.transaction(function (context) &#123;</span></span><br><span class="line"><span class="undefined">           context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)');</span></span><br><span class="line"><span class="undefined">           context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")');</span></span><br><span class="line"><span class="undefined">           context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');</span></span><br><span class="line"><span class="undefined">           context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');</span></span><br><span class="line"><span class="undefined">         &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        db.transaction(function (context) &#123;</span></span><br><span class="line"><span class="undefined">           context.executeSql('SELECT * FROM testTable', [], function (context, results) &#123;</span></span><br><span class="line"><span class="undefined">            var len = results.rows.length, i;</span></span><br><span class="line"><span class="undefined">            console.log('Got '+len+' rows.');</span></span><br><span class="line"><span class="undefined">               for (i = 0; i &lt; len; i++)&#123;</span></span><br><span class="line"><span class="undefined">              console.log('id: '+results.rows.item(i).id);</span></span><br><span class="line"><span class="undefined">              console.log('name: '+results.rows.item(i).name);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">         &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> webSettings = webView.settings</span><br><span class="line">webSettings.databaseEnabled = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>特别说明<br>根据官方说明，Web SQL Database存储机制不再推荐使用（不再维护）,取而代之的是 IndexedDB缓存机制，下面会详细介绍</p>
-<h5 id="5、indexedDB"><a href="#5、indexedDB" class="headerlink" title="5、indexedDB"></a>5、indexedDB</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">       function openDB (name) &#123;</div><div class="line">            var request=window.indexedDB.open(name);</div><div class="line">            request.onerror=function(e)&#123;</div><div class="line">                console.log('OPen Error!');</div><div class="line">            &#125;;</div><div class="line">            request.onsuccess=function(e)&#123;</div><div class="line">                myDB.db=e.target.result;</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        var myDB=&#123;</div><div class="line">            name:'test',</div><div class="line">            version:1,</div><div class="line">            db:null</div><div class="line">        &#125;;</div><div class="line">        openDB(myDB.name);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h5 id="5、indexedDB"><a href="#5、indexedDB" class="headerlink" title="5、indexedDB"></a>5、indexedDB</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">       function openDB (name) &#123;</span></span><br><span class="line"><span class="undefined">            var request=window.indexedDB.open(name);</span></span><br><span class="line"><span class="undefined">            request.onerror=function(e)&#123;</span></span><br><span class="line"><span class="undefined">                console.log('OPen Error!');</span></span><br><span class="line"><span class="undefined">            &#125;;</span></span><br><span class="line"><span class="undefined">            request.onsuccess=function(e)&#123;</span></span><br><span class="line"><span class="undefined">                myDB.db=e.target.result;</span></span><br><span class="line"><span class="undefined">            &#125;;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        var myDB=&#123;</span></span><br><span class="line"><span class="undefined">            name:'test',</span></span><br><span class="line"><span class="undefined">            version:1,</span></span><br><span class="line"><span class="undefined">            db:null</span></span><br><span class="line"><span class="undefined">        &#125;;</span></span><br><span class="line"><span class="undefined">        openDB(myDB.name);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h4 id="三、缓存机制汇总"><a href="#三、缓存机制汇总" class="headerlink" title="三、缓存机制汇总"></a>三、缓存机制汇总</h4><p><img src="/images/webview_cache/webview_cache_3.png" alt="image"></p>
 <p>结论：综合各种缓存机制比较，对于静态文件，如 JS、CSS、字体、图片等，适合通过浏览器缓存机制来进行缓存，通过缓存文件可大幅提升 Web 的加载速度，且节省流量。但也有一些不足：缓存文件需要首次加载后才会产生；浏览器缓存的存储空间有限，缓存有被清除的可能；缓存的文件没有校验。</p>
 <h4 id="四、APP端主要缓存方案"><a href="#四、APP端主要缓存方案" class="headerlink" title="四、APP端主要缓存方案"></a>四、APP端主要缓存方案</h4><h5 id="1、全局WebView，WebView独立进程"><a href="#1、全局WebView，WebView独立进程" class="headerlink" title="1、全局WebView，WebView独立进程"></a>1、全局WebView，WebView独立进程</h5><p>在客户端刚启动时，就初始化一个全局的WebView待用，并隐藏；<br>当用户访问了WebView时，直接使用这个WebView加载对应网页，并展示。<br>这种方法可以比较有效的减少WebView在App中的首次打开时间。当用户访问页面时，不需要初始化WebView的时间。</p>
@@ -502,7 +519,7 @@
 <p>目前客户端缓存策略：</p>
 <p>H5加载—拦截网络请求进行资源监测—本地是否具有相同的资源—-Y —- 不发送网络请求—-取本地资源—-结束<br>                                                  —-N —- 继续发送网络请求—资源缓存本地—-结束</p>
 <p>具体实现：重写<code>WebViewClient</code>的<code>shouldInterceptRequest</code>方法，进行本地资源监测和替换</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">shouldInterceptRequest</span><span class="params">(view: <span class="type">WebView</span>, url: <span class="type">String</span>?)</span></span>: WebResourceResponse? &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (!mIsEnableCache) &#123;</div><div class="line">        <span class="keyword">super</span>.shouldInterceptRequest(view, url)</div><div class="line">    &#125; <span class="keyword">else</span> webViewCacheManage.getWebResourceResponse(<span class="keyword">this</span>, url)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@TargetApi(Build.VERSION_CODES.LOLLIPOP)</span></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">shouldInterceptRequest</span><span class="params">(view: <span class="type">WebView</span>, request: <span class="type">WebResourceRequest</span>?)</span></span>: WebResourceResponse? &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (!mIsEnableCache) &#123;</div><div class="line">        <span class="keyword">super</span>.shouldInterceptRequest(view, request)</div><div class="line">    &#125; <span class="keyword">else</span> webViewCacheManage.getWebResourceResponse(<span class="keyword">this</span>, request?.url?.toString())</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">shouldInterceptRequest</span><span class="params">(view: <span class="type">WebView</span>, url: <span class="type">String</span>?)</span></span>: WebResourceResponse? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (!mIsEnableCache) &#123;</span><br><span class="line">        <span class="keyword">super</span>.shouldInterceptRequest(view, url)</span><br><span class="line">    &#125; <span class="keyword">else</span> webViewCacheManage.getWebResourceResponse(<span class="keyword">this</span>, url)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@TargetApi(Build.VERSION_CODES.LOLLIPOP)</span></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">shouldInterceptRequest</span><span class="params">(view: <span class="type">WebView</span>, request: <span class="type">WebResourceRequest</span>?)</span></span>: WebResourceResponse? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (!mIsEnableCache) &#123;</span><br><span class="line">        <span class="keyword">super</span>.shouldInterceptRequest(view, request)</span><br><span class="line">    &#125; <span class="keyword">else</span> webViewCacheManage.getWebResourceResponse(<span class="keyword">this</span>, request?.url?.toString())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>优点：</p>
 <ul>
 <li>有效解决 H5页面静态资源 加载速度慢 &amp; 流量消耗多的问题</li>
@@ -520,7 +537,7 @@
 <li>针对单个页面独立配置</li>
 <li>完善资源缓存方案</li>
 </ul>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://tech.meituan.com/WebViewPerf.html" target="_blank" rel="external">WebView性能、体验分析与优化</a><br><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&amp;mid=2651229156&amp;idx=1&amp;sn=fdd48acd893ddd11ccd2460c46a3c2d1" target="_blank" rel="external">WebView缓存原理分析和应用</a><br><a href="https://www.jianshu.com/p/5e7075f4875f" target="_blank" rel="external">Android：手把手教你构建 全面的WebView 缓存机制 &amp; 资源加载方案</a></p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://tech.meituan.com/WebViewPerf.html" target="_blank" rel="noopener">WebView性能、体验分析与优化</a><br><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&amp;mid=2651229156&amp;idx=1&amp;sn=fdd48acd893ddd11ccd2460c46a3c2d1" target="_blank" rel="noopener">WebView缓存原理分析和应用</a><br><a href="https://www.jianshu.com/p/5e7075f4875f" target="_blank" rel="noopener">Android：手把手教你构建 全面的WebView 缓存机制 &amp; 资源加载方案</a></p>
 
       
     </div>
@@ -593,8 +610,40 @@
     <div class="post-spread">
       
         
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
 <script>
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
 </script>
 
       
@@ -631,7 +680,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -641,10 +690,8 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpeg"
-               alt="陈飞跃" />
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="陈飞跃">
           <p class="site-author-name" itemprop="name">陈飞跃</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -743,7 +790,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy;  2013 - 
   <span itemprop="copyrightYear">2018</span>
