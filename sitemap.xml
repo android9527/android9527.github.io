@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://android9527.com/2018/04/10/2018-04-10-Kotlin%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93(3)-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc>
+    
+    <lastmod>2018-12-05T09:12:30.117Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://android9527.com/2018/04/10/2018-04-10-Kotlin%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93(1)-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</loc>
+    
+    <lastmod>2018-12-05T09:11:42.476Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://android9527.com/2018/04/10/2018-04-10-Kotlin%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93(2)-%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/</loc>
+    
+    <lastmod>2018-12-05T09:11:32.213Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://android9527.com/2018/10/09/2018-10-09-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
+    
+    <lastmod>2018-12-05T09:02:52.059Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://android9527.com/2018/12/03/2018-12-03-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
     
     <lastmod>2018-12-05T02:56:01.284Z</lastmod>
@@ -33,13 +61,6 @@
     <loc>http://android9527.com/2018/07/13/2018-07-13-Android%20WebView%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</loc>
     
     <lastmod>2018-07-27T11:29:29.034Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://android9527.com/2018/04/10/2018-04-10-Kotlin%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93(1)/</loc>
-    
-    <lastmod>2018-06-13T11:30:48.676Z</lastmod>
     
   </url>
   
@@ -184,6 +205,13 @@
   </url>
   
   <url>
+    <loc>http://android9527.com/2016/05/10/2016-05-10-Android%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/</loc>
+    
+    <lastmod>2017-07-27T07:23:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://android9527.com/2016/04/14/2016-04-14-Android%20hot-fix/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
@@ -191,7 +219,7 @@
   </url>
   
   <url>
-    <loc>http://android9527.com/2016/05/10/2016-05-10-Android%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3/</loc>
+    <loc>http://android9527.com/2016/02/25/2016-02-26-Rxjava-Android/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
     
@@ -206,13 +234,6 @@
   
   <url>
     <loc>http://android9527.com/2016/03/04/2016-03-04-Handler-Message-Android/</loc>
-    
-    <lastmod>2017-07-27T07:23:54.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://android9527.com/2016/02/25/2016-02-26-Rxjava-Android/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
     
