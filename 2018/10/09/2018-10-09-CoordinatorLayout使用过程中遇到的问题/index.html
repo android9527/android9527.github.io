@@ -92,10 +92,13 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="CoordinatorLayout使用过程中遇到的问题CoordinatorLayout 一般配合 NestedScrollView 或者 RecyclerView 使用常常用于ScrollView滚动，ToolBar伸缩，渐变等背景视差效果等 CoordinatorLayout + AppBarLayout + CollapsingToolbarLayout 配合使用才会有比较完美的效果app:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-18T07:51:20.722Z">
+<meta property="og:image" content="http://android9527.com/images/coordinatorlayout/25.3.0.gif">
+<meta property="og:image" content="http://android9527.com/images/coordinatorlayout/26.0.0.gif">
+<meta property="og:updated_time" content="2019-01-29T09:13:00.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CoordinatorLayout使用过程中遇到的问题.md">
 <meta name="twitter:description" content="CoordinatorLayout使用过程中遇到的问题CoordinatorLayout 一般配合 NestedScrollView 或者 RecyclerView 使用常常用于ScrollView滚动，ToolBar伸缩，渐变等背景视差效果等 CoordinatorLayout + AppBarLayout + CollapsingToolbarLayout 配合使用才会有比较完美的效果app:">
+<meta name="twitter:image" content="http://android9527.com/images/coordinatorlayout/25.3.0.gif">
 
 
 
@@ -315,7 +318,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈飞跃">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -355,8 +358,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-18T15:51:20+08:00">
-                2018-12-18
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-29T17:13:00+08:00">
+                2019-01-29
               </time>
             
           </span>
@@ -426,7 +429,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  723
+                  1.2k
                 </span>
               
 
@@ -442,7 +445,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -472,7 +475,8 @@
 <li><p>监听AppBarLayout 位置移动 AppBarLayout.addOnOffsetChangedListener(this);<br>运行后发现 SystemBarUtils.transparencyAndDark() 改变状态栏背景的代码会导致 AppBarLayout 重绘，从而重新调用 onOffsetChanged() 方法，导致出现循环<br>解决方法增加去重等，也可以增加当前状态栏标志位进行过滤。</p>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOffsetChanged</span><span class="params">(AppBarLayout appBarLayout, <span class="keyword">int</span> verticalOffset)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 修改状态栏会触发 AppBarLayout重绘 onOffsetChanged() 方法，这里加个去重</span></span><br><span class="line">    <span class="keyword">if</span> (mCurVerticalOffset == verticalOffset)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    mCurVerticalOffset = verticalOffset;</span><br><span class="line">    mShortVideoView.setVerticalOffset(verticalOffset);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> offset = Math.abs(verticalOffset);</span><br><span class="line">    <span class="keyword">int</span> scrollRange = appBarLayout.getTotalScrollRange();</span><br><span class="line">    <span class="keyword">if</span> (offset &lt;= scrollRange / <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        SystemBarUtils.transparencyAndDark(TopicDetailActivity.<span class="keyword">this</span>, <span class="keyword">false</span>);</span><br><span class="line">        mTopicTitleView.setVisibility(View.VISIBLE);</span><br><span class="line">        mTopicTitleCloseView.setVisibility(View.GONE);</span><br><span class="line">        <span class="keyword">float</span> openPer = (<span class="keyword">float</span>) offset / (scrollRange / <span class="number">2</span>);</span><br><span class="line">        mTopicTitleView.setAlpha(<span class="number">1</span> - openPer);</span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        SystemBarUtils.transparencyAndDark(TopicDetailActivity.<span class="keyword">this</span>, <span class="keyword">true</span>);</span><br><span class="line">        mTopicTitleView.setVisibility(View.GONE);</span><br><span class="line">        mTopicTitleCloseView.setVisibility(View.VISIBLE);</span><br><span class="line">        <span class="keyword">float</span> closePer = (<span class="keyword">float</span>) (scrollRange - offset) / (scrollRange / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">int</span> closeAlpha = (<span class="keyword">int</span>) (<span class="number">255</span> * (<span class="number">1</span> - closePer));</span><br><span class="line">        mTopicTitleCloseView.setAlpha(<span class="number">1</span> - closePer);</span><br><span class="line">        <span class="keyword">int</span> color = Color.argb(closeAlpha, <span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>);</span><br><span class="line">        mCollapsingToolbarLayout.setContentScrimColor(color);</span><br><span class="line">        mCollapsingToolbarLayout.setStatusBarScrimColor(color);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOffsetChanged</span><span class="params">(AppBarLayout appBarLayout, <span class="keyword">int</span> verticalOffset)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 修改状态栏会触发 AppBarLayout重绘 onOffsetChanged() 方法，这里加个去重</span></span><br><span class="line">    <span class="keyword">if</span> (mCurVerticalOffset == verticalOffset)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    mCurVerticalOffset = verticalOffset;</span><br><span class="line">    <span class="keyword">int</span> offset = Math.abs(verticalOffset);</span><br><span class="line">    <span class="keyword">int</span> scrollRange = appBarLayout.getTotalScrollRange();</span><br><span class="line">    <span class="keyword">if</span> (offset &lt;= scrollRange / <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        mTitleOpenView.setVisibility(View.VISIBLE);</span><br><span class="line">        mTitleCloseView.setVisibility(View.GONE);</span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        SystemBarUtils.transparencyAndDark(TestActivity.<span class="keyword">this</span>, <span class="keyword">true</span>);</span><br><span class="line">        mTitleOpenView.setVisibility(View.GONE);</span><br><span class="line">        mTitleCloseView.setVisibility(View.VISIBLE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.design.widget.CoordinatorLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">                                                 <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">                                                 <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                                                 <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                                                 <span class="attr">android:fitsSystemWindows</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">in.srain.cube.views.ptr.PtrClassicFrameLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/ptr"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_behavior</span>=<span class="string">"@string/appbar_scrolling_view_behavior"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:ptr_duration_to_close</span>=<span class="string">"300"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:ptr_duration_to_close_header</span>=<span class="string">"2000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:ptr_keep_header_when_refresh</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:ptr_pull_to_fresh</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:ptr_ratio_of_header_height_to_refresh</span>=<span class="string">"1.2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:ptr_resistance</span>=<span class="string">"1.7"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">android.support.v7.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/list"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">in.srain.cube.views.ptr.PtrClassicFrameLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.design.widget.AppBarLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/app_bar"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"@dimen/app_bar_height"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fitsSystemWindows</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">android.support.design.widget.CollapsingToolbarLayout</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/toolbar_layout"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:fitsSystemWindows</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:layout_scrollFlags</span>=<span class="string">"scroll|exitUntilCollapsed"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:id</span>=<span class="string">"@+id/toolbar"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"56dp"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">app:layout_collapseMode</span>=<span class="string">"pin"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">android.support.design.widget.CollapsingToolbarLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">android.support.design.widget.AppBarLayout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.design.widget.CoordinatorLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>注意：</p>
 <p>1、AppBarLayout的直接子控件可以设置的属性:layout_scrollFlags</p>
 <ul>
@@ -487,6 +491,11 @@
 <li>parallax:视察效果,在滑动过程中,不管上滑还是下滑都会有视察效果,不知道什么事视察效果自己看gif图(layout_collapseParallaxMultiplier视差因子 0~1之间取值,当设置了parallax时可以配合这个属性使用,调节自己想要的视差效果)</li>
 <li>不设置:跟随NestedScrollView的滑动一起滑动,NestedScrollView滑动多少距离他就会跟着走多少距离</li>
 </ul>
+<p>3、在 support 25 及以下版本中，滑动并不流畅。在 RecyclerView 滑动到中间部分然后下拉的时候，顶部的 AppBarLayout 并不会跟随向下滑动详见视频。<br>在 26.1.0 以上的版本官方已经修改了。这里提供两个方法解决这个问题，但效果还不太理想。<br>第一种，自定义 AppBarLayout.Behavior ，监听 RecyclerView 的滚动事件，调用 onNestedFling 处理<br>在 layout android.support.design.widget.AppBarLayout 标签中使用<br>app:layout_behavior=”xx.xxx.Behavior”<br>第二种，直接代码监听 RecyclerView 的滚动事件，当一条数据完全展示时，将 AppBarLayout 设置为展开状态。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">RecyclerView.addOnScrollListener(<span class="keyword">new</span> RecyclerView.OnScrollListener()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrollStateChanged</span><span class="params">(RecyclerView recyclerView, <span class="keyword">int</span> newState)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onScrollStateChanged(recyclerView, newState);</span><br><span class="line">        <span class="keyword">if</span> (newState == RecyclerView.SCROLL_STATE_IDLE)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> firstVisiblePosition = manager.findFirstCompletelyVisibleItemPosition();</span><br><span class="line">            <span class="keyword">if</span> (firstVisiblePosition == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                appbar.setExpanded(<span class="keyword">true</span>, <span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>4、其他方案<br>  github 上有个库也是解决这个问题的 <a href="https://github.com/henrytao-me/smooth-app-bar-layout" target="_blank" rel="noopener">smooth-app-bar-layout</a><br>  当然解决的原理跟本文相差甚远，有兴趣可以阅读下，我自己也有用过，不过这个库比较蛋疼的就是得为RecyclerView 设置一个 head item， 这个 item 的高度必须跟 AppBarLayout 一样的高度，所以对于 wrap_content 就比较麻烦了，当然，这个跟这个库的实现思路有关系。</p>
+<p><code>com.android.support:appcompat-v7:25.3.0</code><br><img src="/images/coordinatorlayout/25.3.0.gif" alt="image"><br><code>com.android.support:appcompat-v7:26.0.0</code><br><img src="/images/coordinatorlayout/26.0.0.gif" alt="image"></p>
+<p>5、项目地址</p>
+<p><a href="https://github.com/android9527/CollapsingToobarLayoutDemo" target="_blank" rel="noopener">https://github.com/android9527/CollapsingToobarLayoutDemo</a></p>
 
       
     </div>
@@ -610,7 +619,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="陈飞跃">
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="陈飞跃">
             
               <p class="site-author-name" itemprop="name">陈飞跃</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -623,7 +632,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -634,7 +643,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -714,7 +723,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -728,7 +737,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">83.4k</span>
+    <span title="Site words total count">88.5k</span>
   
 </div>
 
