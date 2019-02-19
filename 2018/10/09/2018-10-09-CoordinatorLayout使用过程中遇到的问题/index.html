@@ -94,7 +94,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://android9527.com/images/coordinatorlayout/25.3.0.gif">
 <meta property="og:image" content="http://android9527.com/images/coordinatorlayout/26.0.0.gif">
-<meta property="og:updated_time" content="2019-01-29T09:13:00.323Z">
+<meta property="og:updated_time" content="2019-01-29T09:27:09.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CoordinatorLayout使用过程中遇到的问题.md">
 <meta name="twitter:description" content="CoordinatorLayout使用过程中遇到的问题CoordinatorLayout 一般配合 NestedScrollView 或者 RecyclerView 使用常常用于ScrollView滚动，ToolBar伸缩，渐变等背景视差效果等 CoordinatorLayout + AppBarLayout + CollapsingToolbarLayout 配合使用才会有比较完美的效果app:">
@@ -358,7 +358,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-01-29T17:13:00+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-29T17:27:09+08:00">
                 2019-01-29
               </time>
             
@@ -493,7 +493,8 @@
 </ul>
 <p>3、在 support 25 及以下版本中，滑动并不流畅。在 RecyclerView 滑动到中间部分然后下拉的时候，顶部的 AppBarLayout 并不会跟随向下滑动详见视频。<br>在 26.1.0 以上的版本官方已经修改了。这里提供两个方法解决这个问题，但效果还不太理想。<br>第一种，自定义 AppBarLayout.Behavior ，监听 RecyclerView 的滚动事件，调用 onNestedFling 处理<br>在 layout android.support.design.widget.AppBarLayout 标签中使用<br>app:layout_behavior=”xx.xxx.Behavior”<br>第二种，直接代码监听 RecyclerView 的滚动事件，当一条数据完全展示时，将 AppBarLayout 设置为展开状态。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">RecyclerView.addOnScrollListener(<span class="keyword">new</span> RecyclerView.OnScrollListener()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrollStateChanged</span><span class="params">(RecyclerView recyclerView, <span class="keyword">int</span> newState)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onScrollStateChanged(recyclerView, newState);</span><br><span class="line">        <span class="keyword">if</span> (newState == RecyclerView.SCROLL_STATE_IDLE)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> firstVisiblePosition = manager.findFirstCompletelyVisibleItemPosition();</span><br><span class="line">            <span class="keyword">if</span> (firstVisiblePosition == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                appbar.setExpanded(<span class="keyword">true</span>, <span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>4、其他方案<br>  github 上有个库也是解决这个问题的 <a href="https://github.com/henrytao-me/smooth-app-bar-layout" target="_blank" rel="noopener">smooth-app-bar-layout</a><br>  当然解决的原理跟本文相差甚远，有兴趣可以阅读下，我自己也有用过，不过这个库比较蛋疼的就是得为RecyclerView 设置一个 head item， 这个 item 的高度必须跟 AppBarLayout 一样的高度，所以对于 wrap_content 就比较麻烦了，当然，这个跟这个库的实现思路有关系。</p>
-<p><code>com.android.support:appcompat-v7:25.3.0</code><br><img src="/images/coordinatorlayout/25.3.0.gif" alt="image"><br><code>com.android.support:appcompat-v7:26.0.0</code><br><img src="/images/coordinatorlayout/26.0.0.gif" alt="image"></p>
+<p><code>com.android.support:appcompat-v7:25.3.0</code><br><img src="/images/coordinatorlayout/25.3.0.gif" alt="image"></p>
+<p><code>com.android.support:appcompat-v7:26.0.0</code><br><img src="/images/coordinatorlayout/26.0.0.gif" alt="image"></p>
 <p>5、项目地址</p>
 <p><a href="https://github.com/android9527/CollapsingToobarLayoutDemo" target="_blank" rel="noopener">https://github.com/android9527/CollapsingToobarLayoutDemo</a></p>
 
@@ -632,7 +633,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -643,7 +644,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -654,7 +655,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -737,7 +738,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">88.5k</span>
+    <span title="Site words total count">94.2k</span>
   
 </div>
 
