@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://android9527.com/2019/01/24/2019-01-24-synchronized%20%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</loc>
+    
+    <lastmod>2019-03-05T09:02:16.132Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://android9527.com/2019/03/05/2019-03-05-%E5%9F%BA%E4%BA%8E%E6%A0%88%E5%92%8C%E5%9F%BA%E4%BA%8E%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%8C%87%E4%BB%A4%E9%9B%86%E5%8C%BA%E5%88%AB/</loc>
     
-    <lastmod>2019-03-05T08:42:02.563Z</lastmod>
+    <lastmod>2019-03-05T08:46:50.684Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://android9527.com/2018/12/06/2018-12-03-Java%E4%B8%ADsleep()%E4%B8%8Ewait()%E5%8C%BA%E5%88%AB/</loc>
     
     <lastmod>2019-02-12T09:44:10.345Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://android9527.com/2019/01/24/2019-01-24-synchronized%20%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</loc>
-    
-    <lastmod>2019-02-03T02:24:58.817Z</lastmod>
     
   </url>
   
@@ -275,7 +275,7 @@
   </url>
   
   <url>
-    <loc>http://android9527.com/2016/02/25/2016-02-26-Rxjava-Android/</loc>
+    <loc>http://android9527.com/2017/03/10/2017-03-10-hello-world-hexo/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
     
@@ -289,14 +289,14 @@
   </url>
   
   <url>
-    <loc>http://android9527.com/2016/03/04/2016-03-04-Handler-Message-Android/</loc>
+    <loc>http://android9527.com/2016/02/25/2016-02-26-Rxjava-Android/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://android9527.com/2017/03/10/2017-03-10-hello-world-hexo/</loc>
+    <loc>http://android9527.com/2016/03/04/2016-03-04-Handler-Message-Android/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
     
