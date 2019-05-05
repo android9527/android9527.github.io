@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://android9527.com/2019/05/05/2019-04-29-Dart%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2019-05-05T06:51:40.028Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://android9527.com/2019/03/05/2019-03-05-happens-before%20%E5%92%8C%20as-if-serial/</loc>
+    
+    <lastmod>2019-03-21T02:41:27.637Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://android9527.com/2019/01/24/2019-01-24-synchronized%20%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/</loc>
     
     <lastmod>2019-03-05T09:02:16.132Z</lastmod>
@@ -282,6 +296,13 @@
   </url>
   
   <url>
+    <loc>http://android9527.com/2016/03/04/2016-03-04-Handler-Message-Android/</loc>
+    
+    <lastmod>2017-07-27T07:23:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://android9527.com/2016/04/14/2016-04-14-Android%20hot-fix/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
@@ -290,13 +311,6 @@
   
   <url>
     <loc>http://android9527.com/2016/02/25/2016-02-26-Rxjava-Android/</loc>
-    
-    <lastmod>2017-07-27T07:23:54.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://android9527.com/2016/03/04/2016-03-04-Handler-Message-Android/</loc>
     
     <lastmod>2017-07-27T07:23:54.000Z</lastmod>
     

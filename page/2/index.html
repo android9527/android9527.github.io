@@ -306,6 +306,447 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://android9527.com/2019/01/24/2019-01-24-volatile 内存可见性和指令重排/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈飞跃">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/24/2019-01-24-volatile 内存可见性和指令重排/" itemprop="url">volatile 内存可见性和指令重排</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T00:00:00+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-29T17:00:39+08:00">
+                2019-01-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/24/2019-01-24-volatile 内存可见性和指令重排/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/24/2019-01-24-volatile 内存可见性和指令重排/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/01/24/2019-01-24-volatile 内存可见性和指令重排/" class="leancloud_visitors" data-flag-title="volatile 内存可见性和指令重排">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Java-中内存可见性"><a href="#Java-中内存可见性" class="headerlink" title="Java 中内存可见性"></a>Java 中内存可见性</h2><p>内存可见性：一个线程对共享变量值的修改，能够及时地被其他线程看到<br>共享变量：如果一个变量在多个线程的工作内存中都存在副本，那么这个变量就是这几个线程的共享变量</p>
+<p>Java内存模型JMM两条规定：</p>
+<ul>
+<li>线程对共享变量的所有操作都必须在自己的工作内存中进行，不能直接从主内存中读写</li>
+<li>不同线程之间无法直接访问其他线程工作内存中的变量，线程间变量值的传递需要通过主内存来完成</li>
+</ul>
+<p>可见性：</p>
+<p>JMM关于 synchronized 的两条规定：</p>
+<ul>
+<li>线程解锁钱，必须把共享变量的最新值刷新到主内存中</li>
+<li><p>线程加锁时，将清空工作内存中共享变量的值，从而使用共享变量时需要从内存中重新读取最新的值</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/24/2019-01-24-volatile 内存可见性和指令重排/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </li></ul></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://android9527.com/2019/01/24/2019-01-24-synchronized 的实现原理与应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈飞跃">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/24/2019-01-24-synchronized 的实现原理与应用/" itemprop="url">synchronized 的实现原理与应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T00:00:00+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-05T17:02:16+08:00">
+                2019-03-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/24/2019-01-24-synchronized 的实现原理与应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/24/2019-01-24-synchronized 的实现原理与应用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/01/24/2019-01-24-synchronized 的实现原理与应用/" class="leancloud_visitors" data-flag-title="synchronized 的实现原理与应用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  247
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="synchronized-的实现原理与应用"><a href="#synchronized-的实现原理与应用" class="headerlink" title="synchronized 的实现原理与应用"></a>synchronized 的实现原理与应用</h4><p>先来看下利用 synchronized 实现同步的基础：Java 中的每一个对象都可以作为锁。具体表现为以下三种形式。</p>
+<ul>
+<li>对于普通同步方法，锁是当前实例对象。</li>
+<li>对于静态同步方法，锁是当前类的 Class 对象。</li>
+<li>对于同步方法块，锁是 synchronized 括号里配置的对象。</li>
+</ul>
+<p>当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。那么锁到底存在哪里？锁里面会存储什么信息呢？</p>
+<p>从 JVM 规范中可以看到 synchronized 在 JVM 里的实现原理，</p>
+<p>JMM关于 synchronized 的两条规定：</p>
+<ul>
+<li>线程解锁钱，必须把共享变量的最新值刷新到主内存中</li>
+<li>线程加锁时，将清空工作内存中共享变量的值，从而使用共享变量时需要从内存中重新读取最新的值
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/24/2019-01-24-synchronized 的实现原理与应用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </li></ul></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://android9527.com/2019/01/23/2019-01-23-设置 Bitmap 任意角度/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -468,217 +909,6 @@
         
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://android9527.com/2018/12/06/2018-12-03-《未来世界的幸存者》/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈飞跃">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/06/2018-12-03-《未来世界的幸存者》/" itemprop="url">未来世界的幸存者</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T00:00:00+08:00">
-                2018-12-06
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-18T15:51:20+08:00">
-                2018-12-18
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/12/06/2018-12-03-《未来世界的幸存者》/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/06/2018-12-03-《未来世界的幸存者》/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/12/06/2018-12-03-《未来世界的幸存者》/" class="leancloud_visitors" data-flag-title="未来世界的幸存者">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  727
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="《未来世界的幸存者》读书笔记"><a href="#《未来世界的幸存者》读书笔记" class="headerlink" title="《未来世界的幸存者》读书笔记"></a>《未来世界的幸存者》读书笔记</h2><h4 id="机器取代人类"><a href="#机器取代人类" class="headerlink" title="机器取代人类"></a>机器取代人类</h4><p>技术信息革命人工智能和无人驾驶大数据技术目标就是不需要人类的参与，掌握核心技术的人的处境会越来越有利，优势成倍放大。</p>
-<h4 id="贫富差距会越来越大"><a href="#贫富差距会越来越大" class="headerlink" title="贫富差距会越来越大"></a>贫富差距会越来越大</h4><p>这种趋势只会增强，不会逆转，寒门再难出贵子。以前可以通过不懈努力完全有可能晋升到更高的社会阶层，改变自己的命运，以后会越来越难，因为跟你竞争的是软件和机器人，永远不会超过它们。<br>如果你是穷人，80%的概率以后你还是穷人；如果你是富人，84%的概率以后还是富人。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/2018-12-03-《未来世界的幸存者》/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
     
     
     
@@ -935,7 +1165,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://android9527.com/2018/12/03/2018-12-03-单例模式的实现方式/">
+    <link itemprop="mainEntityOfPage" href="http://android9527.com/2018/12/06/2018-12-03-《未来世界的幸存者》/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈飞跃">
@@ -954,7 +1184,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/03/2018-12-03-单例模式的实现方式/" itemprop="url">单例模式的实现方式</a></h1>
+                <a class="post-title-link" href="/2018/12/06/2018-12-03-《未来世界的幸存者》/" itemprop="url">未来世界的幸存者</a></h1>
         
 
         <div class="post-meta">
@@ -966,8 +1196,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T00:00:00+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T00:00:00+08:00">
+                2018-12-06
               </time>
             
 
@@ -982,8 +1212,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-05T10:56:01+08:00">
-                2018-12-05
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-18T15:51:20+08:00">
+                2018-12-18
               </time>
             
           </span>
@@ -1001,19 +1231,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/Design-Patterns/" itemprop="url" rel="index">
-                    <span itemprop="name">Design Patterns</span>
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
                   </a>
                 </span>
 
@@ -1030,8 +1249,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/03/2018-12-03-单例模式的实现方式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/03/2018-12-03-单例模式的实现方式/" itemprop="commentCount"></span>
+                <a href="/2018/12/06/2018-12-03-《未来世界的幸存者》/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/06/2018-12-03-《未来世界的幸存者》/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1039,7 +1258,7 @@
 
           
           
-             <span id="/2018/12/03/2018-12-03-单例模式的实现方式/" class="leancloud_visitors" data-flag-title="单例模式的实现方式">
+             <span id="/2018/12/06/2018-12-03-《未来世界的幸存者》/" class="leancloud_visitors" data-flag-title="未来世界的幸存者">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1064,7 +1283,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  727
                 </span>
               
 
@@ -1080,7 +1299,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -1102,221 +1321,11 @@
 
       
         
-          <h2 id="单例模式介绍"><a href="#单例模式介绍" class="headerlink" title="单例模式介绍"></a>单例模式介绍</h2><p>单例模式是应用最广的模式之一，在应用这个模式时，单例对象的类必须保证只有一个实例存在。<br>如在一个应用中，应该只有一个 ImageLoader 实例，这个 ImageLoader 中又包含有线程池、缓存系统、网络请求等，很消耗资源，因此，没有理由让它构造多个实例。</p>
-<h2 id="单例模式的使用场景"><a href="#单例模式的使用场景" class="headerlink" title="单例模式的使用场景"></a>单例模式的使用场景</h2><p>确保某个类有且只有一个对象的场景，避免产生多个对象消耗过多的资源，或者某种类型的对象应该有且只有一个。</p>
+          <h2 id="《未来世界的幸存者》读书笔记"><a href="#《未来世界的幸存者》读书笔记" class="headerlink" title="《未来世界的幸存者》读书笔记"></a>《未来世界的幸存者》读书笔记</h2><h4 id="机器取代人类"><a href="#机器取代人类" class="headerlink" title="机器取代人类"></a>机器取代人类</h4><p>技术信息革命人工智能和无人驾驶大数据技术目标就是不需要人类的参与，掌握核心技术的人的处境会越来越有利，优势成倍放大。</p>
+<h4 id="贫富差距会越来越大"><a href="#贫富差距会越来越大" class="headerlink" title="贫富差距会越来越大"></a>贫富差距会越来越大</h4><p>这种趋势只会增强，不会逆转，寒门再难出贵子。以前可以通过不懈努力完全有可能晋升到更高的社会阶层，改变自己的命运，以后会越来越难，因为跟你竞争的是软件和机器人，永远不会超过它们。<br>如果你是穷人，80%的概率以后你还是穷人；如果你是富人，84%的概率以后还是富人。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/03/2018-12-03-单例模式的实现方式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://android9527.com/2018/10/20/2018-10-20-AOP技术的几种实现方式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈飞跃">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/20/2018-10-20-AOP技术的几种实现方式/" itemprop="url">AOP技术的几种实现方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T00:00:00+08:00">
-                2018-10-20
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-06T14:39:21+08:00">
-                2018-11-06
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/20/2018-10-20-AOP技术的几种实现方式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/20/2018-10-20-AOP技术的几种实现方式/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/10/20/2018-10-20-AOP技术的几种实现方式/" class="leancloud_visitors" data-flag-title="AOP技术的几种实现方式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  5.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  19 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一、AOP概念"><a href="#一、AOP概念" class="headerlink" title="一、AOP概念"></a>一、AOP概念</h3><p>百度百科中对AOP的解释如下:<br>在软件业，AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/20/2018-10-20-AOP技术的几种实现方式/#more" rel="contents">
+            <a class="btn" href="/2018/12/06/2018-12-03-《未来世界的幸存者》/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1358,7 +1367,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1406,7 +1415,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1417,7 +1426,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1428,7 +1437,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1495,7 +1504,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">92.4k</span>
+    <span title="Site words total count">94.8k</span>
   
 </div>
 
