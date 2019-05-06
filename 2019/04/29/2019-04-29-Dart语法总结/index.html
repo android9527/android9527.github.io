@@ -88,12 +88,12 @@
 <meta name="keywords" content="Flutter,Dart">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dart语法总结">
-<meta property="og:url" content="http://android9527.com/2019/05/05/2019-04-29-Dart语法总结/index.html">
+<meta property="og:url" content="http://android9527.com/2019/04/29/2019-04-29-Dart语法总结/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="Dart 语言介绍 Dart 是Google发布的一门开源编程语言 Dart 目前可用于全平台开发 Dart是一门面向对象的编程语言  开发环境[Dart 环境安装] https://www.dartlang.org/tools/sdk#install IDE 支持 IntelliJ IDEA  Android StudioVS CodeSublime Text Atom">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://android9527.com/images/dart/override_operator.jpeg">
-<meta property="og:updated_time" content="2019-05-05T06:51:40.028Z">
+<meta property="og:updated_time" content="2019-05-06T03:25:00.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dart语法总结">
 <meta name="twitter:description" content="Dart 语言介绍 Dart 是Google发布的一门开源编程语言 Dart 目前可用于全平台开发 Dart是一门面向对象的编程语言  开发环境[Dart 环境安装] https://www.dartlang.org/tools/sdk#install IDE 支持 IntelliJ IDEA  Android StudioVS CodeSublime Text Atom">
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://android9527.com/2019/05/05/2019-04-29-Dart语法总结/">
+  <link rel="canonical" href="http://android9527.com/2019/04/29/2019-04-29-Dart语法总结/">
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://android9527.com/2019/05/05/2019-04-29-Dart语法总结/">
+    <link itemprop="mainEntityOfPage" href="http://android9527.com/2019/04/29/2019-04-29-Dart语法总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈飞跃">
@@ -341,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-05T00:00:00+08:00">
-                2019-05-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-29T00:00:00+08:00">
+                2019-04-29
               </time>
             
 
@@ -357,8 +357,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-05T14:51:40+08:00">
-                2019-05-05
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-06T11:25:00+08:00">
+                2019-05-06
               </time>
             
           </span>
@@ -389,30 +389,9 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/05/05/2019-04-29-Dart语法总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/05/2019-04-29-Dart语法总结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
-          
-             <span id="/2019/05/05/2019-04-29-Dart语法总结/" class="leancloud_visitors" data-flag-title="Dart语法总结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -444,7 +423,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -543,13 +522,14 @@
 <h5 id="（4）对象操作符"><a href="#（4）对象操作符" class="headerlink" title="（4）对象操作符"></a>（4）对象操作符</h5><p> 条件访问 ?.<br> 类型转换 as<br> 类型判断 is is!</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person person;</span><br><span class="line"><span class="comment">// ? 不为 null 则执行</span></span><br><span class="line">person?.work();</span><br><span class="line">person = <span class="keyword">new</span> Person(<span class="string">"zahng "</span>, <span class="number">15</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (person <span class="keyword">is</span> Person) &#123;</span><br><span class="line">  <span class="built_in">print</span>(person.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// .. 级联操作符</span></span><br><span class="line">person..name = <span class="string">"TOM"</span>..age = <span class="number">20.</span>.work();</span><br></pre></td></tr></table></figure>
 <h5 id="（5）抽象类-abstract-class、接口"><a href="#（5）抽象类-abstract-class、接口" class="headerlink" title="（5）抽象类 abstract class、接口"></a>（5）抽象类 abstract class、接口</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象类使用 abstract 表示，不能被直接实例化</span></span><br><span class="line"><span class="comment">// 抽象类可以没有抽象方法</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 抽象方法不用 abstract 修饰</span></span><br><span class="line">  <span class="keyword">void</span> eat();</span><br><span class="line">  <span class="built_in">String</span> name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Children</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> eat() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> run();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类就是接口</span></span><br><span class="line"><span class="comment">// implements 需要重写类的所有成员及方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Person</span> , <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String</span> name;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> eat() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> run() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="（6）Mixins"><a href="#（6）Mixins" class="headerlink" title="（6）Mixins"></a>（6）Mixins</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mixin 类似于多继承，是在多累继承中重用一个类代码的方式</span></span><br><span class="line"><span class="comment">// 作为 Mixin 的类不能声明构造方法</span></span><br><span class="line"><span class="comment">// 作为 Mixin 的类只能继承Object</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">  a() =&gt; <span class="built_in">print</span>(<span class="string">"A.a()"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">  b() =&gt; <span class="built_in">print</span>(<span class="string">"B.b()"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> </span>&#123;</span><br><span class="line">  c() =&gt; <span class="built_in">print</span>(<span class="string">"C.c()"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword">extends</span> <span class="title">A</span> <span class="title">with</span> <span class="title">B</span>, <span class="title">C</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> d() &#123;</span><br><span class="line">    a(); b(); c();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="（6）Mixins"><a href="#（6）Mixins" class="headerlink" title="（6）Mixins"></a>（6）Mixins</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mixin 类似于多继承，是在多类继承中重用一个类代码的方式</span></span><br><span class="line"><span class="comment">// 作为 Mixin 的类不能声明构造方法</span></span><br><span class="line"><span class="comment">// 作为 Mixin 的类只能继承Object</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">  a() =&gt; <span class="built_in">print</span>(<span class="string">"A.a()"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">  b() =&gt; <span class="built_in">print</span>(<span class="string">"B.b()"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> </span>&#123;</span><br><span class="line">  c() =&gt; <span class="built_in">print</span>(<span class="string">"C.c()"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword">extends</span> <span class="title">A</span> <span class="title">with</span> <span class="title">B</span>, <span class="title">C</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> d() &#123;</span><br><span class="line">    a(); b(); c();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="（7）操作符覆写"><a href="#（7）操作符覆写" class="headerlink" title="（7）操作符覆写"></a>（7）操作符覆写</h5><p> 覆写操作符需要在类中定义</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回类型 operator 操作符 (参数1, 参数2) &#123;</span><br><span class="line">    实现</span><br><span class="line">    return 返回值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> 如果覆写 ==，还需要覆写对象的hashCode getter 方法</p>
 <p><img src="/images/dart/override_operator.jpeg" alt="override_operator"></p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  Person p1 = Person(<span class="number">20</span>);</span><br><span class="line">  Person p2 = Person(<span class="number">18</span>);</span><br><span class="line">  <span class="built_in">print</span>(p1 &gt; p2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> age;</span><br><span class="line">  Person(<span class="keyword">this</span>.age);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">bool</span> <span class="keyword">operator</span> &gt;(Person person) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.age &gt; person.age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="枚举-enum-和-泛型"><a href="#枚举-enum-和-泛型" class="headerlink" title="枚举 enum 和 泛型"></a>枚举 enum 和 泛型</h3><h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.dartlang.org/guides/language/language-tour" target="_blank" rel="noopener">A Tour of the Dart Language</a></p>
+<h3 id="枚举-enum-和-泛型"><a href="#枚举-enum-和-泛型" class="headerlink" title="枚举 enum 和 泛型"></a>枚举 enum 和 泛型</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color &#123; red, green, blue &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> list = <span class="keyword">new</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;();</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.dartlang.org/guides/language/language-tour" target="_blank" rel="noopener">A Tour of the Dart Language</a></p>
 
       
     </div>
@@ -603,6 +583,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/06/2019-05-06-逆向打印链表/" rel="prev" title="逆向打印链表">
+                逆向打印链表 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -684,7 +668,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -695,7 +679,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -755,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dart-语言介绍"><span class="nav-number">1.</span> <span class="nav-text">Dart 语言介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发环境"><span class="nav-number">2.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础语法"><span class="nav-number">3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量与常量"><span class="nav-number">3.1.</span> <span class="nav-text">变量与常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置数据类型"><span class="nav-number">3.2.</span> <span class="nav-text">内置数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）数值型-num-int-double"><span class="nav-number">3.2.1.</span> <span class="nav-text">（1）数值型 num (int double)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）字符串-String"><span class="nav-number">3.2.2.</span> <span class="nav-text">（2）字符串 String</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）布尔值-bool"><span class="nav-number">3.2.3.</span> <span class="nav-text">（3）布尔值 bool</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）List"><span class="nav-number">3.2.4.</span> <span class="nav-text">（4）List</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（5）Map"><span class="nav-number">3.2.5.</span> <span class="nav-text">（5）Map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运算符"><span class="nav-number">3.3.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制语句"><span class="nav-number">3.4.</span> <span class="nav-text">控制语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">3.5.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法"><span class="nav-number">3.6.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象"><span class="nav-number">4.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类及成员可见性"><span class="nav-number">4.1.</span> <span class="nav-text">类及成员可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类及对象"><span class="nav-number">4.2.</span> <span class="nav-text">类及对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）属性与方法"><span class="nav-number">4.2.1.</span> <span class="nav-text">（1）属性与方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）计算属性"><span class="nav-number">4.2.2.</span> <span class="nav-text">（2）计算属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）-构造方法"><span class="nav-number">4.2.3.</span> <span class="nav-text">（3） 构造方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）对象操作符"><span class="nav-number">4.2.4.</span> <span class="nav-text">（4）对象操作符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（5）抽象类-abstract-class、接口"><span class="nav-number">4.2.5.</span> <span class="nav-text">（5）抽象类 abstract class、接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（6）Mixins"><span class="nav-number">4.2.6.</span> <span class="nav-text">（6）Mixins</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（7）操作符覆写"><span class="nav-number">4.2.7.</span> <span class="nav-text">（7）操作符覆写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举-enum-和-泛型"><span class="nav-number">5.</span> <span class="nav-text">枚举 enum 和 泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步"><span class="nav-number">6.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dart-语言介绍"><span class="nav-number">1.</span> <span class="nav-text">Dart 语言介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发环境"><span class="nav-number">2.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础语法"><span class="nav-number">3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量与常量"><span class="nav-number">3.1.</span> <span class="nav-text">变量与常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置数据类型"><span class="nav-number">3.2.</span> <span class="nav-text">内置数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）数值型-num-int-double"><span class="nav-number">3.2.1.</span> <span class="nav-text">（1）数值型 num (int double)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）字符串-String"><span class="nav-number">3.2.2.</span> <span class="nav-text">（2）字符串 String</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）布尔值-bool"><span class="nav-number">3.2.3.</span> <span class="nav-text">（3）布尔值 bool</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）List"><span class="nav-number">3.2.4.</span> <span class="nav-text">（4）List</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（5）Map"><span class="nav-number">3.2.5.</span> <span class="nav-text">（5）Map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运算符"><span class="nav-number">3.3.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制语句"><span class="nav-number">3.4.</span> <span class="nav-text">控制语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">3.5.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法"><span class="nav-number">3.6.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象"><span class="nav-number">4.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类及成员可见性"><span class="nav-number">4.1.</span> <span class="nav-text">类及成员可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类及对象"><span class="nav-number">4.2.</span> <span class="nav-text">类及对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（1）属性与方法"><span class="nav-number">4.2.1.</span> <span class="nav-text">（1）属性与方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（2）计算属性"><span class="nav-number">4.2.2.</span> <span class="nav-text">（2）计算属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（3）-构造方法"><span class="nav-number">4.2.3.</span> <span class="nav-text">（3） 构造方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（4）对象操作符"><span class="nav-number">4.2.4.</span> <span class="nav-text">（4）对象操作符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（5）抽象类-abstract-class、接口"><span class="nav-number">4.2.5.</span> <span class="nav-text">（5）抽象类 abstract class、接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（6）Mixins"><span class="nav-number">4.2.6.</span> <span class="nav-text">（6）Mixins</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（7）操作符覆写"><span class="nav-number">4.2.7.</span> <span class="nav-text">（7）操作符覆写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举-enum-和-泛型"><span class="nav-number">5.</span> <span class="nav-text">枚举 enum 和 泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -789,12 +773,12 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">94.8k</span>
+    <span title="Site words total count">95.5k</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by"> <a class="theme-link" target="_blank" href="https://github.com/android9527">陈飞跃</a> 个人专属</div>
 
 
 
@@ -802,7 +786,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">博客 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -952,28 +936,6 @@
 
 
 
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'dvNBSIeBJzY1eIRjHkbVoQRL-gzGzoHsz',
-        appKey: 'EjGIw5agxwnSnHqBt426TOXw',
-        placeholder: '请在此输入您的留言',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
 
 
 
@@ -1301,113 +1263,6 @@
 
 
   
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("dvNBSIeBJzY1eIRjHkbVoQRL-gzGzoHsz", "EjGIw5agxwnSnHqBt426TOXw");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
   
 
