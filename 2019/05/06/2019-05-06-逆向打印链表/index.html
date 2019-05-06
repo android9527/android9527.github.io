@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="逆向打印链表输入一个链表的头节点，从尾到头反过来打印出每个节点的值。 练表节点定义如下： 12345678910111213141516171819public class Node &amp;#123;    Integer data;    Node next;    public Node(Integer data) &amp;#123;        this.data = data;    &amp;#125;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-06T09:19:03.353Z">
+<meta property="og:updated_time" content="2019-05-06T09:32:10.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向打印链表">
 <meta name="twitter:description" content="逆向打印链表输入一个链表的头节点，从尾到头反过来打印出每个节点的值。 练表节点定义如下： 12345678910111213141516171819public class Node &amp;#123;    Integer data;    Node next;    public Node(Integer data) &amp;#123;        this.data = data;    &amp;#125;">
@@ -355,7 +355,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-06T17:19:03+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-06T17:32:10+08:00">
                 2019-05-06
               </time>
             
@@ -451,13 +451,25 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数组创建链表</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> list</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Node <span class="title">createLinkedList</span><span class="params">(List&lt;Integer&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (list == <span class="keyword">null</span> || list.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node firstNode = <span class="keyword">new</span> Node(list.get(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    Node headOfSublist = createLinkedList(list.subList(<span class="number">1</span>, list.size()));</span><br><span class="line">    firstNode.setNext(headOfSublist);</span><br><span class="line">    <span class="keyword">return</span> firstNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * stack 的方式实现链表逆向打印</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head head</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printListRevers</span><span class="params">(Node head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node node = head;</span><br><span class="line">    Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="comment">// 把链表数据加入栈</span></span><br><span class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">    stack.push(node.getData());</span><br><span class="line">        node = node.getNext();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">        Integer integer = stack.pop();</span><br><span class="line">        System.out.println(integer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>既然想到了用栈来实现这个函数，而递归在本质上就是一个栈结构，于是又想到了用递归来实现。要实现反过来输出链表，我们每访问到一个节点的时候，先递归输出它后面的节点，再输出该节点自身，这样链表的输出结果就反过来了。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 递归方式实现链表逆向打印</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> head head</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printListReversed</span><span class="params">(Node head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (head.getNext() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        printListReversed(head.getNext());</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(head.getData());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的基于递归的代码看起来很简洁，但有一个问题：当链表非常长的时候，就会导致函数调用的层级很深，从而有可能导致函数调用栈溢出。显然用栈循环实现的代码更要一些。</p>
+<p>上面的基于递归的代码看起来很简洁，但有一个问题：当链表非常长的时候，就会导致函数调用的层级很深，从而有可能导致函数调用栈溢出。显然用栈循环实现的代码更好一些。</p>
 
       
     </div>
     
     
     
+
+    
+        <div>
+            <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------ 本文结束，欢迎阅读------</div>
+        <div style="text-align:center;font-size: 20px; color: #000;">欢迎关注公众号，不定期更新</div>
+        <div align="center"><img src="/images/qrcode_344.jpg"></div>
+    
+</div>
+         </div>
+   
 
     
 
@@ -516,6 +528,7 @@
   
   
   </article>
+
 
 
 

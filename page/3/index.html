@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://android9527.com/2018/12/06/2018-12-03-Java中sleep()与wait()区别/">
+    <link itemprop="mainEntityOfPage" href="http://android9527.com/2018/12/06/2018-12-03-《未来世界的幸存者》/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈飞跃">
@@ -325,7 +325,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/2018-12-03-Java中sleep()与wait()区别/" itemprop="url">Java中sleep()与wait()区别</a></h1>
+                <a class="post-title-link" href="/2018/12/06/2018-12-03-《未来世界的幸存者》/" itemprop="url">未来世界的幸存者</a></h1>
         
 
         <div class="post-meta">
@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-02-12T17:44:10+08:00">
-                2019-02-12
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-18T15:51:20+08:00">
+                2018-12-18
               </time>
             
           </span>
@@ -403,7 +403,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  386
+                  727
                 </span>
               
 
@@ -419,7 +419,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -441,22 +441,22 @@
 
       
         
-          
-            <h4 id="Java中sleep-与wait-区别"><a href="#Java中sleep-与wait-区别" class="headerlink" title="Java中sleep()与wait()区别"></a>Java中sleep()与wait()区别</h4><ul>
-<li><p>每个对象都有一个锁来控制同步访问，Synchronized关键字可以和对象的锁交互，来实现同步方法或同步块。sleep()方法正在执行的线程主动让出CPU（然后CPU就可以去执行其他任务），在sleep指定时间后CPU再回到该线程继续往下执行(注意：sleep方法只让出了CPU，而并不会释放同步资源锁！！！)；wait()方法则是指当前线程让自己暂时退让出同步资源锁，以便其他正在等待该资源的线程得到该资源进而运行，只有调用了notify()方法，之前调用wait()的线程才会解除wait状态，可以去参与竞争同步资源锁，进而得到执行。（注意：notify的作用相当于叫醒睡着的人，而并不会给他分配任务，就是说notify只是让之前调用wait的线程有权利重新参与线程的调度）；</p>
-</li>
-<li><p>sleep()方法可以在任何地方使用；wait()方法则只能在同步方法或同步块中使用；</p>
-</li>
-<li><p>sleep()是线程线程类（Thread）的方法，调用会暂停此线程指定的时间，但监控依然保持，不会释放对象锁，到时间自动恢复；wait()是Object的方法，调用会放弃对象锁，进入等待队列，待调用notify()/notifyAll()唤醒指定的线程或者所有线程，才会进入锁池，不再次获得对象锁才会进入运行状态；</p>
-</li>
-</ul>
-
-          
+          <h2 id="《未来世界的幸存者》读书笔记"><a href="#《未来世界的幸存者》读书笔记" class="headerlink" title="《未来世界的幸存者》读书笔记"></a>《未来世界的幸存者》读书笔记</h2><h4 id="机器取代人类"><a href="#机器取代人类" class="headerlink" title="机器取代人类"></a>机器取代人类</h4><p>技术信息革命人工智能和无人驾驶大数据技术目标就是不需要人类的参与，掌握核心技术的人的处境会越来越有利，优势成倍放大。</p>
+<h4 id="贫富差距会越来越大"><a href="#贫富差距会越来越大" class="headerlink" title="贫富差距会越来越大"></a>贫富差距会越来越大</h4><p>这种趋势只会增强，不会逆转，寒门再难出贵子。以前可以通过不懈努力完全有可能晋升到更高的社会阶层，改变自己的命运，以后会越来越难，因为跟你竞争的是软件和机器人，永远不会超过它们。<br>如果你是穷人，80%的概率以后你还是穷人；如果你是富人，84%的概率以后还是富人。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/06/2018-12-03-《未来世界的幸存者》/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
+    
+
     
 
     
@@ -482,6 +482,7 @@
   
   
   </article>
+
 
 
     
@@ -666,6 +667,8 @@
 
     
 
+    
+
     <footer class="post-footer">
       
 
@@ -683,6 +686,7 @@
   
   
   </article>
+
 
 
     
@@ -855,6 +859,8 @@
 
     
 
+    
+
     <footer class="post-footer">
       
 
@@ -872,6 +878,7 @@
   
   
   </article>
+
 
 
     
@@ -1045,6 +1052,8 @@
 
     
 
+    
+
     <footer class="post-footer">
       
 
@@ -1062,6 +1071,7 @@
   
   
   </article>
+
 
 
     
@@ -1234,6 +1244,8 @@
 
     
 
+    
+
     <footer class="post-footer">
       
 
@@ -1251,6 +1263,7 @@
   
   
   </article>
+
 
 
     
