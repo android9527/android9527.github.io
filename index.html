@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-18T15:21:29+08:00">
-                2019-11-18
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-27T15:15:57+08:00">
+                2019-12-27
               </time>
             
           </span>
@@ -403,7 +403,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  777
+                  866
                 </span>
               
 
@@ -441,14 +441,15 @@
 
       
         
-          <h3 id="动态环境配置"><a href="#动态环境配置" class="headerlink" title="动态环境配置"></a>动态环境配置</h3><p>在实际应用开发的过程中经常会遇到切换环境的问题，本文提供一个动态切换环境的方法。</p>
-<h4 id="Java-Properties类"><a href="#Java-Properties类" class="headerlink" title="Java Properties类"></a>Java Properties类</h4><p>Java中有个比较重要的类Properties（Java.util.Properties），主要用于读取Java的配置文件。</p>
-<p>它提供了几个主要的方法：</p>
-<p> *1． getProperty ( String key)，用指定的键在此属性列表中搜索属性。也就是通过参数 key ，得到 key 所对应的 value。</p>
-<p> *2． load ( InputStream inStream)，从输入流中读取属性列表（键和元素对）。通过对指定的文件（比如说上面的 test.properties 文件）进行装载来获取该文件中的所有键 - 值对。以供 getProperty ( String key) 来搜索。</p>
-<p> *3． setProperty ( String key, String value) ，调用 Hashtable 的方法 put 。他通过调用基类的put方法来设置 键 - 值对。</p>
-<p> *4． store ( OutputStream out, String comments)，以适合使用 load 方法加载到 Properties 表中的格式，将此 Properties 表中的属性列表（键和元素对）写入输出流。与 load 方法相反，该方法将键 - 值对写入到指定的文件中去。</p>
-<p> *5． clear ()，清除所有装载的 键 - 值对。该方法在基类中提供。<br>
+          <p>在实际应用开发的过程中经常会遇到切换环境的问题，本文提供一个动态切换环境的方法。</p>
+<h4 id="先介绍下-Java-Properties-类"><a href="#先介绍下-Java-Properties-类" class="headerlink" title="先介绍下 Java Properties 类"></a>先介绍下 Java Properties 类</h4><p><img src="/images/url_switch/properties.jpeg" alt="image"></p>
+<p>Java中有个比较重要的类Properties（Java.util.Properties），主要用于读取Java的配置文件。<br>它提供了几个主要的方法：</p>
+<ul>
+<li>getProperty(String key)，用指定的键在此属性列表中搜索属性。也就是通过参数 key ，得到 key 所对应的 value。</li>
+<li>load(InputStream inStream)，从输入流中读取属性列表（键和元素对）。通过对指定的文件（比如说上面的 test.properties 文件）进行装载来获取该文件中的所有键 - 值对。以供 getProperty ( String key) 来搜索。</li>
+<li>setProperty(String key, String value) ，调用 Hashtable 的方法 put 。他通过调用基类的put方法来设置 键 - 值对。</li>
+<li>store(OutputStream out, String comments)，以适合使用 load 方法加载到 Properties 表中的格式，将此 Properties 表中的属性列表（键和元素对）写入输出流。与 load 方法相反，该方法将键 - 值对写入到指定的文件中去。</li>
+<li>clear()，清除所有装载的 键 - 值对。该方法在基类中提供。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/11/12/2019-11-12-Android 动态环境配置/#more" rel="contents">
@@ -458,7 +459,7 @@
           <!--/noindex-->
         
       
-    </p></div>
+    </li></ul></div>
     
     
     
@@ -1411,7 +1412,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">96.2k</span>
+    <span title="Site words total count">96.3k</span>
   
 </div>
 
