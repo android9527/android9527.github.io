@@ -104,6 +104,28 @@
   </entry>
   
   <entry>
+    <title>happens-before 和 as-if-serial</title>
+    <link href="http://android9527.com/2019/03/05/2019-03-05-happens-before%20%E5%92%8C%20as-if-serial/"/>
+    <id>http://android9527.com/2019/03/05/2019-03-05-happens-before 和 as-if-serial/</id>
+    <published>2019-03-04T16:00:00.000Z</published>
+    <updated>2019-03-21T02:41:27.637Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="happens-before-和-as-if-serial"><a href="#happens-before-和-as-if-serial" class="headerlink" title="happens-before 和 as-if-serial"></a>happens-before 和 as-if-serial</h4><h5 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h5><p>happens-before 用来指定两个操作之间的执行顺序。<br>由于这两个操作可以在一个线程之内，也可以是在不同线程之间。因此，JMM可以通过happens-before关系向程序员提供跨线程的内存可见性保证（如果A线程的写操作a与B线程的读操作b之间存在happens-before关系，尽管a操作和b操作在不同的线程中执行，但JMM向程序员保证a操作将对b操作可见）。<br><a id="more"></a><br>具体的定义为：</p><ul><li><p>1）如果一个操作happens-before另一个操作，那么第一个操作的执行结果将对第二个操作可见，而且第一个操作的执行顺序排在第二个操作之前。</p></li><li><p>2）两个操作之间存在happens-before关系，并不意味着Java平台的具体实现必须要按照happens-before关系指定的顺序来执行。如果重排序之后的执行结果，与按happens-before关系来执行的结果一致，那么这种重排序并不非法（也就是说，JMM允许这种重排序）。</p><p>上面的1）是JMM对程序员的承诺。从程序员的角度来说，可以这样理解happens-before关系：如果A happens-before B，那么Java内存模型将向程序员保证——A操作的结果将对B可见，且A的执行顺序排在B之前。注意，这只是Java内存模型向程序员做出的保证！</p><p>上面的2）是JMM对编译器和处理器重排序的约束原则。正如前面所言，JMM其实是在遵循一个基本原则：只要不改变程序的执行结果（指的是单线程程序和正确同步的多线程程序），编译器和处理器怎么优化都行。JMM这么做的原因是：程序员对于这两个操作是否真的被重排序并不关心，程序员关心的是程序执行时的语义不能被改变（即执行结果不能被改变）。因此，happens-before关系本质上和as-if-serial语义是一回事。</p></li></ul><h5 id="as-if-serial"><a href="#as-if-serial" class="headerlink" title="as-if-serial"></a>as-if-serial</h5><ul><li>as-if-serial语义保证单线程内程序的执行结果不被改变，happens-before关系保证正确同步的多线程程序的执行结果不被改变。</li><li>as-if-serial语义给编写单线程程序的程序员创造了一个幻境：单线程程序是按程序的顺序来执行的。happens-before关系给编写正确同步的多线程程序的程序员创造了一个幻境：正确同步的多线程程序是按happens-before指定的顺序来执行的。</li><li>as-if-serial语义和happens-before这么做的目的，都是为了在不改变程序执行结果的前提下，尽可能地提高程序执行的并行度。</li></ul><p>as-if-serial 语义的意思是：不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不会改变。</p><p>编译器、runtime和处理器都必须遵守as-if-serial语义。</p><p>为了遵守 as-if-serial 语义，编译器和处理器不会对存在数据依赖关系的操作做重排序，因为这种重排序会改变执行结果。</p><p>但是，如果操作之间不存在数据依赖关系，这些操作就可能被编译器和处理器重排序。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;happens-before-和-as-if-serial&quot;&gt;&lt;a href=&quot;#happens-before-和-as-if-serial&quot; class=&quot;headerlink&quot; title=&quot;happens-before 和 as-if-serial&quot;&gt;&lt;/a&gt;happens-before 和 as-if-serial&lt;/h4&gt;&lt;h5 id=&quot;happens-before&quot;&gt;&lt;a href=&quot;#happens-before&quot; class=&quot;headerlink&quot; title=&quot;happens-before&quot;&gt;&lt;/a&gt;happens-before&lt;/h5&gt;&lt;p&gt;happens-before 用来指定两个操作之间的执行顺序。&lt;br&gt;由于这两个操作可以在一个线程之内，也可以是在不同线程之间。因此，JMM可以通过happens-before关系向程序员提供跨线程的内存可见性保证（如果A线程的写操作a与B线程的读操作b之间存在happens-before关系，尽管a操作和b操作在不同的线程中执行，但JMM向程序员保证a操作将对b操作可见）。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://android9527.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://android9527.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>基于栈和基于寄存器的指令集区别</title>
     <link href="http://android9527.com/2019/03/05/2019-03-05-%E5%9F%BA%E4%BA%8E%E6%A0%88%E5%92%8C%E5%9F%BA%E4%BA%8E%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%8C%87%E4%BB%A4%E9%9B%86%E5%8C%BA%E5%88%AB/"/>
     <id>http://android9527.com/2019/03/05/2019-03-05-基于栈和基于寄存器的指令集区别/</id>
@@ -116,28 +138,6 @@
     
       &lt;h4 id=&quot;基于栈和基于寄存器的指令集区别&quot;&gt;&lt;a href=&quot;#基于栈和基于寄存器的指令集区别&quot; class=&quot;headerlink&quot; title=&quot;基于栈和基于寄存器的指令集区别&quot;&gt;&lt;/a&gt;基于栈和基于寄存器的指令集区别&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;基于栈的指令集&lt;br&gt;优点：可移植（寄存器由硬件提供，程序依赖硬件寄存器会收到硬件约束），基于栈的指令集架构，用户不会直接使用这些寄存器，由虚拟机实现决定把一些访问频繁的数据放到寄存器中获得尽量更好的性能；还有优点是代码相对紧凑（字节码中每个字节对应一条指令）、编译器实现简单（无需考虑空间分配）等；&lt;br&gt;缺点：执行速度慢，效率较低。因为操作本身伴随着大量的入栈出栈，导致完成相同功能所需的指令数量增加；更重要的是栈实现在内存中，频繁的栈访问意味着频繁的内存访问，这大大降低了效率。
-    
-    </summary>
-    
-      <category term="Java" scheme="http://android9527.com/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="http://android9527.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>happens-before 和 as-if-serial</title>
-    <link href="http://android9527.com/2019/03/05/2019-03-05-happens-before%20%E5%92%8C%20as-if-serial/"/>
-    <id>http://android9527.com/2019/03/05/2019-03-05-happens-before 和 as-if-serial/</id>
-    <published>2019-03-04T16:00:00.000Z</published>
-    <updated>2019-03-21T02:41:27.637Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="happens-before-和-as-if-serial"><a href="#happens-before-和-as-if-serial" class="headerlink" title="happens-before 和 as-if-serial"></a>happens-before 和 as-if-serial</h4><h5 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h5><p>happens-before 用来指定两个操作之间的执行顺序。<br>由于这两个操作可以在一个线程之内，也可以是在不同线程之间。因此，JMM可以通过happens-before关系向程序员提供跨线程的内存可见性保证（如果A线程的写操作a与B线程的读操作b之间存在happens-before关系，尽管a操作和b操作在不同的线程中执行，但JMM向程序员保证a操作将对b操作可见）。<br><a id="more"></a><br>具体的定义为：</p><ul><li><p>1）如果一个操作happens-before另一个操作，那么第一个操作的执行结果将对第二个操作可见，而且第一个操作的执行顺序排在第二个操作之前。</p></li><li><p>2）两个操作之间存在happens-before关系，并不意味着Java平台的具体实现必须要按照happens-before关系指定的顺序来执行。如果重排序之后的执行结果，与按happens-before关系来执行的结果一致，那么这种重排序并不非法（也就是说，JMM允许这种重排序）。</p><p>上面的1）是JMM对程序员的承诺。从程序员的角度来说，可以这样理解happens-before关系：如果A happens-before B，那么Java内存模型将向程序员保证——A操作的结果将对B可见，且A的执行顺序排在B之前。注意，这只是Java内存模型向程序员做出的保证！</p><p>上面的2）是JMM对编译器和处理器重排序的约束原则。正如前面所言，JMM其实是在遵循一个基本原则：只要不改变程序的执行结果（指的是单线程程序和正确同步的多线程程序），编译器和处理器怎么优化都行。JMM这么做的原因是：程序员对于这两个操作是否真的被重排序并不关心，程序员关心的是程序执行时的语义不能被改变（即执行结果不能被改变）。因此，happens-before关系本质上和as-if-serial语义是一回事。</p></li></ul><h5 id="as-if-serial"><a href="#as-if-serial" class="headerlink" title="as-if-serial"></a>as-if-serial</h5><ul><li>as-if-serial语义保证单线程内程序的执行结果不被改变，happens-before关系保证正确同步的多线程程序的执行结果不被改变。</li><li>as-if-serial语义给编写单线程程序的程序员创造了一个幻境：单线程程序是按程序的顺序来执行的。happens-before关系给编写正确同步的多线程程序的程序员创造了一个幻境：正确同步的多线程程序是按happens-before指定的顺序来执行的。</li><li>as-if-serial语义和happens-before这么做的目的，都是为了在不改变程序执行结果的前提下，尽可能地提高程序执行的并行度。</li></ul><p>as-if-serial 语义的意思是：不管怎么重排序（编译器和处理器为了提高并行度），（单线程）程序的执行结果不会改变。</p><p>编译器、runtime和处理器都必须遵守as-if-serial语义。</p><p>为了遵守 as-if-serial 语义，编译器和处理器不会对存在数据依赖关系的操作做重排序，因为这种重排序会改变执行结果。</p><p>但是，如果操作之间不存在数据依赖关系，这些操作就可能被编译器和处理器重排序。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;happens-before-和-as-if-serial&quot;&gt;&lt;a href=&quot;#happens-before-和-as-if-serial&quot; class=&quot;headerlink&quot; title=&quot;happens-before 和 as-if-serial&quot;&gt;&lt;/a&gt;happens-before 和 as-if-serial&lt;/h4&gt;&lt;h5 id=&quot;happens-before&quot;&gt;&lt;a href=&quot;#happens-before&quot; class=&quot;headerlink&quot; title=&quot;happens-before&quot;&gt;&lt;/a&gt;happens-before&lt;/h5&gt;&lt;p&gt;happens-before 用来指定两个操作之间的执行顺序。&lt;br&gt;由于这两个操作可以在一个线程之内，也可以是在不同线程之间。因此，JMM可以通过happens-before关系向程序员提供跨线程的内存可见性保证（如果A线程的写操作a与B线程的读操作b之间存在happens-before关系，尽管a操作和b操作在不同的线程中执行，但JMM向程序员保证a操作将对b操作可见）。&lt;br&gt;
     
     </summary>
     
