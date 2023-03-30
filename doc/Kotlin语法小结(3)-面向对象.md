@@ -1,0 +1,433 @@
+# Kotlin语法小结(3)-面向对象
+
+ 发表于 2018-04-10 | 更新于: 2018-12-05 | 分类于 [Kotlin](http://android9527.com/categories/Kotlin/)
+
+ 字数统计: 2.8k | 阅读时长 ≈ 11 分钟
+
+#### 三、 面向对象
+
+##### 类和继承
+
+Kotlin 中使⽤关键字 `class` 声明类
+类声明由类名、 类头 （指定其类型参数、 主构造函数等） 和由⼤括号包围的类体构成。 类头和类体都是可选的； 如果⼀个类没有类体， 可以省略花括号。
+
+- 构造函数
+
+在 Kotlin 中的⼀个类可以有⼀个主构造函数和⼀个或多个次构造函数。 主构造函数是类头的⼀部分： 它跟在类名 （和可选的类型参数） 后。
+
+
+
+```kotlin
+// 常规用法
+
+class Person constructor(firstName: String) {
+}
+// 如果主构造函数没有任何注解或者可⻅性修饰符， 可以省略这个 constructor 关键字。
+
+// 当主构造函数有注解或者可见性修饰符，需加 constructor 关键字
+class People2 public @Inject constructor(name: String) {
+}
+
+//若主构造函数中，不进行初始化, 可放在init{}中
+class People3(name: String) {
+    val name: String
+
+    init {
+        println("initialize")
+        this.name = name
+    }
+}
+
+// 如果类有一个主构造函数（无论有无参数），每个次构造函数需要直接或间接委托给主构造函数，用this关键字
+class People4 {
+    constructor() {
+        println("constructor")
+    }
+    constructor(name: String) : this() {
+
+    }
+    constructor(name: String, age: Int) : this(name) {
+
+    }
+}
+```
+
+
+
+- 局部函数和顶层函数
+  Kotlin 支持局部函数，即一个函数在另一个函数内部
+  Kotlin中通过使用顶层函数和顶层属性减少Java中常见的静态工具类，使我们的代码更加整洁
+
+```kotlin
+fun add(i: Int) {
+    fun add(m :Int, n : Int) : Int {
+        return m + n
+    }
+    val result = add(i, 5)
+}
+```
+
+局部函数可以访问外部函数的局部变量，所以在上例中，n 可以是局部变量。
+
+```kotlin
+fun add(i: Int) {
+    val n = 10
+    fun add(m :Int) : Int {
+        return m + n
+    }
+    val result = add(i)
+}
+```
+
+- 抽象类
+  类和其中的某些成员可以声明为 abstract。 抽象成员在本类中可以不⽤实现。 需要注意的是， 我们并不需要⽤ open 标注⼀个抽象类或者抽象函数
+
+##### open
+
+open 关键字与java 中的 final相反:它允许别的类继承这个类。默认情形下，kotlin 中所有的类和函数都是 final
+
+- 覆盖⽅法
+
+```kotlin
+open class Base {
+    open fun v() {}
+    fun nv() {}
+}
+class Derived() : Base() {
+    override fun v() {}
+}
+```
+
+Derived.v() 函数上必须加上 `override`标注。 如果没写， 编译器将会报错。 如果函数没有标注 open 如 Base.nv() ， 则⼦类中不允许定义相同签名的函数，不论加不加 override。 在⼀个 final 类中 （没有⽤ open 标注的类） ， 开放成员是禁⽌的
+
+- 覆盖属性
+  属性覆盖与⽅法覆盖类似； 在超类中声明然后在派⽣类中重新声明的属性必须以 override 开头， 并且它们必须具有兼容的类型。 每个声明的属性可以由
+  具有初始化器的属性或者具有 getter ⽅法的属性覆盖。
+
+```kotlin
+open class Foo {
+    open val x: Int get() = 1
+}
+class Bar1 : Foo() {
+    override val x: Int = 3
+}
+```
+
+##### 接口
+
+Kotlin 的接口与 Java 8 类似，既包含抽象方法的声明，也包含实现。与抽象类不同的是，接口无法保存状态。它可以有属性但必须声明为抽象或提供访问器实现。
+使用关键字 interface 来定义接口
+
+```kotlin
+interface MyInterface {
+    fun bar()
+    fun foo() {
+      // 可选的方法体
+    }
+}
+```
+
+- 实现接口
+
+```kotlin
+class Child : MyInterface {
+    override fun bar() {
+        // 方法体
+    }
+}
+```
+
+- TODO函数
+  调用含有`TODO`关键字的方法将直接抛出异常
+
+```kotlin
+fun main(args: Array<String>) {
+    fun test() {
+        TODO("not implemented!")
+    }
+    test()
+}
+```
+
+- 接口中的属性
+
+你可以在接口中定义属性。在接口中声明的属性要么是抽象的，要么提供访问器的实现。
+
+```kotlin
+interface MyInterface {
+    val prop: Int // 抽象的,需要子类重写
+
+    val propertyWithImplementation: String
+        get() = "foo"
+
+    fun foo() {
+        print(prop)
+    }
+}
+
+class Child : MyInterface {
+    override val prop: Int = 29
+}
+```
+
+- 解决覆盖冲突
+
+实现多个接口时，可能会遇到同一方法继承多个实现的问题。例如
+
+```kotlin
+interface A {
+    fun foo() { print("A") }
+    fun bar()
+}
+
+interface B {
+    fun foo() { print("B") }
+    fun bar() { print("bar") }
+}
+
+class C : A {
+    override fun bar() { print("bar") }
+}
+
+class D : A, B {
+    override fun foo() {
+        super<A>.foo()
+        super<B>.foo()
+    }
+
+    override fun bar() {
+        super<B>.bar()
+    }
+}
+```
+
+上例中，接口 A 和 B 都定义了方法 foo() 和 bar()。 两者都实现了 foo(), 但是只有 B 实现了 bar()，(bar() 在 A 中没有标记为抽象， 因为没有方法体时默认为抽象）。因为 C 是一个实现了 A 的具体类，所以必须要重写 bar() 并实现这个抽象方法。
+然而，如果我们从 A 和 B 派生 D，我们需要实现我们从多个接口继承的所有方法，并指明 D 应该如何实现它们。这一规则既适用于继承单个实现（bar()）的方法也适用于继承多个实现（foo()）的方法。
+
+##### data class，object class，伴生对象和内部类
+
+- data class
+
+```kotlin
+// 减少样板代码
+data class User(val name: String, val age: Int)
+```
+
+- object class
+
+```kotlin
+/**
+ * 对象声明是定义单例的一种形式
+ * object class 等同于java 饿汉式单例
+ * public static final ObjectTest INSTANCE = new ObjectTest();
+ */
+object ObjectTest : ArrayList<String>() {
+    fun test() {
+    }
+}
+```
+
+与 Java 或 C# 不同， 在 Kotlin 中类没有静态⽅法。 在⼤多数情况下，它建议简单地使⽤包级函数。
+
+- 伴生对象和静态成员
+- 内部类 静态非静态，匿名内部类
+
+```kotlin
+/**
+ * 内部类
+ * 1.kotlin 默认内部类为public static final，不能持有外部类的状态（属性、方法等）
+ * 2.给内部类加上inner关键词之后，就会变成非静态内部类，可以访问外部类的属性和方法
+ * 3.非静态内部类想访问外部类的属性，可以使用 this@外部类名.外部类属性名 的形式访问
+ * 4.非静态内部类可以访问到外部静态内部类的方法和属性，静态内部类访问不到外部所有的属性和方法
+ *
+ * 注意调用方式及内存泄漏相关
+ *
+ * 对象表达式用来替代Java的匿名内部类
+ */
+ class Outer {
+     val helloWorld = "Hello World"
+     inner class Inner {
+         fun getOuter(): Outer {
+             return this@Outer
+         }
+     }
+ }
+
+ fun main(args: Array<String>) {
+     val outer = Outer()
+     val innerClass = outer.Inner()
+     val view = View()
+     // kotlin匿名内部类，可以继承一个类，实现多个接口
+     view.setOnClickListener(object : Any(), View.OnClickListener {
+         override fun onClick(view: View) {
+         }
+     })
+ }
+```
+
+##### 扩展
+
+- 函数重载overload和默认参数
+
+Kotlin允许包级函数一级函数参数存在默认值
+函数参数可以有默认值，当省略相应的参数时使用默认值。与其他语言相比，这可以减少重载数量。
+
+```kotlin
+fun read(b: Array<Byte>, off: Int = 0, len: Int = b.size) {
+
+}
+```
+
+默认值通过类型后面的 = 及给出的值来定义。
+覆盖方法总是使用与基类型方法相同的默认参数值。 当覆盖一个带有默认参数值的方法时，必须从签名中省略默认参数值：
+
+```kotlin
+open class A {
+    open fun foo(i: Int = 10) {  }
+}
+
+class B : A() {
+    override fun foo(i: Int) {  }  // 不能有默认值
+}
+```
+
+- 具名参数
+  调用函数时, 可以通过参数名来指定参数. 当函数参数很多, 或者存在默认参数时, 指定参数名是一种非常便利的功能
+
+可以在调用函数时使用命名的函数参数。当一个函数有大量的参数或默认参数时这会非常方便。
+给定以下函数
+
+```kotlin
+fun reformat(str: String,
+             normalizeCase: Boolean = true,
+             upperCaseFirstLetter: Boolean = true,
+             divideByCamelHumps: Boolean = false,
+             wordSeparator: Char = ' ') {
+
+}
+
+// 我们可以使用默认参数来调用它
+fun main(args: Array<String>) {
+    // 我们可以使用默认参数来调用它
+    reformat(str)
+    // 然而，当使用非默认参数调用它时，该调用看起来就像
+    reformat(str, true, true, false, '_')
+    // 使用命名参数我们可以使代码更具有可读性
+    reformat(str,
+            normalizeCase = true,
+            upperCaseFirstLetter = true,
+            divideByCamelHumps = false,
+            wordSeparator = '_')
+    // 并且如果我们不需要所有的参数
+    reformat(str, wordSeparator = '_')
+}
+```
+
+请注意，在调用 Java 函数时不能使用命名参数语法，因为 Java 字节码并不总是保留函数参数的名称。
+
+- 中缀表示法 （函数还可以用中缀表示法调，当满足以下条件时）
+- 他们是成员函数或扩展函数
+- 他们只有一个参数
+- 他们用 infix 关键字标注
+
+```kotlin
+// 给 Int 定义扩展
+infix fun Int.shl(x: Int): Int {
+    return x
+}
+
+// 用中缀表示法调用扩展函数
+1 shl 2
+// 等同于这样
+1.shl(2)
+```
+
+- Kotlin 支持函数扩展和属性扩展
+  扩展实际上并没有修改它所扩展的类。定义一个扩展，你并没有在类中插入一个新的成员，只是让这个类的实例对象能够通过.调用新的函数。
+  注意，由于扩展并不会真正给类添加了成员属性，因此也没有办法让扩展属性拥有一个备份字段(backing field).这也是为什么初始化函数不允许有扩展属性。扩展属性只能够通过明确提供 getter 和 setter方法来进行定义.
+  如果有同名同参数的成员函数和扩展函数，调用的时候必然会使用成员函数
+
+```kotlin
+fun main(args: Array<String>) {
+    val bd = "3".bd
+    val d = 4.00.bd
+    println(bd.add(d))
+    println(bd.addAndMul(d))
+}
+
+/**
+ * 对Double属性扩展
+ */
+private val Double.bd : BigDecimal
+    get() = BigDecimal(this.toString())
+
+private val String.bd : BigDecimal
+    get() = BigDecimal(this)
+
+/**
+ * 对BigDecimal函数扩展,增加相加然后相乘的方法
+ */
+fun BigDecimal.addAndMul(parm: BigDecimal) : BigDecimal {
+    var temp = this + parm
+    temp *= parm
+    return temp
+}
+```
+
+##### 属性代理
+
+```kotlin
+/**
+ * Created by chenfeiyue on 18/2/12.
+ * Description: 属性代理
+ * 语法结构是： val/var <property name>: <Type> by <expression> 在 by 后面的属性就是代理，
+ * 这样这个属性的 get() 和 set() 方法就代理给了它。
+ */
+class Test {
+
+    // 系统提供的代理
+    val hello by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        println("hello by lazy")
+        "Hello World"
+    }
+
+    val x: String by Delegate()
+    var y by Delegate()
+}
+
+fun main(args: Array<String>) {
+    val test = Test()
+    println(test.x)
+    test.y = "y"
+    println(test.y)
+}
+
+/**
+ * 具体实现
+ */
+class Delegate {
+    var value: String? = null
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
+        // 读取缓存、数据库等
+        return value ?: "default value"
+    }
+
+    operator fun setValue(any: Any?, property: KProperty<*>, value: String?) {
+        this.value = value
+        // 写入缓存等
+    }
+}
+```
+
+##### Kotlin的inline内联函数
+
+- 方法调用流程
+  调用一个方法是一个压栈和出栈的过程，调用方法时将栈针压入方法栈，然后执行方法体，方法结束时将栈针出栈，这个压栈和出栈的过程会耗费资源，这个过程中传递形参也会耗费资源。
+- 为什么需要inline
+  有些简单的方法会被频繁调用，会增加方法调用的开销，内联函数在编译器直接将方法体插入在函数调用的地方。
+
+#### 参考
+
+[Kotlin中文站](https://www.kotlincn.net/)
+
+[Kotlin控制流](http://blog.csdn.net/jhj_24/article/details/53896224)

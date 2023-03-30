@@ -1,0 +1,187 @@
+# 自签名证书实现HTTPS单双向认证
+
+ 发表于 2018-06-02 | 更新于: 2018-06-08 | 分类于 [HTTPS](http://android9527.com/categories/HTTPS/)
+
+ 字数统计: 1.5k | 阅读时长 ≈ 6 分钟
+
+#### 自签名证书生成过程
+
+对于向权威机构申请过证书的网络地址,用OkHttp或者HttpsURLConnection都可以直接访问，不需要做额外的事情。但是申请证书要$$的，所以开发的时候我们接口经常是使用自签名证书，或者即使上线了也还是用自签名的
+
+#### 使用keytool生成证书
+
+keytool是JDK提供的管理加密密钥、X.509证书链和可信证书密钥库的简便工具。可以直接在终端或DOC窗口输入keytool命令来查看帮助。
+
+#### 单向认证
+
+##### 一、生成密钥对
+
+```
+keytool -genkey -alias server -keyalg RSA -keystore server.jks
+```
+
+-alias后面跟的是唯一别名，-keystore后面填保存秘钥对的文件路径
+还可以添加一个-validity 天数声明有效期
+
+需要注意的地方：执行命令之后第一个问题让你输入名字的地方最好设置成域名，比如这样baidu.com
+
+##### 二、导出证书
+
+上面生成了服务端使用的密钥对，现在可以通过它生成证书给客户端使用
+
+```
+keytool -export -alias server -storepass 123456 -keystore server.jks -file server.cer
+```
+
+-storepass后面跟的是你刚才设置的密码,不加这个也没关系，它会主动问你！；-file设置了保存证书的路径
+
+##### 三、服务端配置
+
+这里我使用tomcat8进行测试，它的配置很简单，修改tomcat目录下的conf/server.xml文件，添加如下内容，这里设置了端口号为8443
+
+```
+<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+            maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+            clientAuth="false" sslProtocol="TLS"
+            keystoreFile="密钥库文件路径，也就是.jks文件"
+            keystorePass="密码" />
+```
+
+##### 四、安卓端配置
+
+此时PC端访问服务器时提示警告
+
+[![单向验证提示](http://android9527.com/images/https/%E5%8D%95%E5%90%91%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA.jpeg)](http://android9527.com/images/https/单向验证提示.jpeg)
+
+在客户端未配置前采用HTTPS请求服务器时抛出异常
+
+```
+05-31 15:47:41.190 26222-26616/io.github.android9527.httpsapplication I/System.out: OKHTTP3 ----><-- HTTP FAILED: javax.net.ssl.SSLHandshakeException: Handshake failed
+05-31 15:47:41.190 26222-26616/io.github.android9527.httpsapplication W/System.err: javax.net.ssl.SSLHandshakeException: Handshake failed
+        at com.android.org.conscrypt.OpenSSLSocketImpl.startHandshake(OpenSSLSocketImpl.java:396)
+        at okhttp3.internal.connection.RealConnection.connectTls(RealConnection.java:302)
+        at okhttp3.internal.connection.RealConnection.establishProtocol(RealConnection.java:270)
+        at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:162)
+        at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+        at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+        at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+        at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+        at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+        at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+```
+
+
+
+- 加载证书
+  把之前生成的证书（.cer）放到安卓项目的assets或者raw目录下，读取文件流用以下方法获取SSLSocketFactory 。
+- OkHttpClient配置
+  在OkHttp中使用很简单，获取SSLSocketFactory之后通过OkHttp的构建方法传入就行了。
+  使用的OkHttp版本是3.10.0。
+
+```
+OkHttpClient client = new OkHttpClient.Builder()
+                .sslSocketFactory(sslSocketFactory)
+                .build();
+
+HttpsURLConnection.setSSLSocketFactory(sslSocketFactory);
+```
+
+设置完之后你就可以访问该证书对应的域名地址了，不需要别的附加操作了。
+
+#### 双向验证
+
+双向认证需要两个密钥实体，一个放服务端一个放客户端。
+前面我们已经实现单向的认证，现在只需要给客户端生成一个密钥库，并且让服务端信任客户端就可以了。
+
+##### 一、生成客户端密钥
+
+```
+keytool -genkey -alias android -keyalg RSA -keystore android.jks
+```
+
+##### 二、导出客户端证书（字符串形式）
+
+```
+keytool -keystore android.jks -alias android -exportcert -rfc > android.pem
+```
+
+将导出的证书添加信任到服务端的密钥库
+
+```
+keytool -importcert -trustcacerts -alias android -keystore server.jks -file android.pem
+```
+
+
+
+##### 三、服务端配置
+
+修改tomcat目录下的conf/server.xml文件
+
+```
+<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+            maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+            sslProtocol="TLS"
+            keystoreFile="密钥库文件路径，也就是.jks文件"
+            keystorePass="密码"
+            //修改两条内容，其它和之前单向认证一样就行
+            clientAuth="true"
+            truststoreFile="和keystoreFile填一样" />
+```
+
+##### 四、安卓端配置
+
+此时PC端访问服务器时提示警告
+
+[![双向验证提示](http://android9527.com/images/https/%E5%8F%8C%E5%90%91%E9%AA%8C%E8%AF%81%E6%8F%90%E7%A4%BA.jpeg)](http://android9527.com/images/https/双向验证提示.jpeg)
+
+在未配置前采用HTTPS请求服务器时抛出异常
+
+```
+05-31 15:47:41.190 26222-26616/io.github.android9527.httpsapplication I/System.out: OKHTTP3 ----><-- HTTP FAILED: javax.net.ssl.SSLHandshakeException: Handshake failed
+05-31 15:47:41.190 26222-26616/io.github.android9527.httpsapplication W/System.err: javax.net.ssl.SSLHandshakeException: Handshake failed
+        at com.android.org.conscrypt.OpenSSLSocketImpl.startHandshake(OpenSSLSocketImpl.java:396)
+        at okhttp3.internal.connection.RealConnection.connectTls(RealConnection.java:302)
+        at okhttp3.internal.connection.RealConnection.establishProtocol(RealConnection.java:270)
+        at okhttp3.internal.connection.RealConnection.connect(RealConnection.java:162)
+        at okhttp3.internal.connection.StreamAllocation.findConnection(StreamAllocation.java:257)
+        at okhttp3.internal.connection.StreamAllocation.findHealthyConnection(StreamAllocation.java:135)
+        at okhttp3.internal.connection.StreamAllocation.newStream(StreamAllocation.java:114)
+        at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.java:42)
+        at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:147)
+        at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:121)
+```
+
+刚才生成了客户端的密钥库android.jks。但是安卓默认是不支持jks格式的！比较常规的解决方式是用`Portecle`工具将它转换成bks文件。
+
+点这里下载`Portecle`工具（https://sourceforge.net/projects/portecle/?source=typ_redirect）
+
+下载完之后解压并在目录下运行命令：java -jar portecle.jar 打开
+
+运行之后就会出来UI界面，用它打开android.jks然后选菜单 Tools –> Change Keystore Type –> BKS 在弹出框输入密码进行转换，最后别忘记选菜单 File –> Save Keystore As 将它另存为android.kbs(名字随意)
+
+生成kbs文件之后，把它放到安卓的目录下assets或者raw。
+
+然后把获取SSLSocketFactory的方法改成下面这样
+
+```
+String keyStoreType2 = "BKS";
+KeyStore keyStore2 = KeyStore.getInstance(keyStoreType2);
+keyStore2.load(key, keyPassword.toCharArray());
+
+String kmfAlgorithm = KeyManagerFactory.getDefaultAlgorithm();
+KeyManagerFactory kmf = KeyManagerFactory.getInstance(kmfAlgorithm);
+kmf.init(keyStore2,keyPassword.toCharArray());
+
+sslContext = SSLContext.getInstance("TLS");
+sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+```
+
+上面的都改完之后，双向验证的配置就完成了。你可以打开浏览器访问下你配置好的地址，应该不能访问，提示你:不接受您的登录证书，或者您的登录证书可能已过期。因为你的系统没有加入刚才生成的客户端密钥库，安卓端像上面一样设置完SSLSocketFactory就可以正常访问了。
+
+#### 源码地址 (https://github.com/android9527/HttpsApplication/)
+
+#### 参考
+
+[Android 偶遇HTTPS](http://blog.majiajie.me/2016/05/11/Android-偶遇HTTPS/)
+
+[苹果核 - Android App 安全的HTTPS 通信](http://pingguohe.net/2016/02/26/Android-App-secure-ssl.html)
