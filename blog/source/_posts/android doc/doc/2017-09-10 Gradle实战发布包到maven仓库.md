@@ -12,6 +12,8 @@ tags:
 
 #### 参考链接：http://xiedeliang.com/2017/07/30/Maven简介
 
+<!-- more -->
+
 #### AAR简介
 
 AAR文件是Google为Android开发所设计的一种library格式，全名为Android Archive Library，与Java Jar Library不同的是，aar除了java code之外还包含资源文件，即xml文件、图片、文字等。

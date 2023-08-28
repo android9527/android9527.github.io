@@ -17,7 +17,7 @@ Unresolved reference dagger的错误时
 需要在 Kotlin 中则需要添加 kotlin-kapt 插件激活 kapt，并使用 kapt 替换 annotationProcessor：
 在app/build.gradle文件中增加
 
-
+<!-- more -->
 
 ```
 apply plugin: 'kotlin-kapt'

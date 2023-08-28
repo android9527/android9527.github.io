@@ -14,7 +14,7 @@ CoordinatorLayout 一般配合 NestedScrollView 或者 RecyclerView 使用
 CoordinatorLayout + AppBarLayout + CollapsingToolbarLayout 配合使用才会有比较完美的效果
 app:layout_behavior属性，只有CoordinatorLayout的直接子布局才能响应。
 
-
+<!-- more -->
 
 - 无法联动CoordinatorLayout
   增加app:layout_behavior=”@string/appbar_scrolling_view_behavior”

@@ -18,7 +18,7 @@ AndFix is a solution to fix the bugs online instead of redistributing Android Ap
 AndFix is an acronym for “Android hot-fix”.
 AndFix supports Android version from 2.3 to 6.0, both ARM and X86 architecture, both Dalvik and ART runtime.
 
-
+<!-- more -->
 
 The compressed file format of AndFix’s patch is .apatch. It is dispatched from your own server to client to fix your App’s bugs.
 

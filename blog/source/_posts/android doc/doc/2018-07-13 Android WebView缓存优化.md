@@ -8,16 +8,12 @@ tags:
 
 # Android WebView缓存优化
 
- 发表于 2018-07-13 | 更新于: 2018-07-27 | 分类于 [WebView](http://android9527.com/categories/WebView/)
-
- 字数统计: 2.3k | 阅读时长 ≈ 9 分钟
-
 #### 一、前言
 
 对于WebView的性能，给人最直观的莫过于：打开速度比native慢。
 是的，当我们打开一个WebView页面，页面往往会慢吞吞的loading很久，若干秒后才出现你所需要看到的页面。这是为什么呢？
 
-
+<!-- more -->
 
 对于一个普通用户来讲，打开一个WebView通常会经历以下几个阶段：
 

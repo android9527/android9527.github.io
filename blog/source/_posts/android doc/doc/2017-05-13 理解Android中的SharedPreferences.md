@@ -10,6 +10,7 @@ categories: Android
 
 SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：
 
+<!-- more -->
 
 （1）每次调用getSharedPreferences时都会创建一个SharedPreferences对象吗？这个对象具体是哪个类对象？
 （2）在UI线程中调用getXXX有可能导致ANR吗？

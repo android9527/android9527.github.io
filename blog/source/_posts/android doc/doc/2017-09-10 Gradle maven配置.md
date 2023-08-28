@@ -30,9 +30,7 @@ uploadArchives {
 }
 ```
 
-
-
-
+<!-- more -->
 
 执行 gradlew uploadArchives 上传到远程仓库
 

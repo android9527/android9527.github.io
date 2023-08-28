@@ -8,6 +8,8 @@ tags:
 
 # Android 中设置 Bitmap 任意角度
 
+<!-- more -->
+
 ```java
 public class BitmapUtils
 {

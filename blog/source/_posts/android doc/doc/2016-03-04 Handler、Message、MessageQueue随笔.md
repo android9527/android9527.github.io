@@ -32,7 +32,7 @@ Handler handler = new Handler(new Handler.Callback(){
 });
 ```
 
-
+<!-- more -->
 
 ```
 handler.sendMessage(msg);
