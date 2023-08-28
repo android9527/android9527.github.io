@@ -1,8 +1,12 @@
+---
+title: Aop技术在Android中的应用
+date: 2017-07-27
+categories: Android
+tags:
+- AOP
+---
+
 # Aop技术在Android中的应用
-
- 发表于 2017-07-27 | 更新于: 2017-08-15 | 分类于 [Android](http://android9527.com/categories/Android/)
-
- 字数统计: 2.2k | 阅读时长 ≈ 9 分钟
 
 #### AOP概念
 
@@ -114,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 通过这种方式编译后，我们来看下生成的代码是怎样的。AspectJ的原理实际上是在编译的时候，根据一定的规则解析，然后插入一些代码，通过aspectj生成的代码，会在Build目录下：
-[![aspectj-1](http://android9527.com/images/aspectj/aspectj1.jpeg)](../../../../../images/aspectj/aspectj1.jpeg)
+![](../../../images/aspectj/aspectj1.jpeg)
 
 通过反编译工具查看下生成内容：
-[![aspectj-2](http://android9527.com/images/aspectj/aspectj2.png)](../../../../../images/aspectj/aspectj2.png)
+![](../../../images/aspectj/aspectj2.png)
 
 我们可以发现，在onCreate的最前面，插入了一行AspectJ的代码。这个就是AspectJ的主要功能，抛开AOP的思想来说，我们想做的，实际上就是『在不侵入原有代码的基础上，增加新的代码』。
 

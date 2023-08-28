@@ -1,10 +1,12 @@
+---
+title: happens-before 和 as-if-serial
+date: 2019-03-05
+categories: JAVA
+tags:
+- JAVA
+---
+
 # happens-before 和 as-if-serial
-
- 发表于 2019-03-05 | 更新于: 2019-03-21 | 分类于 [Java](http://android9527.com/categories/Java/)
-
- 字数统计: 871 | 阅读时长 ≈ 3 分钟
-
-#### happens-before 和 as-if-serial
 
 ##### happens-before
 

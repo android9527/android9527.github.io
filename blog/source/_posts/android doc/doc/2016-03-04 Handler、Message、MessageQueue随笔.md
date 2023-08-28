@@ -96,7 +96,7 @@ public Handler(Looper looper, Callback callback, boolean async) {
 
 Handler中提供了很多个发送消息的方法，其中除了sendMessageAtFrontOfQueue()方法之外，其它的发送消息方法最终都会辗转调用到sendMessageAtTime()方法中
 
-[![发送消息](../../../../../images/handler/handler_send.jpg)]
+![发送消息](../../images/handler/handler_send.jpg)
 
 （1）boolean sendEmptyMessage(int);
 // 发送一条消息到队列，成功返回true，失败返回false，通常是因为Looper已经退出
@@ -118,7 +118,7 @@ private static Message getPostMessage(Runnable r) {
 
 #### 3、消息队列中移除消息
 
-[![移除消息](../../../../../images/handler/handler_remove.jpg)]
+![移除消息](/images/handler/handler_remove.jpg)
 
 一般在Activity页面结束时调用handler.removeCallbacksAndMessages(null);
 移除队列中所用的callbacks和messages。详见MessageQueue. removeCallbacksAndMessages();

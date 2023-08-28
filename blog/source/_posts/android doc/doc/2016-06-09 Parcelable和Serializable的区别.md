@@ -1,15 +1,16 @@
+---
+title: Parcelable和Serializable的区别
+date: 2016-06-09
+tags:
+- Android
+categories: Android
+---
+
 # Parcelable和Serializable的区别
-
- 发表于 2016-06-09 | 更新于: 2017-11-28 | 分类于 [Android](http://android9527.com/categories/Android/)
-
- 字数统计: 199 | 阅读时长 ≈ 1 分钟
-
-#### Parcelable和Serializable的区别：
 
 ##### Android自定义对象可序列化有两个选择一个是Serializable和Parcelable
 
 ##### 一、对象为什么需要序列化
-
 
 
 - 1.永久性保存对象，保存对象的字节序列到本地文件。

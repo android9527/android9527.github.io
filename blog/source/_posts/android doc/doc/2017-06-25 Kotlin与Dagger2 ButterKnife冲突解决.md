@@ -1,8 +1,14 @@
+---
+title: Kotlin与Dagger2 ButterKnife冲突解决
+date: 2017-06-25
+tags:
+- Kotlin
+- Dagger2
+- ButterKnife
+categories: Kotlin
+---
+
 # Kotlin与Dagger2 ButterKnife冲突解决
-
- 发表于 2017-06-25 | 更新于: 2017-07-27 | 分类于 [Android ](http://android9527.com/categories/Android/)， [Kotlin](http://android9527.com/categories/Android/Kotlin/)
-
- 字数统计: 275 | 阅读时长 ≈ 1 分钟
 
 #### 1. Kotlin 与 Dagger2冲突
 

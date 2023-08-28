@@ -1,8 +1,12 @@
+---
+title: Android App 安全的HTTPS 通信
+date: 2018-05-21
+categories: HTTPS
+tags:
+- HTTPS
+---
+
 # Android App 安全的HTTPS 通信
-
- 发表于 2018-06-01 | 更新于: 2018-06-01 | 分类于 [HTTPS](http://android9527.com/categories/HTTPS/)
-
- 字数统计: 1.7k | 阅读时长 ≈ 8 分钟
 
 ##### 漏洞描述
 

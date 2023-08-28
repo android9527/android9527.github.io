@@ -1,11 +1,14 @@
-# 理解Android中的SharedPreferences
+---
+title: 解析Android中的SharedPreferences
+date: 2017-05-13
+tags:
+- SharedPreferences
+categories: Android
+---
 
- 发表于 2017-05-13 | 更新于: 2017-07-27 | 分类于 [Android ](http://android9527.com/categories/Android/)， [SharedPreferences](http://android9527.com/categories/Android/SharedPreferences/)
-
- 字数统计: 2.1k | 阅读时长 ≈ 8 分钟
+# 解析Android中的SharedPreferences
 
 SharedPreferences作为Android中数据存储方式的一种，我们经常会用到，它适合用来保存那些少量的数据，特别是键值对数据，比如配置信息，登录信息等。不过要想做到正确使用SharedPreferences，就需要弄清楚下面几个问题：
-
 
 
 （1）每次调用getSharedPreferences时都会创建一个SharedPreferences对象吗？这个对象具体是哪个类对象？

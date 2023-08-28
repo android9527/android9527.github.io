@@ -1,8 +1,12 @@
+---
+title: Hello World, Hexo
+date: 2016-10-13
+tags:
+- Hexo
+categories: Hexo
+---
+
 # Hello World, Hexo
-
- 发表于 2017-03-10 | 更新于: 2017-07-27 | 分类于 [Hexo](http://android9527.com/categories/Hexo/)
-
- 字数统计: 73 | 阅读时长 ≈ 1 分钟
 
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 

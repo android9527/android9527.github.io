@@ -1,3 +1,11 @@
+---
+title: Java中sleep()与wait()区别
+date: 2018-12-06
+categories: JAVA
+tags:
+- JAVA
+---
+
 # Java中sleep()与wait()区别
 
  发表于 2018-12-06 | 更新于: 2019-02-12 | 分类于 [读书笔记](http://android9527.com/categories/读书笔记/)

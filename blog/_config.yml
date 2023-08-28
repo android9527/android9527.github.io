@@ -115,3 +115,5 @@ deploy:
   repo: https://github.com/android9527/android9527.github.io.git
   branch: master
 #  message: [message]
+
+updated_option: "date"

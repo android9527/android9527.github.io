@@ -1,10 +1,12 @@
+---
+title: synchronized 的实现原理与应用
+date: 2019-01-24
+categories: JAVA
+tags:
+- synchronized
+---
+
 # synchronized 的实现原理与应用
-
- 发表于 2019-01-24 | 更新于: 2019-03-05 | 分类于 [Java](http://android9527.com/categories/Java/)
-
- 字数统计: 247 | 阅读时长 ≈ 1 分钟
-
-#### synchronized 的实现原理与应用
 
 先来看下利用 synchronized 实现同步的基础：Java 中的每一个对象都可以作为锁。具体表现为以下三种形式。
 

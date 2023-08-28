@@ -1,8 +1,13 @@
+---
+title: Android APP项目改进部分
+date: 2018-06-01
+categories: Android
+tags:
+- Android
+---
+
+
 # Android APP项目改进部分
-
- 发表于 2018-03-15 | 更新于: 2018-04-12
-
- 字数统计: 2.8k | 阅读时长 ≈ 11 分钟
 
 #### 摘要
 
@@ -280,11 +285,10 @@ interface MainRepository : BaseRepository {
 ```
 
 在Presenter引用相应的多个Model就好，各自单独处理数据
-
-[![image](http://android9527.github.io/images/app_optimize/mvp1.png)](../../../../../images/app_optimize/mvp1.png)
+![](../../../images/app_optimize/mvp1.png)
 
 - （3）继续优化改进
-  [![image](http://android9527.github.io/images/app_optimize/mvp2.png)](../../../../../images/app_optimize/mvp2.png)
+![](../../../images/app_optimize/mvp2.png)
 
 优化之后的Model层是一个庞大而且独立的模块，对外提供统一的请求数据方法与请求规则，这样做的好处有很多：
 

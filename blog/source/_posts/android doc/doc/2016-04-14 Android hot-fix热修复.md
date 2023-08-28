@@ -34,7 +34,7 @@ The implementation principle of AndFix is method body’s replacing,
 
 具体的实现原理就是方法替换
 
-![](../images/andfix/principle.png)
+![](../../images/andfix/principle.png)
 
 #### Method replacing
 
@@ -44,7 +44,7 @@ For more details, [here](https://github.com/alibaba/AndFix/tree/master/jni).
 
 #### Fix Process
 
-[![image](/images/andfix/process.png)]
+![image](../../images/andfix/process.png)
 
 #### Integration
 
@@ -497,7 +497,7 @@ private static native void setFieldFlag(Field field);
 
 生成的补丁out.apatch是带有签名信息的压缩包，
 
-[![image](http://android9527.com/images/andfix/out.apatch.zip.png)](../../../../../images/andfix/out.apatch.zip.png)
+![image](../../images/andfix/out.apatch.zip.png)
 
 META_INFO文件夹包含MANIFEST.MF、CERT.SF和CERT.RSA、PATCH.MF。这三个文件分别表征以下含义：
 
@@ -511,7 +511,7 @@ META_INFO文件夹包含MANIFEST.MF、CERT.SF和CERT.RSA、PATCH.MF。这三个�
 说明：系统对签名文件进行解密，所需要的公钥就是从这个文件里取出来的。
 结论：从上面的总结可以看出，META-INFO里面的说那个文件环环相扣，从而保证Android程序的安全性。（只是防止开发者的程序不被攻击者修改，如果开发者的公私钥对对攻击者得到或者开发者开发出攻击程序，Android系统都无法检测出来。）
 
-[![image](http://android9527.com/images/andfix/CERT.RSA.png)](../../../../../images/andfix/CERT.RSA.png)
+![](../../../images/andfix/CERT.RSA.png)
 
 （4）PATCH.MF 由`apkpatch` tool 生成，主要内容：
 
@@ -544,7 +544,7 @@ openssl pkcs7 -inform DER -in CERT.RSA -noout -print_certs -text
 
 5、repleaseMethod 根据PATCH.MF中Patch-Classes找到需要替换的class，再由class反射提取带有MethodReplace注解的方法，jni层替换，立即修复
 
-[![image](http://android9527.com/images/andfix/method_replace.png)](../../../../../images/andfix/method_replace.png)
+![](../../../images/andfix/method_replace.png)
 
 #### Apk重签名
 

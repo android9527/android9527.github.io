@@ -1,10 +1,12 @@
-# CoordinatorLayout使用过程中遇到的问题.md
+---
+title: CoordinatorLayout使用过程中遇到的问题
+date: 2018-06-01
+categories: Android
+tags:
+- CoordinatorLayout
+---
 
- 发表于 2018-10-09 | 更新于: 2019-01-29 | 分类于 [Android](http://android9527.com/categories/Android/)
-
- 字数统计: 1.2k | 阅读时长 ≈ 5 分钟
-
-## CoordinatorLayout使用过程中遇到的问题
+# CoordinatorLayout使用过程中遇到的问题
 
 CoordinatorLayout 一般配合 NestedScrollView 或者 RecyclerView 使用
 常常用于ScrollView滚动，ToolBar伸缩，渐变等背景视差效果等
@@ -142,10 +144,10 @@ github 上有个库也是解决这个问题的 [smooth-app-bar-layout](https://g
 当然解决的原理跟本文相差甚远，有兴趣可以阅读下，我自己也有用过，不过这个库比较蛋疼的就是得为RecyclerView 设置一个 head item， 这个 item 的高度必须跟 AppBarLayout 一样的高度，所以对于 wrap_content 就比较麻烦了，当然，这个跟这个库的实现思路有关系。
 
 `com.android.support:appcompat-v7:25.3.0`
-[![image](http://android9527.com/images/coordinatorlayout/25.3.0.gif)](../../../../../images/coordinatorlayout/25.3.0.gif)
+![](../../../images/coordinatorlayout/25.3.0.gif)
 
 `com.android.support:appcompat-v7:26.0.0`
-[![image](http://android9527.com/images/coordinatorlayout/26.0.0.gif)](../../../../../images/coordinatorlayout/26.0.0.gif)
+![](../../../images/coordinatorlayout/26.0.0.gif)
 
 5、项目地址
 

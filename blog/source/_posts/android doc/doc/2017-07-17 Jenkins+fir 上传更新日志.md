@@ -1,3 +1,12 @@
+---
+title: Jenkins+fir 上传更新日志
+date: 2017-07-17
+categories: Jenkins
+tags:
+- fir.im
+- Jenkins
+---
+
 # Jenkins+fir 上传更新日志
 
  发表于 2017-07-17 | 更新于: 2018-11-06 | 分类于 [Jenkins](http://android9527.com/categories/Jenkins/)
@@ -14,7 +23,7 @@
 
 - 首先安装插件：Environment Injector Plugin (http://updates.jenkins-ci.org/download/plugins/envinject/) ，下载成功后打开`Jenkins->系统管理->管理插件->高级->拖至页面底部上传插件->选中文件点击上传`，提示成功后返回首页。
 
-  ![jenkins-1](../../../../../images/jenkins/upload_log_1.jpeg)
+  ![](../../../images/jenkins/upload_log_1.jpeg)
 
 - 进入现有的项目，输出commit日志内容：`增加构建步骤->Execute shell`->在Command输入以下内容（注意替换username和password）：
 
@@ -23,11 +32,11 @@
   echo GIT_LOG=$GIT_LOG > log.txt
 ```
 
-  ![jenkins-1](http://android9527.com/images/jenkins/upload_log_2.jpeg)
+  ![](../../../images/jenkins/upload_log_2.jpeg)
 
 - 设置commit日志保存路径：增加构建步骤->Inject environment variables->在Properties File Path输入log.txt。
 
-  ![jenkins-1](http://android9527.com/images/jenkins/upload_log_3.jpeg)
+  ![](../../../images/jenkins/upload_log_3.jpeg)
 
 - 获取到commit日志后发给fir:`增加构建后操作步骤->Upload to fir.im->在fir.im Token`中输入你从fir获得的token，然后在`Build Notes`中输入:
   $GIT_LOG

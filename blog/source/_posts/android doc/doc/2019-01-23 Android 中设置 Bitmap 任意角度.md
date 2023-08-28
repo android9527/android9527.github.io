@@ -1,10 +1,12 @@
-# [Android 中设置 Bitmap 任意角度](http://android9527.com/2019/01/23/2019-01-23-设置 Bitmap 任意角度/)
+---
+title: Android 中设置 Bitmap 任意角度
+date: 2019-01-23
+categories: Android
+tags:
+- Bitmap
+---
 
- 发表于 2019-01-23 | 更新于: 2019-01-24 | 分类于 [Android](http://android9527.com/categories/Android/)
-
- 字数统计: 356 | 阅读时长 ≈ 2 分钟
-
-## Android 中设置 Bitmap 任意角度
+# Android 中设置 Bitmap 任意角度
 
 ```java
 public class BitmapUtils

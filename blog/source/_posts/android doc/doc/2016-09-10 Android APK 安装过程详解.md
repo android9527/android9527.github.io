@@ -1,8 +1,12 @@
+---
+title: Android APK 安装过程详解
+date: 2016-09-10
+tags:
+- Android
+categories: Android
+---
+
 # Android APK 安装过程详解
-
- 发表于 2016-09-10 | 更新于: 2017-08-15 | 分类于 [Android](http://android9527.com/categories/Android/)
-
- 字数统计: 1.9k | 阅读时长 ≈ 6 分钟
 
 #### APK 安装过程
 
@@ -28,7 +32,7 @@ APK，即 Android Package，Android 安装包。不同平台的安装文件格�
 #### 什么是 DEX 文件和 ODEX 文件
 
 说起 DEX 文件，不得不提 class 文件。Java 跨平台是由源代码编译出的 class 文件分别运行在不同平台的虚拟机上，由虚拟机屏蔽了不同平台的差异。如图：
-[![apk](http://android9527.com/images/apk/apk_install_1.jpeg)](../../../../../images/apk/apk_install_1.jpeg)
+![](../../../images/apk/apk_install_1.jpeg)
 
 但是由于 Android 系统针对手持设备，对 Dalvik 虚拟机进行了优化，主要包括：
 
@@ -50,7 +54,7 @@ OAT 文件是 ART 运行的文件，是一种二进制可运行文件，包含 D
 
 上面提到了 Dalvik 和 ART，Dalvik 和 ART 是 Android 平台实现的 JAVA 虚拟机。用于解析 DEX 文件、ODEX 文件和OAT 文件。
 
-[![apk](http://android9527.com/images/apk/apk_install_2.jpeg)](../../../../../images/apk/apk_install_2.jpeg)
+![](../../../images/apk/apk_install_2.jpeg)
 
 ART 即 Android Runtime，Android 运行时，由于 Android 系统会运行在不同的设备上，底层硬件不同，Linux 系统屏蔽了一些这些系统的细节，但是直接在 Linux 上开发应用太难，实现成本太高，为了屏蔽 Linux 的细节，Google 创建出了 Dalvik 和 ART，对 Linux 进行了再一次封装，这样，使用 Google 提供的集成开发环境 SDK，就可以轻松开发应用了，Dalvik 与 ART 的关系是 ART 用来替换 Dalvik 的。Dalvik 在低版本（4.4 以下）的手机上使用作为 Android 运行环境，但是由于其有一些不足，在高版本的 Android 系统上 ART 用来替换 Dalvik，现在市场上 ART 的占有率已经超过了 70%。
 
@@ -62,7 +66,7 @@ ART 是 Android 应用的运行模式，在这种模式下，Android 应用在�
 
 程序的源代码，首先经过 SDK 编译成 DEX 文件，DEX 文件和一些资源文件（图片、视频等）、Native Code（C 语言等编译出的 .so 文件）会直接打包进 APK。安装 APK 的过程，其实是安装包解压过程。资源文件、二进制库等解压后直接存储在本地，DEX 文件不仅仅解压，会根据系统的运行环境，采用不同的处理方式，被处理成不同格式的文件存储在本地，等待程序启动调用，这样就完成了应用的安装过程。
 
-[![apk](http://android9527.com/images/apk/apk_install_3.jpeg)](../../../../../images/apk/apk_install_3.jpeg)
+![](../../../images/apk/apk_install_3.jpeg)
 
 总结
 

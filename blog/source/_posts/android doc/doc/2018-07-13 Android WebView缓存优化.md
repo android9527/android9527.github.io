@@ -1,3 +1,11 @@
+---
+title: Android WebView缓存优化
+date: 2018-06-01
+categories: Android
+tags:
+- WebView
+---
+
 # Android WebView缓存优化
 
  发表于 2018-07-13 | 更新于: 2018-07-27 | 分类于 [WebView](http://android9527.com/categories/WebView/)
@@ -19,7 +27,7 @@
 - 出现所需的数据
   如果从程序上观察，WebView启动过程大概分为以下几个阶段：
 
-[![image](http://android9527.com/images/webview_cache/webview_1.png)](../../../../../images/webview_cache/webview_1.png)
+![](../../../images/webview_cache/webview_1.png)
 如何缩短这些过程的时间，就成了优化WebView性能的关键。
 
 常规的前端和后端的性能优化已有前辈们总结过最佳实践，主要的是：
@@ -62,7 +70,7 @@ webSettings.cacheMode = if (YKNetworkUtil.isNetConnected()) {
 ##### 2、在手机里面的存储路径
 
 Android 6.0的目录：/data/data/包名/cache/org.chromium.android_webview/下面，如下图所示。
-[![image](http://android9527.com/images/webview_cache/webview_path.jpeg)](../../../../../images/webview_cache/webview_path.jpeg)
+![](../../../images/webview_cache/webview_path.jpeg)
 
 ##### Application Cache 缓存机制
 
@@ -180,7 +188,7 @@ webSettings.databaseEnabled = true
 
 #### 三、缓存机制汇总
 
-[![image](http://android9527.com/images/webview_cache/webview_cache_3.png)](../../../../../images/webview_cache/webview_cache_3.png)
+![](../../../images/webview_cache/webview_cache_3.png)
 
 结论：综合各种缓存机制比较，对于静态文件，如 JS、CSS、字体、图片等，适合通过浏览器缓存机制来进行缓存，通过缓存文件可大幅提升 Web 的加载速度，且节省流量。但也有一些不足：缓存文件需要首次加载后才会产生；浏览器缓存的存储空间有限，缓存有被清除的可能；缓存的文件没有校验。
 

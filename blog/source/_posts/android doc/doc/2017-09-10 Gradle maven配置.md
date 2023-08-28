@@ -1,10 +1,12 @@
+---
+title: Gradle maven配置
+date: 2017-09-10
+categories: Gradle
+tags:
+- Gradle
+---
+
 # Gradle maven配置
-
- 发表于 2017-09-10 | 更新于: 2017-09-26
-
- 字数统计: 153 | 阅读时长 ≈ 1 分钟
-
-### gradle maven配置
 
 #### 1、上传library到maven仓库
 

@@ -1,10 +1,12 @@
+---
+title: Gradle实战:发布包到maven仓库
+date: 2017-09-10
+categories: Gradle
+tags:
+- Gradle
+---
+
 # Gradle实战:发布包到maven仓库
-
- 发表于 2017-09-10 | 更新于: 2017-09-26
-
- 字数统计: 1.5k | 阅读时长 ≈ 7 分钟
-
-#### Gradle实战:发布包到maven仓库
 
 #### Maven简介
 
