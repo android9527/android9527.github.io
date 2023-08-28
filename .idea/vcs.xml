@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/blog/hexo-theme-next" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/blog/hexo-word-counter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/blog/theme-next-docs" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/blog/themes/Acrylic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/blog/themes/theme-next-docs" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/Acrylic" vcs="Git" />
+  </component>
+</project>
