@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.android9527.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Android界面性能调优手册摘要界面是 Android 应用中直接影响用户体验最关键的部分。如果代码实现得不好，界面容易发生卡顿且导致应用占用大量内存。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android界面性能调优手册">
+<meta property="og:url" content="http://www.android9527.com/android%20doc/doc/2017-11-06%20Android%E7%95%8C%E9%9D%A2%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:site_name" content="Martin&#39;s Blog">
+<meta property="og:description" content="Android界面性能调优手册摘要界面是 Android 应用中直接影响用户体验最关键的部分。如果代码实现得不好，界面容易发生卡顿且导致应用占用大量内存。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.android9527.com/images/draw/draw_2.png">
+<meta property="og:image" content="http://www.android9527.com/images/draw/draw_3.png">
+<meta property="article:published_time" content="2017-11-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-11-05T16:00:00.000Z">
+<meta property="article:author" content="Martin Chen">
+<meta property="article:tag" content="性能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.android9527.com/images/draw/draw_2.png">
+
+<link rel="canonical" href="http://www.android9527.com/android%20doc/doc/2017-11-06%20Android%E7%95%8C%E9%9D%A2%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E6%89%8B%E5%86%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android界面性能调优手册 | Martin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Martin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">never give up</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/android9527" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.android9527.com/android%20doc/doc/2017-11-06%20Android%E7%95%8C%E9%9D%A2%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E6%89%8B%E5%86%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Martin Chen">
+      <meta itemprop="description" content="越努力，越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Martin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android界面性能调优手册
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-06T00:00:00+08:00">2017-11-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>21 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Android界面性能调优手册"><a href="#Android界面性能调优手册" class="headerlink" title="Android界面性能调优手册"></a>Android界面性能调优手册</h1><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>界面是 Android 应用中直接影响用户体验最关键的部分。如果代码实现得不好，界面容易发生卡顿且导致应用占用大量内存。</p>
+<span id="more"></span>
+
+<h4 id="Android渲染知识"><a href="#Android渲染知识" class="headerlink" title="Android渲染知识"></a>Android渲染知识</h4><h5 id="1-1-绘制原理"><a href="#1-1-绘制原理" class="headerlink" title="1.1 绘制原理"></a>1.1 绘制原理</h5><p>Android系统要求每一帧都要在 16ms 内绘制完成，平滑的完成一帧意味着任何特殊的帧需要执行所有的渲染代码（包括 framework 发送给 GPU 和 CPU 绘制到缓冲区的命令）都要在 16ms 内完成，保持流畅的体验。这个速度允许系统在动画和输入事件的过程中以约 60 帧每秒（ 1秒 &#x2F; 0.016帧每秒 &#x3D; 62.5帧&#x2F;秒 ）的平滑帧率来渲染。<br><a href="../../../images/draw/draw_1.png">draw</a></p>
+<p>如果你的应用没有在 16ms 内完成这一帧的绘制，假设你花了 24ms 来绘制这一帧，那么就会出现掉帧的情况。<br><img src="/../../../images/draw/draw_2.png" loading="lazy"></p>
+<p>系统准备将新的一帧绘制到屏幕上，但是这一帧并没有准备好，所有就不会有绘制操作，画面也就不会刷新。反馈到用户身上，就是用户盯着同一张图看了 32ms 而不是 16ms ，也就是说掉帧发生了。</p>
+<h5 id="1-2-掉帧"><a href="#1-2-掉帧" class="headerlink" title="1.2 掉帧"></a>1.2 掉帧</h5><p>掉帧是用户体验中一个非常核心的问题。丢弃了当前帧，并且之后不能够延续之前的帧率，这种不连续的间隔会容易会引起用户的注意，也就是我们常说的卡顿、不流畅。</p>
+<p>引起掉帧的原因非常多，比如：</p>
+<ul>
+<li>花了非常多时间重新绘制界面中的大部分东西，这样非常浪费CPU周期；<br><img src="/../../../images/draw/draw_3.png" loading="lazy"></li>
+<li>过度绘制严重，在绘制用户看不到的对象上花费了太多的时间</li>
+<li>有一大堆动画重复了一遍又一遍，消耗 CPU 、 GPU 资源；</li>
+<li>频繁的触发垃圾回收；</li>
+</ul>
+<h5 id="1-3-为什么是60Fps？"><a href="#1-3-为什么是60Fps？" class="headerlink" title="1.3 为什么是60Fps？"></a>1.3 为什么是60Fps？</h5><p>Android系统要求每一帧都要在 16ms 内绘制完成，那么1秒的帧率就是约 60 帧每秒（ 1秒 &#x2F; 0.016帧每秒 &#x3D; 62.5帧&#x2F;秒 ），那为什么要以 60 Fps来作为 App 性能的衡量标准呢？这是因为人眼和大脑之间的协作无法感知到超过 60 Fps的画面更新。</p>
+<p>市面上绝大多数Android设备的屏幕刷新频率是 60 HZ。当然，超过 60 Fps 是没有意义的，人眼感知不到区别。24 Fps 是人眼能感知的连续线性的运动，所以是电影胶圈的常用帧率，因为这个帧率已经足够支撑大部分电影画面所要表达的内容，同时能最大限度地减少费用支出。但是，低于 30 Fps 是无法顺畅表现绚丽的画面内容的，此时就需要用到 60 Fps 来达到想要表达的效果。</p>
+<p>应用的界面性能目标就是保持 60 Fps，这意味着每一帧你只有 16 ms（1秒 &#x2F; 60帧率）的时间来处理所有的任务。</p>
+<h5 id="1-4-垃圾回收"><a href="#1-4-垃圾回收" class="headerlink" title="1.4 垃圾回收"></a>1.4 垃圾回收</h5><p>垃圾回收器是一个在应用运行期间自动释放那些不再引用的内存的机制，常称 GC 。频繁的 GC 也是导致严重性能问题的罪魁祸首之一。<br>前面提到，平滑的完成一帧意味着所有渲染代码都必须在 16ms 内完成。频繁的 GC 会严重限制一帧时间内的剩余时间，如果 GC 所做的工作超过了那些必须的工作，那么留给应用平滑的帧率的时间就越少。越接近 16ms ，在垃圾回收事件触发的时候，就越容易导致卡顿。</p>
+<p>注意，Android4.4 引进了新的 ART 虚拟机来取代 Dalvik 虚拟机。它们的机制大有不同，简单而言：</p>
+<ul>
+<li>Dalvik 虚拟机的 GC 是非常耗资源的，并且在正常的情况下一个硬件性能不错的Android设备也会很容易耗费掉 10 – 20 ms 的时间；</li>
+<li>ART 虚拟机的GC会动态提升垃圾回收的效率，在 ART 中的中断，通常在 2 – 3 ms 间。 比 Dalvik 虚拟机有很大的性能提升；<br>ART 虚拟机相对于 Dalvik 虚拟机来说的垃圾回收来说有一个很大的性能提升，但 2 – 3 ms 的回收时间对于超过16ms帧率的界限也是足够的。因此，尽管垃圾回收在 Android 5.0 之后不再是耗资源的行为，但也是始终需要尽可能避免的，特别是在执行动画的情况下，可能会导致一些让用户明显感觉的丢帧。</li>
+</ul>
+<h5 id="1-5-UI-线程"><a href="#1-5-UI-线程" class="headerlink" title="1.5 UI 线程"></a>1.5 UI 线程</h5><p>UI 线程是应用的主线程，很多的性能和卡顿问题是由于我们在主线程中做了大量的工作。<br>所以，所有耗资源的操作，比如 IO 操作、网络操作、SQL 操作、列表刷新等，都应该用后台进程去实现，不能占用主线程，主线程是 UI 线程，是保持程序流畅的关键；<br>在 Android 5.0 版本里，Android 框架层引入了 “ Render Thread ” ，用于向 GPU 发送实际渲染的操作。这个线程减轻了一些 UI 线程减少的操作。但是输入、滚动和动画仍然在 UI thread，因为 Thread 必须能够响应操作。</p>
+<h5 id="1-6-垂直同步"><a href="#1-6-垂直同步" class="headerlink" title="1.6 垂直同步"></a>1.6 垂直同步</h5><p>垂直同步是 Android4.1 通过 Project Butter 在 UI 架构中引入的新技术，同期引入的还有 Triple Buffer 和 HWComposer 等技术，都是为提高 UI 的流畅性而生。</p>
+<p>举个例子，你拍了一张照片，然后旋转5度再拍另外一张照片，将两照片的中间剪开并拼接在一起，得到下图：<br>中间这部分有明显区别的部分，等价于设备刷新率和帧速率不一致的结果。</p>
+<p>一般而言， GPU 的帧速率应高于刷新率，才不会卡顿或掉帧。如果屏幕刷新率比帧速率还快，屏幕会在两帧中显示同一个画面，这种断断续续情况持续发生时，用户将会很明显地感觉到动画的卡顿或者掉帧，然后又恢复正常，我们常称之为闪屏、跳帧、延迟。应用应避免这些帧率下降的情况，以确保 GPU 能在屏幕刷新之前完成数据的获取及写入，保证动画流畅。</p>
+<h5 id="1-7-UI-绘制机制与栅格化"><a href="#1-7-UI-绘制机制与栅格化" class="headerlink" title="1.7 UI 绘制机制与栅格化"></a>1.7 UI 绘制机制与栅格化</h5><p>绝大多数渲染操作都依赖两个硬件： CPU 、 GPU 。 CPU 负责 Measure 、 layout 、 Record 、 Execute 的计算操作， GPU 负责栅格化（ Rasterization ）操作。 非必需的视图组件会带来多余的 CPU 计算操作，还会占用多余的 GPU 资源。</p>
+<p>栅格化（ Rasterization ）能将 Button 、 Shape 、 Path 、 Bitmap 等资源组件拆分到不同的像素上进行显示。这个操作很费时，所以引入了 GPU 来加快栅格化的操作。</p>
+<p>CPU 负责把 UI 组件计算成多边形（ Polygons ），纹理（ Texture ），然后交给 GPU 进行栅格化渲染，再将处理结果传到屏幕上显示</p>
+<p>在 Android 里的那些资源组件的显示（比如 Bitmaps 、 Drawable ），都是一起打包到统一的纹理（ Texture ）当中，然后再传递到 GPU 里面。</p>
+<p>图片的显示，则是先经过 CPU 的计算加载到内存中，再传给 GPU 进行渲染。文字的显示，则是先经过 CPU 换算成纹理（ Texture ），再传给 GPU 进行渲染，返回到 CPU 绘制单个字符的时候，再重新引用经过 GPU 渲染的内容。动画的显示更加复杂，我们需要在 16 ms 内处理完所有 CPU 和 GPU 的计算、绘制、渲染等操作，才能获得应用的流畅体验。</p>
+<h4 id="二-To检测和解决"><a href="#二-To检测和解决" class="headerlink" title="二. To检测和解决"></a>二. To检测和解决</h4><h5 id="2-1-检测维度"><a href="#2-1-检测维度" class="headerlink" title="2.1 检测维度"></a>2.1 检测维度</h5><p>根据业务的不同与所需要的测试粒度的不同，就会有不同的检测维度。目前我所在业务所需的界面性能检测维度如下：</p>
+<ul>
+<li>界面过度绘制；（检测过度绘制）</li>
+<li>渲染性能；（检测严格模式下的UI渲染性能呈现）</li>
+<li>布局边界合理性；（检测元素显示的合理性）</li>
+<li>还有专项测试中某些用户场景可能还包含着另外一些隐形的检测维度，比如：</li>
+<li>OpenGL 跟踪分析；</li>
+<li>GPU 视图更新合理性；</li>
+<li>Flash 硬件层更新合理性；</li>
+<li>动画加 &#x2F; 减速状态问题点检测；</li>
+<li>……</li>
+</ul>
+<h5 id="2-2-调试工具"><a href="#2-2-调试工具" class="headerlink" title="2.2 调试工具"></a>2.2 调试工具</h5><p>检测和解决界面性能问题很大程度上依赖于你的应用程序架构，幸运的是，Andorid 提供了很多调试工具，知道并学会使用这些工具很重要，它们可以帮助我们调试和分析界面性能问题，以让应用拥有更好的性能体验。下面列举Android常见的界面性能调试工具：</p>
+<h6 id="2-2-1-Hierarchy-View"><a href="#2-2-1-Hierarchy-View" class="headerlink" title="2.2.1 Hierarchy View"></a>2.2.1 Hierarchy View</h6><p>Hierarchy View 在Android SDK里自带，常用来查看界面的视图结构是否过于复杂，用于了解哪些视图过度绘制，又该如何进行改进</p>
+<h6 id="2-2-2-Lint"><a href="#2-2-2-Lint" class="headerlink" title="2.2.2 Lint"></a>2.2.2 Lint</h6><p>Lint 是 ADT 自带的静态代码扫描工具，可以给 XML 布局文件和 项目代码中不合理的或存在风险的模块提出改善性建议。官方关于 Lint 的实际使用的提示，列举几点如下：</p>
+<ul>
+<li>包含无用的分支，建议去除；</li>
+<li>包含无用的父控件，建议去除；</li>
+<li>警告该布局深度过深；</li>
+<li>建议使用 compound drawables ；</li>
+<li>建议使用 merge 标签</li>
+<li>……</li>
+</ul>
+<h6 id="2-2-3-Systrace"><a href="#2-2-3-Systrace" class="headerlink" title="2.2.3 Systrace"></a>2.2.3 Systrace</h6><p>Systrace 在Android DDMS 里自带，可以用来跟踪 graphics 、view 和 window 的信息，发现一些深层次的问题。很麻烦，限制大，实际调试中我基本用不到。</p>
+<h6 id="2-2-4-Track"><a href="#2-2-4-Track" class="headerlink" title="2.2.4 Track"></a>2.2.4 Track</h6><p>Track 在 Android DDMS里自带，是个很棒的用来跟踪构造视图的时候哪些方法费时，精确到每一个函数，无论是应用函数还是系统函数，我们可以很容易地看到掉帧的地方以及那一帧所有函数的调用情况，找出问题点进行优化。</p>
+<h6 id="2-2-5-OverDraw"><a href="#2-2-5-OverDraw" class="headerlink" title="2.2.5 OverDraw"></a>2.2.5 OverDraw</h6><p>通过在 Android 设备的设置 APP 的开发者选项里打开 “ 调试 GPU 过度绘制 ” ，来查看应用所有界面及分支界面下的过度绘制情况，方便进行优化。</p>
+<h6 id="2-2-6-GPU-呈现模式分析"><a href="#2-2-6-GPU-呈现模式分析" class="headerlink" title="2.2.6 GPU 呈现模式分析"></a>2.2.6 GPU 呈现模式分析</h6><p>通过在 Android 设备的设置 APP 的开发者选项里启动 “ GPU 呈现模式分析 ” ，可以得到最近 128 帧 每一帧渲染的时间，分析性能渲染的性能及性能瓶颈。</p>
+<h6 id="2-2-7-StrictMode"><a href="#2-2-7-StrictMode" class="headerlink" title="2.2.7 StrictMode"></a>2.2.7 StrictMode</h6><p>通过在 Android 设备的设置 APP 的开发者选项里启动 “ 严格模式 ” ，来查看应用哪些操作在主线程上执行时间过长。当一些操作违背了严格模式时屏幕的四周边界会闪烁红色，同时输出 StrictMode 的相关信息到 LOGCAT 日志中。</p>
+<h6 id="2-2-8-Animator-duration-scale"><a href="#2-2-8-Animator-duration-scale" class="headerlink" title="2.2.8 Animator duration scale"></a>2.2.8 Animator duration scale</h6><p>通过在 Android 设备的设置 APP 的开发者选项里打开 “ 窗口动画缩放 ” &#x2F; “ 过渡动画缩放 ” &#x2F; “ 动画程序时长缩放 ”，来加速或减慢动画的时间，以查看加速或减慢状态下的动画是否会有问题。</p>
+<h5 id="2-3-如何解决"><a href="#2-3-如何解决" class="headerlink" title="2.3 如何解决"></a>2.3 如何解决</h5><p>前面提到过我司的目前所需的测试维度如下：</p>
+<ul>
+<li>界面过度绘制；（检测过度绘制）</li>
+<li>渲染性能；（检测严格模式下的UI渲染性能呈现） 故接下来将围绕这两点，分别从概念、追踪、挖掘根源以及排查的工具来具体讲述如何解决，以及给开发的优化建议。</li>
+</ul>
+<h4 id="三-界面过度绘制（OverDraw）"><a href="#三-界面过度绘制（OverDraw）" class="headerlink" title="三. 界面过度绘制（OverDraw）"></a>三. 界面过度绘制（OverDraw）</h4><h5 id="3-1-过度绘制概念"><a href="#3-1-过度绘制概念" class="headerlink" title="3.1 过度绘制概念"></a>3.1 过度绘制概念</h5><p>过度绘制是一个术语，表示某些组件在屏幕上的一个像素点的绘制次数超过 1 次。</p>
+<p>通俗来讲，绘制界面可以类比成一个涂鸦客涂鸦墙壁，涂鸦是一件工作量很大的事情，墙面的每个点在涂鸦过程中可能被涂了各种各样的颜色，但最终呈现的颜色却只可能是 1 种。这意味着我们花大力气涂鸦过程中那些非最终呈现的颜色对路人是不可见的，是一种对时间、精力和资源的浪费，存在很大的改善空间。绘制界面同理，花了太多的时间去绘制那些堆叠在下面的、用户看不到的东西，这样是在浪费CPU周期和渲染时间！</p>
+<p>官方例子，被用户激活的卡片在最上面,而那些没有激活的卡片在下面，在绘制用户看不到的对象上花费了太多的时间。</p>
+<h5 id="3-2-追踪过度绘制"><a href="#3-2-追踪过度绘制" class="headerlink" title="3.2 追踪过度绘制"></a>3.2 追踪过度绘制</h5><p>通过在 Android 设备的设置 APP 的开发者选项里打开 “ 调试 GPU 过度绘制 ” ，来查看应用所有界面及分支界面下的过度绘制情况，方便进行优化。</p>
+<p>Android 会在屏幕上显示不同深浅的颜色来表示过度绘制：</p>
+<ul>
+<li>没颜色：没有过度绘制，即一个像素点绘制了 1 次，显示应用本来的颜色；</li>
+<li>蓝色：1倍过度绘制，即一个像素点绘制了 2 次；</li>
+<li>绿色：2倍过度绘制，即一个像素点绘制了 3 次；</li>
+<li>浅红色：3倍过度绘制，即一个像素点绘制了 4 次；</li>
+<li>深红色：4倍过度绘制及以上，即一个像素点绘制了 5 次及以上； 设备的硬件性能是有限的，当过度绘制导致应用需要消耗更多资源（超过了可用资源）的时候性能就会降低，表现为卡顿、不流畅、ANR 等。为了最大限度地提高应用的性能和体验，就需要尽可能地减少过度绘制，即更多的蓝色色块而不是红色色块。 　　<br>实际测试，常用以下两点来作为过度绘制的测试指标，将过度绘制控制在一个约定好的合理范围内：</li>
+<li>应用所有界面以及分支界面均不存在超过4X过度绘制（深红色区域）；</li>
+<li>应用所有界面以及分支界面下，3X过度绘制总面积（浅红色区域）不超过屏幕可视区域的1&#x2F;4；</li>
+</ul>
+<h5 id="3-3-过度绘制的根源"><a href="#3-3-过度绘制的根源" class="headerlink" title="3.3 过度绘制的根源"></a>3.3 过度绘制的根源</h5><p>过度绘制很大程度上来自于视图相互重叠的问题，其次还有不必要的背景重叠。</p>
+<p>官方例子，比如一个应用所有的View都有背景的话，就会看起来像第一张图中那样，而在去除这些不必要的背景之后（指的是Window的默认背景、Layout的背景、文字以及图片的可能存在的背景），效果就像第二张图那样，基本没有过度绘制的情况。</p>
+<h5 id="3-4-不合理的xml布局对绘制的影响"><a href="#3-4-不合理的xml布局对绘制的影响" class="headerlink" title="3.4 不合理的xml布局对绘制的影响"></a>3.4 不合理的xml布局对绘制的影响</h5><p>当布局文件的节点树的深度越深，XML 中的标签和属性设置越多，对界面的显示有灾难性影响。</p>
+<p>一个界面要显示出来，第一步会进行解析布局，在 requestLayout 之后还要进行一系列的 measure 、 layout 、 draw 操作，若布局文件嵌套过深、拥有的标签属性过于臃肿，每一步的执行时间都会受到影响，而界面的显示是进行完这些操作后才会显示的，所以每一步操作的时间增长，最终显示的时间就会越长。</p>
+<h5 id="3-5-源码相关"><a href="#3-5-源码相关" class="headerlink" title="3.5 源码相关"></a>3.5 源码相关</h5><p>有能力且有兴趣看源码的童鞋，过度绘制的源码位置在: &#x2F;frameworks&#x2F;base&#x2F;libs&#x2F;hwui&#x2F;OpenGLRenderer.cpp ，有兴趣的可以去研究查看。</p>
+<h4 id="四-渲染性能（Rendering）"><a href="#四-渲染性能（Rendering）" class="headerlink" title="四. 渲染性能（Rendering）"></a>四. 渲染性能（Rendering）</h4><h5 id="4-1-渲染性能概念"><a href="#4-1-渲染性能概念" class="headerlink" title="4.1 渲染性能概念"></a>4.1 渲染性能概念</h5><p>渲染性能往往是掉帧的罪魁祸首，这种问题很常见，让人头疼。好在 Android 给我们提供了一个强大的工具，帮助我们非常容易追踪性能渲染问题，看到究竟是什么导致你的应用出现卡顿、掉帧。</p>
+<h5 id="4-2-追踪渲染性能"><a href="#4-2-追踪渲染性能" class="headerlink" title="4.2 追踪渲染性能"></a>4.2 追踪渲染性能</h5><p>通过在 Android 设备的设置 APP 的开发者选项里打开 “ GPU 呈现模式分析 ” 选项，选择 ” 在屏幕上显示为条形图 “ 。</p>
+<p>这个工具会在Android 设备的屏幕上实时显示当前界面的最近 128 帧 的 GPU 绘制图形数据，包括 StatusBar 、 NavBar 、 当前界面的 GPU 绘制图形柱状图数据。我们一般只需关心当前界面的 GPU 绘制图形数据即可。</p>
+<p>界面上一共有 128 个小柱状图，代表的是当前界面最近的 128 帧 GPU 绘制图形数据。一个小柱状图代表的这一帧画面渲染的耗时，柱状图越高代表耗时越长。随着界面的刷新，柱状图信息也会实时滚动刷新。</p>
+<p>中间有一条绿线，代表 16 ms ，保持动画流畅的关键就在于让这些垂直的柱状条尽可能地保持在绿线下面,任何时候超过绿线,你就有可能丢失一帧的内容。</p>
+<p>每一个柱状图都是由三种颜色构成：蓝、红、黄。</p>
+<ul>
+<li><p>蓝色代表的是这一帧绘制 Display List 的时间。通俗来说，就是记录了需要花费多长时间在屏幕上更新视图。用代码语言来说，就是执行视图的 onDraw 方法，创建或更新每一个视图的 Display List 的时间。</p>
+</li>
+<li><p>红色代表的是这一帧 OpenGL 渲染 Display List 所需要的时间。通俗来说，就是记录了执行视图绘制的耗时。用代码语言来说，就是 Android 用 OpenGL ES 的 API 接口进行 2D 渲染 Display List 的时间。</p>
+</li>
+<li><p>黄色代表的是这一帧 CPU 等待 GPU 处理的时间。通俗来说，就是 CPU 等待 GPU 发出接到命令的回复的等待时间。用代码语言来说，就是这是一个阻塞调用。 　　<br>实际测试，常用以下两点来作为渲染性能的测试指标，将渲染性能控制在一个约定好的合理范围内：</p>
+</li>
+<li><p>执行应用的所有功能及分支功能，操作过程中涉及的柱状条区域应至少 90 % 保持到绿线下面；</p>
+</li>
+<li><p>从用户体检的角度主观判断应用在 512 M 内存的 Android 设备下所有操作过程中的卡顿感是否能接受，不会感觉突兀怪异；</p>
+<h5 id="4-3-渲染性能差的根源"><a href="#4-3-渲染性能差的根源" class="headerlink" title="4.3 渲染性能差的根源"></a>4.3 渲染性能差的根源</h5></li>
+</ul>
+<p>当你看到蓝色的线较高的时候，可能是由于你的视图突然无效了需要重新绘制，或者是自定义的视图过于复杂耗时过长。</p>
+<p>当你看到红色的线较高的时候，可能是由于你的视图重新提交了需要重新绘制导致的（比如屏幕从竖屏旋转成横屏后当前界面重新创建），或者是自定义的视图很复杂，绘制起来很麻烦，导致耗时过长。比如下面这种视图：</p>
+<p>当你看到黄色的线较高的时候，那就意味着你给 GPU 太多的工作，太多的负责视图需要 OpenGL 命令去绘制和处理，导致 CPU 迟迟没等到 GPU 发出接到命令的回复。</p>
+<h5 id="4-4-检测说明"><a href="#4-4-检测说明" class="headerlink" title="4.4 检测说明"></a>4.4 检测说明</h5><p>这个工具能够很好地帮助你找到渲染相关的问题，帮助你找到卡顿的性能瓶颈，追踪究竟是什么导致被测应用出现卡顿、变慢的情况，以便在代码层面进行优化。甚至让负责产品设计的人去改善他的设计，以获得良好的用户体验。</p>
+<p>检测渲染性能时，常伴随着开启“ 严格模式 ” 查看应用哪些情景在 UI 线程（主线程）上执行时间过长。</p>
+<p>另外有些强大但可能少用的工具在测试性能渲染时辅助分析，比如：</p>
+<ul>
+<li>HierarchyViewer：这个工具常用来查看界面的视图结构是否过于复杂，用于了解哪些视图过度绘制，又该如何进行改进；</li>
+<li>Tracer for OpenGL：这个工具收集了所有UI界面发给GPU的绘制命令。常用于辅助开发人员 DEBUG 、定位一些 HierarchyViewer 工具定位不了的疑难渲染细节问题。</li>
+</ul>
+<h4 id="五-给开发的界面优化-Advice"><a href="#五-给开发的界面优化-Advice" class="headerlink" title="五. 给开发的界面优化 Advice"></a>五. 给开发的界面优化 Advice</h4><h5 id="5-1-优化布局的结构"><a href="#5-1-优化布局的结构" class="headerlink" title="5.1 优化布局的结构"></a>5.1 优化布局的结构</h5><p>布局结构太复杂，会减慢渲染的速度，造成性能瓶颈。我们可以通过以下这些惯用、有效的布局原则来优化：</p>
+<ul>
+<li><p>避免复杂的View层级。布局越复杂就越臃肿，就越容易出现性能问题，寻找最节省资源的方式去展示嵌套的内容；</p>
+</li>
+<li><p>尽量避免在视图层级的顶层使用相对布局 RelativeLayout 。相对布局 RelativeLayout 比较耗资源，因为一个相对布局 RelativeLayout 需要两次度量来确保自己处理了所有的布局关系，而且这个问题会伴随着视图层级中的相对布局 RelativeLayout 的增多，而变得更严重；</p>
+</li>
+<li><p>布局层级一样的情况建议使用线性布局 LinearLayout 代替相对布局 RelativeLayout，因为线性布局 LinearLayout 性能要更高一些；确实需要对分支进行相对布局 RelativeLayout 的时候，可以考虑更优化的网格布局 GridLayout ，它已经预处理了分支视图的关系，可以避免两次度量的问题；</p>
+</li>
+<li><p>相对复杂的布局建议采用相对布局 RelativeLayout ，相对布局 RelativeLayout 可以简单实现线性布局 LinearLayout 嵌套才能实现的布局；</p>
+</li>
+<li><p>不要使用绝对布局 AbsoluteLayout ；</p>
+</li>
+<li><p>将可重复使用的组件抽取出来并用 标签进行重用。如果应用多个地方的 UI 用到某个布局，就将其写成一个布局部件，便于各个 UI 重用。</p>
+</li>
+<li><p>使用 merge 标签减少布局的嵌套层次。</p>
+</li>
+<li><p>去掉多余的不可见背景。有多层背景颜色的布局，只留最上层的对用户可见的颜色即可，其他用户不可见的底层颜色可以去掉，减少无效的绘制操作；</p>
+</li>
+<li><p>尽量避免使用 layout_weight 属性。使用包含 layout_weight 属性的线性布局 LinearLayout 每一个子组件都需要被测量两次，会消耗过多的系统资源。在使用 ListView 标签与 GridView 标签的时候，这个问题显的尤其重要，因为子组件会重复被创建。平分布局可以使用相对布局 RelativeLayout 里一个 0dp 的 view 做分割线来搞定，如果不行，那就……；</p>
+</li>
+<li><p>合理的界面的布局结构应是宽而浅，而不是窄而深；</p>
+<h5 id="5-2-优化处理逻辑"><a href="#5-2-优化处理逻辑" class="headerlink" title="5.2 优化处理逻辑"></a>5.2 优化处理逻辑</h5></li>
+<li><p>按需载入视图。某些不怎么重用的耗资源视图，可以等到需要的时候再加载，提高UI渲染速度；</p>
+</li>
+<li><p>使用 ViewStub 标签来加载一些不常用的布局；</p>
+</li>
+<li><p>动态地 inflation view 性能要比用 ViewStub 标签的 setVisiblity 性能要好，当然某些功能的实现采用 ViewStub 标签更合适；</p>
+</li>
+<li><p>尽量避免不必要的耗资源操作，节省宝贵的运算时间；</p>
+</li>
+<li><p>避免在 UI 线程进行繁重的操作。耗资源的操作（比如 IO 操作、网络操作、SQL 操作、列表刷新等）耗资源的操作应用后台进程去实现，不能占用 UI 线程，UI 线程是主线程，主线程是保持程序流畅的关键，应该只操作那些核心的 UI 操作，比如处理视图的属性和绘制；</p>
+</li>
+<li><p>最小化唤醒机制。我们常用广播来接收那些期望响应的消息和事件，但过多的响应超过本身需求的话，会消耗多余的 Android 设备性能和资源。所以应该最小化唤醒机制，当应用不关心这些消失和事件时，就关闭广播，并慎重选择那些要响应的 Intent 。</p>
+</li>
+<li><p>为低端设备考虑，比如 512M 内存、双核 CPU 、低分辨率，确保你的应用可以满足不同水平的设备。</p>
+</li>
+<li><p>优化应用的启动速度。当应用启动一个应用时，界面的尽快反馈显示可以给用户一个良好的体验。为了启动更快，可以延迟加载一些 UI 以及避免在应用 Application 层级初始化代码。</p>
+<h5 id="5-3-善用-DEBUG-工具"><a href="#5-3-善用-DEBUG-工具" class="headerlink" title="5.3 善用 DEBUG 工具"></a>5.3 善用 DEBUG 工具</h5></li>
+<li><p>多使用Android提供的一些调试工具去追踪应用主要功能的性能情况；</p>
+</li>
+<li><p>多使用Android提供的一些调试工具去追踪应用主要功能的内存分配情况；</p>
+</li>
+</ul>
+<p>ps：本文转载自听云博客</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/152066?spm=5176.8067842.tagmain.57.1K9u3l&do=login">Android界面性能调优手册</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%80%A7%E8%83%BD/" rel="tag"># 性能</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2017-09-15%20%E7%AE%80%E6%9E%90TCP%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E5%88%86%E6%89%8B/" rel="prev" title="简析TCP的三次握手与四次分手">
+      <i class="fa fa-chevron-left"></i> 简析TCP的三次握手与四次分手
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2017-11-12%20Android%E5%A4%9A%E5%B1%8F%E5%B9%95%E8%AE%BE%E8%AE%A1/" rel="next" title="Android多屏幕设计">
+      Android多屏幕设计 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android%E7%95%8C%E9%9D%A2%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E6%89%8B%E5%86%8C"><span class="nav-number">1.</span> <span class="nav-text">Android界面性能调优手册</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android%E6%B8%B2%E6%9F%93%E7%9F%A5%E8%AF%86"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Android渲染知识</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-%E7%BB%98%E5%88%B6%E5%8E%9F%E7%90%86"><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">1.1 绘制原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-%E6%8E%89%E5%B8%A7"><span class="nav-number">1.0.0.2.2.</span> <span class="nav-text">1.2 掉帧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF60Fps%EF%BC%9F"><span class="nav-number">1.0.0.2.3.</span> <span class="nav-text">1.3 为什么是60Fps？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.0.0.2.4.</span> <span class="nav-text">1.4 垃圾回收</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-UI-%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.0.0.2.5.</span> <span class="nav-text">1.5 UI 线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-%E5%9E%82%E7%9B%B4%E5%90%8C%E6%AD%A5"><span class="nav-number">1.0.0.2.6.</span> <span class="nav-text">1.6 垂直同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-7-UI-%E7%BB%98%E5%88%B6%E6%9C%BA%E5%88%B6%E4%B8%8E%E6%A0%85%E6%A0%BC%E5%8C%96"><span class="nav-number">1.0.0.2.7.</span> <span class="nav-text">1.7 UI 绘制机制与栅格化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-To%E6%A3%80%E6%B5%8B%E5%92%8C%E8%A7%A3%E5%86%B3"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">二. To检测和解决</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-%E6%A3%80%E6%B5%8B%E7%BB%B4%E5%BA%A6"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">2.1 检测维度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text">2.2 调试工具</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-1-Hierarchy-View"><span class="nav-number">1.0.0.3.2.1.</span> <span class="nav-text">2.2.1 Hierarchy View</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-2-Lint"><span class="nav-number">1.0.0.3.2.2.</span> <span class="nav-text">2.2.2 Lint</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-3-Systrace"><span class="nav-number">1.0.0.3.2.3.</span> <span class="nav-text">2.2.3 Systrace</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-4-Track"><span class="nav-number">1.0.0.3.2.4.</span> <span class="nav-text">2.2.4 Track</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-5-OverDraw"><span class="nav-number">1.0.0.3.2.5.</span> <span class="nav-text">2.2.5 OverDraw</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-6-GPU-%E5%91%88%E7%8E%B0%E6%A8%A1%E5%BC%8F%E5%88%86%E6%9E%90"><span class="nav-number">1.0.0.3.2.6.</span> <span class="nav-text">2.2.6 GPU 呈现模式分析</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-7-StrictMode"><span class="nav-number">1.0.0.3.2.7.</span> <span class="nav-text">2.2.7 StrictMode</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-8-Animator-duration-scale"><span class="nav-number">1.0.0.3.2.8.</span> <span class="nav-text">2.2.8 Animator duration scale</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="nav-number">1.0.0.3.3.</span> <span class="nav-text">2.3 如何解决</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89-%E7%95%8C%E9%9D%A2%E8%BF%87%E5%BA%A6%E7%BB%98%E5%88%B6%EF%BC%88OverDraw%EF%BC%89"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">三. 界面过度绘制（OverDraw）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-%E8%BF%87%E5%BA%A6%E7%BB%98%E5%88%B6%E6%A6%82%E5%BF%B5"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text">3.1 过度绘制概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-%E8%BF%BD%E8%B8%AA%E8%BF%87%E5%BA%A6%E7%BB%98%E5%88%B6"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text">3.2 追踪过度绘制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-%E8%BF%87%E5%BA%A6%E7%BB%98%E5%88%B6%E7%9A%84%E6%A0%B9%E6%BA%90"><span class="nav-number">1.0.0.4.3.</span> <span class="nav-text">3.3 过度绘制的根源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-%E4%B8%8D%E5%90%88%E7%90%86%E7%9A%84xml%E5%B8%83%E5%B1%80%E5%AF%B9%E7%BB%98%E5%88%B6%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">1.0.0.4.4.</span> <span class="nav-text">3.4 不合理的xml布局对绘制的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-%E6%BA%90%E7%A0%81%E7%9B%B8%E5%85%B3"><span class="nav-number">1.0.0.4.5.</span> <span class="nav-text">3.5 源码相关</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B-%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%EF%BC%88Rendering%EF%BC%89"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">四. 渲染性能（Rendering）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E6%A6%82%E5%BF%B5"><span class="nav-number">1.0.0.5.1.</span> <span class="nav-text">4.1 渲染性能概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-%E8%BF%BD%E8%B8%AA%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD"><span class="nav-number">1.0.0.5.2.</span> <span class="nav-text">4.2 追踪渲染性能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E5%B7%AE%E7%9A%84%E6%A0%B9%E6%BA%90"><span class="nav-number">1.0.0.5.3.</span> <span class="nav-text">4.3 渲染性能差的根源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-%E6%A3%80%E6%B5%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">1.0.0.5.4.</span> <span class="nav-text">4.4 检测说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94-%E7%BB%99%E5%BC%80%E5%8F%91%E7%9A%84%E7%95%8C%E9%9D%A2%E4%BC%98%E5%8C%96-Advice"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">五. 给开发的界面优化 Advice</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-%E4%BC%98%E5%8C%96%E5%B8%83%E5%B1%80%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.0.0.6.1.</span> <span class="nav-text">5.1 优化布局的结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-%E4%BC%98%E5%8C%96%E5%A4%84%E7%90%86%E9%80%BB%E8%BE%91"><span class="nav-number">1.0.0.6.2.</span> <span class="nav-text">5.2 优化处理逻辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-%E5%96%84%E7%94%A8-DEBUG-%E5%B7%A5%E5%85%B7"><span class="nav-number">1.0.0.6.3.</span> <span class="nav-text">5.3 善用 DEBUG 工具</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Martin Chen"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Martin Chen</p>
+  <div class="site-description" itemprop="description">越努力，越幸运</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/android9527" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;android9527" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nulibj@gmail.com" title="E-Mail → mailto:nulibj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">89k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

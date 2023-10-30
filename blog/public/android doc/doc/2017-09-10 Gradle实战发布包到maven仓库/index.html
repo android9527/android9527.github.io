@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.android9527.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Gradle实战:发布包到maven仓库Maven简介参考链接：http:&#x2F;&#x2F;xiedeliang.com&#x2F;2017&#x2F;07&#x2F;30&#x2F;Maven简介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle实战:发布包到maven仓库">
+<meta property="og:url" content="http://www.android9527.com/android%20doc/doc/2017-09-10%20Gradle%E5%AE%9E%E6%88%98%E5%8F%91%E5%B8%83%E5%8C%85%E5%88%B0maven%E4%BB%93%E5%BA%93/index.html">
+<meta property="og:site_name" content="Martin&#39;s Blog">
+<meta property="og:description" content="Gradle实战:发布包到maven仓库Maven简介参考链接：http:&#x2F;&#x2F;xiedeliang.com&#x2F;2017&#x2F;07&#x2F;30&#x2F;Maven简介">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-09-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-09-09T16:00:00.000Z">
+<meta property="article:author" content="Martin Chen">
+<meta property="article:tag" content="Gradle">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.android9527.com/android%20doc/doc/2017-09-10%20Gradle%E5%AE%9E%E6%88%98%E5%8F%91%E5%B8%83%E5%8C%85%E5%88%B0maven%E4%BB%93%E5%BA%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Gradle实战:发布包到maven仓库 | Martin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Martin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">never give up</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/android9527" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.android9527.com/android%20doc/doc/2017-09-10%20Gradle%E5%AE%9E%E6%88%98%E5%8F%91%E5%B8%83%E5%8C%85%E5%88%B0maven%E4%BB%93%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Martin Chen">
+      <meta itemprop="description" content="越努力，越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Martin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Gradle实战:发布包到maven仓库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-09-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-10T00:00:00+08:00">2017-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Gradle/" itemprop="url" rel="index"><span itemprop="name">Gradle</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Gradle实战-发布包到maven仓库"><a href="#Gradle实战-发布包到maven仓库" class="headerlink" title="Gradle实战:发布包到maven仓库"></a>Gradle实战:发布包到maven仓库</h1><h4 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h4><h4 id="参考链接：http-xiedeliang-com-2017-07-30-Maven简介"><a href="#参考链接：http-xiedeliang-com-2017-07-30-Maven简介" class="headerlink" title="参考链接：http://xiedeliang.com/2017/07/30/Maven简介"></a>参考链接：<a target="_blank" rel="noopener" href="http://xiedeliang.com/2017/07/30/Maven%E7%AE%80%E4%BB%8B">http://xiedeliang.com/2017/07/30/Maven简介</a></h4><span id="more"></span>
+
+<h4 id="AAR简介"><a href="#AAR简介" class="headerlink" title="AAR简介"></a>AAR简介</h4><p>AAR文件是Google为Android开发所设计的一种library格式，全名为Android Archive Library，与Java Jar Library不同的是，aar除了java code之外还包含资源文件，即xml文件、图片、文字等。</p>
+<h4 id="Jar简介"><a href="#Jar简介" class="headerlink" title="Jar简介"></a>Jar简介</h4><p>JAR 文件格式以流行的 ZIP 文件格式为基础。与 ZIP 文件不同的是，JAR 文件不仅用于压缩和发布，而且还用于部署和封装库、组件和插件程序，并可被像编译器和 JVM 这样的工具直接使用。在 JAR 中包含特殊的文件，如 manifests 和部署描述符，用来指示工具如何处理特定的 JAR。</p>
+<h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><ul>
+<li>开发工具 Android Studio</li>
+<li>Maven仓库</li>
+<li>工程必须是lib工程，即该工程对应的build.gradle文件中要引用：apply plugin: ‘com.android.library’</li>
+<li>在根目录的build.gradle文件中添加如下配置：</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    apply plugin: <span class="string">&#x27;idea&#x27;</span></span><br><span class="line">    apply plugin: <span class="string">&#x27;maven&#x27;</span></span><br><span class="line">       configurations &#123;</span><br><span class="line">        deployerJars</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">configurations.all &#123;</span><br><span class="line">       resolutionStrategy.cacheChangingModulesFor <span class="number">0</span>, <span class="string">&#x27;seconds&#x27;</span><span class="regexp">//</span>不使用缓存，使用仓库中最新的包</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">subprojects &#123;  <span class="regexp">//</span>表示除主工程外所有子模块</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        deployerJars <span class="string">&quot;org.apache.maven.wagon:wagon-http:2.2&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ext &#123; <span class="regexp">//</span>仓库选择标记</span><br><span class="line">    repoType = <span class="string">&quot;remote&quot;</span> <span class="regexp">//</span>发布到远程仓库（下文中会用到）</span><br><span class="line">    <span class="regexp">//</span> repoType = <span class="string">&quot;local&quot;</span> <span class="regexp">//</span>发布到本地仓库，方便调试，避免调试期间频繁上传到maven仓库（下文中会用到）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在gradle.properties文件中添加：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">releaseRepositoryUrl</span><span class="operator">=</span>xxx  //正式包仓库地址（下文中会用到）</span><br><span class="line"><span class="attribute">snapshotRepositoryUrl</span><span class="operator">=</span>xxx //测试包仓库地址（下文中会用到）</span><br><span class="line"><span class="attribute">repositoryGroup</span><span class="operator">=</span>com.company.appname // 定义要上传的aar所在仓库的Group，可自定义，但后续引用处要与此一致</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在工程根目录下新建一个名为“mavenAccount.properties”文件，并将该文件加入到ignore 中，该文件用于存放访问maven仓库的账户和密码以及本地仓库地址，只有该模块的开发者才有权发布该aar包。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repositoryUserName=xxx</span><br><span class="line">repositoryPassword=xxx</span><br><span class="line">localRepositoryUrl=file:<span class="regexp">//</span><span class="regexp">/Users/</span>admin<span class="regexp">/Documents/</span>Android<span class="regexp">/repo/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写上传脚本:</p>
+</li>
+<li><p>生成AAR包：在工程根目录下新建一个名为“release-as-aar.gradle”的文件，其中脚本如下：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">uploadArchives() &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">            configuration = <span class="keyword">configurations</span>.deployerJars</span><br><span class="line">            <span class="keyword">println</span> <span class="string">&#x27;repoType : &#x27;</span> + rootProject.ext.repoType</span><br><span class="line">            <span class="keyword">if</span> ((rootProject.ext.repoType).equals(<span class="string">&quot;remote&quot;</span>)) &#123; <span class="comment">//发布到远程仓库</span></span><br><span class="line">                snapshotRepository(url: snapshotRepositoryUrl) &#123; <span class="comment">// 测试包</span></span><br><span class="line">                <span class="comment">//从本地文件读取仓库账号和密码</span></span><br><span class="line">            <span class="keyword">def</span> <span class="keyword">File</span> propFile = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">&#x27;../mavenAccount.properties&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> (propFile.canRead()) &#123;</span><br><span class="line">                <span class="keyword">def</span> Properties props = <span class="keyword">new</span> Properties()</span><br><span class="line">                props.load(<span class="keyword">new</span> FileInputStream(propFile))</span><br><span class="line">                    <span class="keyword">if</span> (props != <span class="keyword">null</span> &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryUserName&#x27;</span>) &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryPassword&#x27;</span>)) &#123;</span><br><span class="line">                   <span class="keyword">def</span> repositoryUserName = props[<span class="string">&#x27;repositoryUserName&#x27;</span>]</span><br><span class="line">                    <span class="keyword">def</span> repositoryPassword = props[<span class="string">&#x27;repositoryPassword&#x27;</span>]</span><br><span class="line">                    authentication(userName: repositoryUserName, password: repositoryPassword)</span><br><span class="line">                    <span class="keyword">println</span> <span class="string">&#x27;上传到远程仓库&#x27;</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">println</span> <span class="string">&#x27;没有发布权限&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="keyword">println</span> <span class="string">&#x27;没有发布权限&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            repository(url: releaseRepositoryUrl) &#123; <span class="comment">// 正式包</span></span><br><span class="line">            <span class="keyword">def</span> <span class="keyword">File</span> propFile = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">&#x27;../mavenAccount.properties&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> (propFile.canRead()) &#123;</span><br><span class="line">                   <span class="keyword">def</span> Properties props = <span class="keyword">new</span> Properties()</span><br><span class="line">                props.load(<span class="keyword">new</span> FileInputStream(propFile))</span><br><span class="line">                    <span class="keyword">if</span> (props != <span class="keyword">null</span> &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryUserName&#x27;</span>) &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryPassword&#x27;</span>)) &#123;</span><br><span class="line">                <span class="keyword">def</span> repositoryUserName = props[<span class="string">&#x27;repositoryUserName&#x27;</span>]</span><br><span class="line">                <span class="keyword">def</span> repositoryPassword = props[<span class="string">&#x27;repositoryPassword&#x27;</span>]</span><br><span class="line">                authentication(userName: repositoryUserName, password: repositoryPassword)</span><br><span class="line">                <span class="keyword">println</span> <span class="string">&#x27;上传到远程仓库&#x27;</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">println</span> <span class="string">&#x27;没有发布权限&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">println</span> <span class="string">&#x27;没有发布权限&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 发布到本地仓库</span></span><br><span class="line">                <span class="keyword">def</span> localRepositoryUrl</span><br><span class="line">                <span class="keyword">def</span> <span class="keyword">File</span> propFile = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">&#x27;../mavenAccount.properties&#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> (propFile.canRead()) &#123;</span><br><span class="line">                   <span class="keyword">def</span> Properties props = <span class="keyword">new</span> Properties()</span><br><span class="line">                props.load(<span class="keyword">new</span> FileInputStream(propFile))</span><br><span class="line">                <span class="keyword">if</span> (props != <span class="keyword">null</span> &amp;&amp; props.containsKey(<span class="string">&#x27;localRepositoryUrl&#x27;</span>)) &#123;</span><br><span class="line">                    localRepositoryUrl = props[<span class="string">&#x27;localRepositoryUrl&#x27;</span>]</span><br><span class="line">                    snapshotRepository(url: localRepositoryUrl)</span><br><span class="line">                    repository(url: localRepositoryUrl)</span><br><span class="line">                    <span class="keyword">println</span> <span class="string">&#x27;上传到本地仓库&#x27;</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">println</span> <span class="string">&#x27;没有发布权限&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">println</span> <span class="string">&#x27;没有发布权限&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>生成Jar包：在工程根目录下新建一个名为“release-as-jar.gradle”的文件，其中脚本如下：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> androidJavadocs(type: Javadoc) &#123;</span><br><span class="line">    failOnError = <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">source</span> = android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">    ext.androidJar = <span class="string">&quot;$&#123;android.sdkDirectory&#125;/platforms/$&#123;android.compileSdkVersion&#125;/android.jar&quot;</span></span><br><span class="line">    <span class="keyword">classpath</span> += files(ext.androidJar)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">task</span> androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) &#123;</span><br><span class="line">    classifier = <span class="string">&#x27;javadoc&#x27;</span></span><br><span class="line">    <span class="keyword">from</span> androidJavadocs.<span class="keyword">destinationDir</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> androidSourcesJar(type: Jar) &#123;</span><br><span class="line">    classifier = <span class="string">&#x27;sources&#x27;</span></span><br><span class="line">    <span class="keyword">from</span> android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">            configuration = <span class="keyword">configurations</span>.deployerJars</span><br><span class="line">            <span class="keyword">println</span> <span class="string">&#x27;repoType : &#x27;</span> + rootProject.ext.repoType</span><br><span class="line">            <span class="keyword">if</span> ((rootProject.ext.repoType).equals(<span class="string">&quot;remote&quot;</span>)) &#123; <span class="comment">//发布到远程仓库</span></span><br><span class="line">                snapshotRepository(url: snapshotRepositoryUrl) &#123;</span><br><span class="line">                    <span class="keyword">def</span> <span class="keyword">File</span> propFile = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">&#x27;../mavenAccount.properties&#x27;</span>)</span><br><span class="line">                    <span class="keyword">if</span> (propFile.canRead()) &#123;</span><br><span class="line">                        <span class="keyword">def</span> Properties props = <span class="keyword">new</span> Properties()</span><br><span class="line">                        props.load(<span class="keyword">new</span> FileInputStream(propFile))</span><br><span class="line">                        <span class="keyword">if</span> (props != <span class="keyword">null</span> &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryUserName&#x27;</span>) &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryPassword&#x27;</span>)) &#123;</span><br><span class="line">                            <span class="keyword">def</span> repositoryUserName = props[<span class="string">&#x27;repositoryUserName&#x27;</span>]</span><br><span class="line">                            <span class="keyword">def</span> repositoryPassword = props[<span class="string">&#x27;repositoryPassword&#x27;</span>]</span><br><span class="line">                            authentication(userName: repositoryUserName, password: repositoryPassword)</span><br><span class="line">                            <span class="keyword">println</span> <span class="string">&#x27;上传到远程仓库&#x27;</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">println</span> <span class="string">&#x27;sorry，你没有上传aar包的权限&#x27;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">println</span> <span class="string">&#x27;sorry，你没有上传aar包的权限&#x27;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                repository(url: releaseRepositoryUrl) &#123;</span><br><span class="line">                    <span class="keyword">def</span> <span class="keyword">File</span> propFile = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">&#x27;../mavenAccount.properties&#x27;</span>)</span><br><span class="line">                    <span class="keyword">if</span> (propFile.canRead()) &#123;</span><br><span class="line">                        <span class="keyword">def</span> Properties props = <span class="keyword">new</span> Properties()</span><br><span class="line">                        props.load(<span class="keyword">new</span> FileInputStream(propFile))</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> (props != <span class="keyword">null</span> &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryUserName&#x27;</span>) &amp;&amp; props.containsKey(<span class="string">&#x27;repositoryPassword&#x27;</span>)) &#123;</span><br><span class="line">                            <span class="keyword">def</span> repositoryUserName = props[<span class="string">&#x27;repositoryUserName&#x27;</span>]</span><br><span class="line">                            <span class="keyword">def</span> repositoryPassword = props[<span class="string">&#x27;repositoryPassword&#x27;</span>]</span><br><span class="line">                            authentication(userName: repositoryUserName, password: repositoryPassword)</span><br><span class="line">                            <span class="keyword">println</span> <span class="string">&#x27;上传到远程仓库&#x27;</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">println</span> <span class="string">&#x27;sorry，你没有上传aar包的权限&#x27;</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">println</span> <span class="string">&#x27;sorry，你没有上传aar包的权限&#x27;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;<span class="comment">//发布到本地仓库</span></span><br><span class="line">                <span class="keyword">def</span> localRepositoryUrl</span><br><span class="line">                <span class="keyword">def</span> <span class="keyword">File</span> propFile = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">&#x27;../mavenAccount.properties&#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> (propFile.canRead()) &#123;</span><br><span class="line">                    <span class="keyword">def</span> Properties props = <span class="keyword">new</span> Properties()</span><br><span class="line">                    props.load(<span class="keyword">new</span> FileInputStream(propFile))</span><br><span class="line">                    <span class="keyword">if</span> (props != <span class="keyword">null</span> &amp;&amp; props.containsKey(<span class="string">&#x27;localRepositoryUrl&#x27;</span>)) &#123;</span><br><span class="line">                        localRepositoryUrl = props[<span class="string">&#x27;localRepositoryUrl&#x27;</span>]</span><br><span class="line">                        snapshotRepository(url: localRepositoryUrl)</span><br><span class="line">                        repository(url: localRepositoryUrl)</span><br><span class="line">                        <span class="keyword">println</span> <span class="string">&#x27;上传到本地仓库&#x27;</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">println</span> <span class="string">&#x27;sorry，本地仓库路径不存在&#x27;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">println</span> <span class="string">&#x27;sorry，本地仓库路径不存在&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">artifacts</span> &#123;</span><br><span class="line">    archives androidSourcesJar</span><br><span class="line">    archives androidJavadocsJar</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>子模块中相关配置：在子模块的build.gradle文件中添加：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">group repositoryGroup</span><br><span class="line"><span class="regexp">//</span>version <span class="string">&#x27;0.0.1&#x27;</span></span><br><span class="line">version <span class="string">&#x27;0.0.1-SNAPSHOT&#x27;</span> <span class="regexp">//</span>表示测试版，正式发版时去掉“-SNAPSHOT”</span><br><span class="line"><span class="regexp">//</span>打成aar格式</span><br><span class="line">apply from: <span class="string">&#x27;../release-as-aar.gradle&#x27;</span> <span class="regexp">//</span>引用上传插件</span><br><span class="line"><span class="regexp">//</span>打成jar格式</span><br><span class="line"><span class="regexp">//</span>apply from: <span class="string">&#x27;../release-as-jar.gradle&#x27;</span></span><br><span class="line">打包上传</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译通过后，打开android studio自带的终端，进入相应的module目录下，输入：</p>
+</li>
+</ul>
+<p>gradle uploadArchives<br>主项目引用</p>
+<p>在根目录的build.gradle文件中添加如下配置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">maven</span> &#123;</span><br><span class="line">  <span class="attribute">url</span> <span class="string">&#x27;http://maven.xxxx.xxxx:1111/nexus/content/groups/public/&#x27;</span></span><br><span class="line">   &#125; </span><br><span class="line">在项目的build.gradle文件中添加如下引用：</span><br><span class="line"></span><br><span class="line"><span class="literal">debug</span>Compile <span class="string">&#x27;groupId:lib-name:version-SNAPSHOT&#x27;</span></span><br><span class="line">releaseCompile <span class="string">&#x27;groupId:lib-name:version&#x27;</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Gradle/" rel="tag"># Gradle</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2017-07-29%20%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E5%86%99%E5%87%BA%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="prev" title="如何正确地写出单例模式">
+      <i class="fa fa-chevron-left"></i> 如何正确地写出单例模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2017-09-10%20Gradle%20maven%E9%85%8D%E7%BD%AE/" rel="next" title="Gradle maven配置">
+      Gradle maven配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradle%E5%AE%9E%E6%88%98-%E5%8F%91%E5%B8%83%E5%8C%85%E5%88%B0maven%E4%BB%93%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">Gradle实战:发布包到maven仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Maven%E7%AE%80%E4%BB%8B"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Maven简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9Ahttp-xiedeliang-com-2017-07-30-Maven%E7%AE%80%E4%BB%8B"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">参考链接：http:&#x2F;&#x2F;xiedeliang.com&#x2F;2017&#x2F;07&#x2F;30&#x2F;Maven简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AAR%E7%AE%80%E4%BB%8B"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">AAR简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jar%E7%AE%80%E4%BB%8B"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">Jar简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">环境</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Martin Chen"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Martin Chen</p>
+  <div class="site-description" itemprop="description">越努力，越幸运</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/android9527" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;android9527" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nulibj@gmail.com" title="E-Mail → mailto:nulibj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">89k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

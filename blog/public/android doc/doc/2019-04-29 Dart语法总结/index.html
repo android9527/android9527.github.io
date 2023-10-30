@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.android9527.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Dart语法总结Dart 语言介绍 Dart 是Google发布的一门开源编程语言 Dart 目前可用于全平台开发 Dart是一门面向对象的编程语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dart语法总结">
+<meta property="og:url" content="http://www.android9527.com/android%20doc/doc/2019-04-29%20Dart%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Martin&#39;s Blog">
+<meta property="og:description" content="Dart语法总结Dart 语言介绍 Dart 是Google发布的一门开源编程语言 Dart 目前可用于全平台开发 Dart是一门面向对象的编程语言">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.android9527.com/images/dart/override_operator.jpeg">
+<meta property="article:published_time" content="2019-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-04-28T16:00:00.000Z">
+<meta property="article:author" content="Martin Chen">
+<meta property="article:tag" content="Dart">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.android9527.com/images/dart/override_operator.jpeg">
+
+<link rel="canonical" href="http://www.android9527.com/android%20doc/doc/2019-04-29%20Dart%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Dart语法总结 | Martin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Martin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">never give up</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/android9527" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.android9527.com/android%20doc/doc/2019-04-29%20Dart%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Martin Chen">
+      <meta itemprop="description" content="越努力，越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Martin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dart语法总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-29T00:00:00+08:00">2019-04-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dart/" itemprop="url" rel="index"><span itemprop="name">Dart</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Dart语法总结"><a href="#Dart语法总结" class="headerlink" title="Dart语法总结"></a>Dart语法总结</h1><h3 id="Dart-语言介绍"><a href="#Dart-语言介绍" class="headerlink" title="Dart 语言介绍"></a>Dart 语言介绍</h3><ul>
+<li>Dart 是Google发布的一门开源编程语言</li>
+<li>Dart 目前可用于全平台开发</li>
+<li>Dart是一门面向对象的编程语言<span id="more"></span></li>
+</ul>
+<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p>[Dart 环境安装] <a target="_blank" rel="noopener" href="https://www.dartlang.org/tools/sdk#install">https://www.dartlang.org/tools/sdk#install</a></p>
+<p>IDE 支持</p>
+<ul>
+<li><p>IntelliJ IDEA Android Studio</p>
+</li>
+<li><p>VS Code</p>
+</li>
+<li><p>Sublime Text Atom</p>
+</li>
+</ul>
+<h3 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h3><h4 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h4><p>使用 var 声明变量，可赋予不同类型的值<br>未初始化时，默认值为 null<br>使用 final 声明一个不可改变的值<br>使用<code>const</code>声明编译期常量</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">a = <span class="number">10</span>;</span><br><span class="line">a = <span class="string">&quot;aaa&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> b = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="内置数据类型"><a href="#内置数据类型" class="headerlink" title="内置数据类型"></a>内置数据类型</h4><h5 id="（1）数值型-num-int-double"><a href="#（1）数值型-num-int-double" class="headerlink" title="（1）数值型 num (int double)"></a>（1）数值型 num (int double)</h5><ul>
+<li>常用属性：isEven（是否偶数）isOdd isNegative</li>
+<li>常用方法：abs() round() toInt() toDouble()</li>
+</ul>
+<h5 id="（2）字符串-String"><a href="#（2）字符串-String" class="headerlink" title="（2）字符串 String"></a>（2）字符串 String</h5><ul>
+<li>常用方法<br>contains(), subString() toLowerCase() toUpperCase()<br>startsWith() endsWith()</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  <span class="built_in">String</span> s1 = <span class="string">&#x27;aaa\&#x27;&#x27;</span>;</span><br><span class="line">  <span class="built_in">String</span> s2 = <span class="string">&quot;aaa&#x27;&quot;</span>;</span><br><span class="line">  <span class="built_in">String</span> s3 = <span class="string">&quot;&quot;&quot;Hello</span></span><br><span class="line"><span class="string">Dart&quot;&quot;&quot;</span>;</span><br><span class="line">  <span class="built_in">String</span> s4 = <span class="string">r&#x27;aaa\n&#x27;</span>;</span><br><span class="line">  <span class="built_in">String</span> s5 = <span class="string">&quot;s1 = <span class="subst">$s1</span>&quot;</span>;</span><br><span class="line">  <span class="built_in">String</span> s6 = <span class="string">&quot;a + b = <span class="subst">$&#123;<span class="number">1</span> + <span class="number">2</span>&#125;</span>&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="（3）布尔值-bool"><a href="#（3）布尔值-bool" class="headerlink" title="（3）布尔值 bool"></a>（3）布尔值 bool</h5><h5 id="（4）List"><a href="#（4）List" class="headerlink" title="（4）List"></a>（4）List</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = <span class="built_in">List</span>();</span><br><span class="line">list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">&#x27;Flutter&#x27;</span>, <span class="keyword">true</span>];</span><br><span class="line">list[<span class="number">2</span>] = <span class="string">&#x27;Dart&#x27;</span>;</span><br><span class="line">list.add(<span class="string">&quot;value&quot;</span>);</span><br><span class="line">list.insert(<span class="number">1</span>, <span class="string">&#x27;element&#x27;</span>);</span><br><span class="line">list.remove(<span class="string">&quot;value&quot;</span>);</span><br><span class="line">list.removeAt(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> typeList = <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;(); <span class="comment">// 只能添加字符串类型的元素</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">in</span> list) &#123;</span><br><span class="line">  <span class="built_in">print</span>(item);</span><br><span class="line">&#125;</span><br><span class="line">list.forEach((element) =&gt; <span class="built_in">print</span>(element));</span><br></pre></td></tr></table></figure>
+
+<h5 id="（5）Map"><a href="#（5）Map" class="headerlink" title="（5）Map"></a>（5）Map</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = &#123;<span class="string">&#x27;fisrt&#x27;</span>: <span class="string">&#x27;Dart&#x27;</span>, <span class="string">&#x27;second&#x27;</span>: <span class="string">&#x27;Java&#x27;</span>&#125;;</span><br><span class="line"><span class="built_in">print</span>(map.length);</span><br><span class="line"><span class="built_in">print</span>(map.isEmpty);</span><br><span class="line"><span class="built_in">print</span>(map.isNotEmpty);</span><br><span class="line"><span class="built_in">print</span>(map.keys);</span><br><span class="line"><span class="built_in">print</span>(map.values);</span><br><span class="line"><span class="built_in">print</span>(map.containsKey(<span class="string">&quot;key&quot;</span>));</span><br><span class="line"><span class="built_in">print</span>(map.containsValue(<span class="string">&quot;value&quot;</span>));</span><br><span class="line">map[<span class="string">&#x27;third&#x27;</span>] = <span class="string">&#x27;Python&#x27;</span>;</span><br><span class="line">map.forEach((key, value) =&gt; <span class="built_in">print</span>(<span class="string">&quot;key:<span class="subst">$&#123;key&#125;</span>, value:<span class="subst">$&#123;value&#125;</span>&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>1、算术运算符 + - <em>&#x2F; ~&#x2F;（取整） %<br>2、关系运算符 &#x3D;&#x3D;(判断内容是否相同) !&#x3D;, &gt;, &lt;, &gt;&#x3D;, &lt;&#x3D;<br>3、逻辑运算符 ! &amp;&amp; ||<br>4、赋值运算符 &#x3D; ??&#x3D; +&#x3D; -+</em> &#x3D; &#x2F;&#x3D; %&#x3D; ~&#x2F;&#x3D;<br>5、条件表达式<br>三目运算符 condition ? expr1 : expr2<br>?? 运算符 expr1 ?? expr2</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> s = <span class="keyword">true</span> ? <span class="string">&quot;Male&quot;</span> : <span class="string">&quot;Female&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> s1, s2 = <span class="string">&quot;not null&quot;</span>;</span><br><span class="line">s = s1 ?? s2;</span><br></pre></td></tr></table></figure>
+
+<h4 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h4><p>if for while do…while break continue switch…case</p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是⼀个⾏注释</span></span><br><span class="line"><span class="comment">/* 这是⼀个多⾏的</span></span><br><span class="line"><span class="comment"> 块注释。 */</span></span><br><span class="line"><span class="comment">/* /* */</span> */</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
+<li>方法定义</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回类型 方法名(参数<span class="number">1</span>, 参数<span class="number">2</span>, ...) &#123;</span><br><span class="line">    方法体</span><br><span class="line">    <span class="keyword">return</span> 返回值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>方法特性</p>
+<p>方法也是对象，并且有具体类型 <code>Function</code></p>
+<p>返回值类型、参数类型可省略</p>
+<p>箭头语法：&#x3D;&gt; expr 是 {return expr} 的缩写，只适用于一个表达式</p>
+<p>方法都有返回值，如果没有指定，默认 return null</p>
+<p>方法不能重载</p>
+</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> getPerson(<span class="built_in">String</span> name, <span class="built_in">int</span> age) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;name = <span class="subst">$name</span>, age = <span class="subst">$age</span>&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">printPerson(name, age) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;name = <span class="subst">$name</span>, age = <span class="subst">$age</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">getPerson(name) =&gt; <span class="string">&quot;name = <span class="subst">$name</span>&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>可选参数</p>
+<p>可选命名参数：{param1, param2, …}</p>
+<p>可选位置参数：[param1, param2, …]</p>
+<p>可选参数可以指定默认值</p>
+<p>可选参数只能放在方法的最后</p>
+<p>函数可以使用&#x3D;为命名参数和位置参数定义默认值。默认值必须是编译时常量。如果没有提供默认值，则默认值为null</p>
+</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  printPerson(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">  printPerson(<span class="string">&quot;zhangsan&quot;</span>, gender: <span class="number">1</span>);</span><br><span class="line">  printPerson(<span class="string">&quot;zhangsan&quot;</span>, gender: <span class="number">1</span>, age: <span class="number">18</span>);</span><br><span class="line"></span><br><span class="line">  printPerson2(<span class="string">&quot;zhangsan&quot;</span>, <span class="number">18</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printPerson(name, &#123;age = <span class="number">18</span>, gender = <span class="number">0</span>&#125;) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;name = <span class="subst">$name</span>, age = <span class="subst">$age</span>, gender = <span class="subst">$gender</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printPerson2(name, [age = <span class="string">&quot;18&quot;</span>, gender = <span class="number">1</span>]) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;name = <span class="subst">$name</span>, age = <span class="subst">$age</span>, gender = <span class="subst">$gender</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>方法对象</p>
+<p>方法作为对象可以赋值给变量<br>方法可以作为另一个方法的参数</p>
+</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  <span class="comment">// 方法作为对象可以赋值给变量</span></span><br><span class="line">  <span class="built_in">Function</span> fun = times;</span><br><span class="line">  <span class="built_in">print</span>(fun(<span class="string">&quot;name&quot;</span>));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 列表数据*3</span></span><br><span class="line">  <span class="built_in">List</span> list = [<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;3&quot;</span>];</span><br><span class="line">  listTimes(list, times);</span><br><span class="line">  <span class="comment">// 匿名方法调用形式</span></span><br><span class="line">  <span class="comment">// listTimes(list, (item) =&gt; item * 3);</span></span><br><span class="line">  </span><br><span class="line">  <span class="built_in">print</span>(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">times(str) &#123;</span><br><span class="line">  <span class="keyword">return</span> str * <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法可以作为另一个方法的参数</span></span><br><span class="line">listTimes(<span class="built_in">List</span> list, f(item)) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; list.length; i++) &#123;</span><br><span class="line">    list[i] = f(list[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>匿名方法</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(param1, param2, ...) &#123;</span><br><span class="line">    方法体...</span><br><span class="line">    <span class="keyword">return</span> 返回值;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> func = (str) =&gt; <span class="built_in">print</span>(str);</span><br><span class="line">func(<span class="string">&quot;test&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><h4 id="类及成员可见性"><a href="#类及成员可见性" class="headerlink" title="类及成员可见性"></a>类及成员可见性</h4><ul>
+<li>Dart中的可见性以<code>library</code>为单位</li>
+<li>默认情况下，每一个Dart文件就是一个库</li>
+<li>使用_表示库的私有性</li>
+<li>使用<code>import</code>导入库</li>
+</ul>
+<h4 id="类及对象"><a href="#类及对象" class="headerlink" title="类及对象"></a>类及对象</h4><h5 id="（1）属性与方法"><a href="#（1）属性与方法" class="headerlink" title="（1）属性与方法"></a>（1）属性与方法</h5><ul>
+<li>属性默认会生成getter和setter方法</li>
+<li>使用final声明的属性只有getter方法</li>
+<li>方法不能重载</li>
+</ul>
+<h5 id="（2）计算属性"><a href="#（2）计算属性" class="headerlink" title="（2）计算属性"></a>（2）计算属性</h5><p>计算属性的值是通过计算而来，本身不存储值<br>计算属性赋值，其实是通过计算转换到其它变量</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  <span class="keyword">var</span> rect = <span class="keyword">new</span> Rect();</span><br><span class="line"><span class="comment">//  print(rect.area());</span></span><br><span class="line">  <span class="built_in">print</span>(rect.area);</span><br><span class="line">  rect.area = <span class="number">400</span>;</span><br><span class="line">  <span class="built_in">print</span>(rect.width);</span><br><span class="line">  <span class="built_in">print</span>(rect.height);</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rect</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> width = <span class="number">20</span>, height = <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> area =&gt; width * height;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> area(area) &#123;</span><br><span class="line">    width = <span class="number">20</span>;</span><br><span class="line">    height = area / width;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="（3）-构造方法"><a href="#（3）-构造方法" class="headerlink" title="（3） 构造方法"></a>（3） 构造方法</h5><p>含有默认构造方法<br>如果存在自定义构造方法，则默认构造方法无效<br>构造方法不能重载，使用命名构造方法，可以实现多个构造方法</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String</span> name;</span><br><span class="line">  <span class="built_in">int</span> age;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  Person()&#123;&#125;</span></span><br><span class="line">  Person(<span class="keyword">this</span>.name, <span class="keyword">this</span>.age) &#123;</span><br><span class="line">    <span class="built_in">print</span>(name);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Person.withName(name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Person.withAge(age) &#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="（4）对象操作符"><a href="#（4）对象操作符" class="headerlink" title="（4）对象操作符"></a>（4）对象操作符</h5><p>条件访问 ?.<br>类型转换 as<br>类型判断 is is!</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person person;</span><br><span class="line"><span class="comment">// ? 不为 null 则执行</span></span><br><span class="line">person?.work();</span><br><span class="line">person = <span class="keyword">new</span> Person(<span class="string">&quot;zahng &quot;</span>, <span class="number">15</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (person <span class="keyword">is</span> Person) &#123;</span><br><span class="line">  <span class="built_in">print</span>(person.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// .. 级联操作符</span></span><br><span class="line">person..name = <span class="string">&quot;TOM&quot;</span>..age = <span class="number">20.</span>.work();</span><br></pre></td></tr></table></figure>
+
+<h5 id="（5）抽象类-abstract-class、接口"><a href="#（5）抽象类-abstract-class、接口" class="headerlink" title="（5）抽象类 abstract class、接口"></a>（5）抽象类 abstract class、接口</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象类使用 abstract 表示，不能被直接实例化</span></span><br><span class="line"><span class="comment">// 抽象类可以没有抽象方法</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 抽象方法不用 abstract 修饰</span></span><br><span class="line">  <span class="keyword">void</span> eat();</span><br><span class="line">  <span class="built_in">String</span> name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Children</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> eat() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> run();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类就是接口</span></span><br><span class="line"><span class="comment">// implements 需要重写类的所有成员及方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Person</span> , <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String</span> name;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> eat() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> run() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="（6）Mixins"><a href="#（6）Mixins" class="headerlink" title="（6）Mixins"></a>（6）Mixins</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mixin 类似于多继承，是在多类继承中重用一个类代码的方式</span></span><br><span class="line"><span class="comment">// 作为 Mixin 的类不能声明构造方法</span></span><br><span class="line"><span class="comment">// 作为 Mixin 的类只能继承Object</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">  a() =&gt; <span class="built_in">print</span>(<span class="string">&quot;A.a()&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">  b() =&gt; <span class="built_in">print</span>(<span class="string">&quot;B.b()&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> </span>&#123;</span><br><span class="line">  c() =&gt; <span class="built_in">print</span>(<span class="string">&quot;C.c()&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword">extends</span> <span class="title">A</span> <span class="title">with</span> <span class="title">B</span>, <span class="title">C</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> d() &#123;</span><br><span class="line">    a(); b(); c();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="（7）操作符覆写"><a href="#（7）操作符覆写" class="headerlink" title="（7）操作符覆写"></a>（7）操作符覆写</h5><p>覆写操作符需要在类中定义</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回类型 <span class="keyword">operator</span> 操作符 (参数<span class="number">1</span>, 参数<span class="number">2</span>) &#123;</span><br><span class="line">    实现</span><br><span class="line">    <span class="keyword">return</span> 返回值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果覆写 &#x3D;&#x3D;，还需要覆写对象的hashCode getter 方法<br><img src="/../../../images/dart/override_operator.jpeg" loading="lazy"></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  Person p1 = Person(<span class="number">20</span>);</span><br><span class="line">  Person p2 = Person(<span class="number">18</span>);</span><br><span class="line">  <span class="built_in">print</span>(p1 &gt; p2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> age;</span><br><span class="line">  Person(<span class="keyword">this</span>.age);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">bool</span> <span class="keyword">operator</span> &gt;(Person person) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.age &gt; person.age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="枚举-enum-和-泛型"><a href="#枚举-enum-和-泛型" class="headerlink" title="枚举 enum 和 泛型"></a>枚举 enum 和 泛型</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color &#123; red, green, blue &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> list = <span class="keyword">new</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;();</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://www.dartlang.org/guides/language/language-tour">A Tour of the Dart Language</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Dart/" rel="tag"># Dart</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2019-03-05%20happens-before%20%E5%92%8C%20as-if-serial/" rel="prev" title="happens-before 和 as-if-serial">
+      <i class="fa fa-chevron-left"></i> happens-before 和 as-if-serial
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2019-05-06%20%E9%80%86%E5%90%91%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/" rel="next" title="逆向打印链表">
+      逆向打印链表 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dart%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">Dart语法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dart-%E8%AF%AD%E8%A8%80%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.0.1.</span> <span class="nav-text">Dart 语言介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">1.0.2.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">1.0.3.</span> <span class="nav-text">基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">变量与常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">内置数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E5%80%BC%E5%9E%8B-num-int-double"><span class="nav-number">1.0.3.2.1.</span> <span class="nav-text">（1）数值型 num (int double)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%AD%97%E7%AC%A6%E4%B8%B2-String"><span class="nav-number">1.0.3.2.2.</span> <span class="nav-text">（2）字符串 String</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%B8%83%E5%B0%94%E5%80%BC-bool"><span class="nav-number">1.0.3.2.3.</span> <span class="nav-text">（3）布尔值 bool</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%884%EF%BC%89List"><span class="nav-number">1.0.3.2.4.</span> <span class="nav-text">（4）List</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%885%EF%BC%89Map"><span class="nav-number">1.0.3.2.5.</span> <span class="nav-text">（5）Map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">控制语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">1.0.3.5.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.3.6.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.4.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%8F%8A%E6%88%90%E5%91%98%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">类及成员可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%8F%8A%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">类及对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.4.2.1.</span> <span class="nav-text">（1）属性与方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="nav-number">1.0.4.2.2.</span> <span class="nav-text">（2）计算属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%883%EF%BC%89-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.4.2.3.</span> <span class="nav-text">（3） 构造方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.0.4.2.4.</span> <span class="nav-text">（4）对象操作符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E6%8A%BD%E8%B1%A1%E7%B1%BB-abstract-class%E3%80%81%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.0.4.2.5.</span> <span class="nav-text">（5）抽象类 abstract class、接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%886%EF%BC%89Mixins"><span class="nav-number">1.0.4.2.6.</span> <span class="nav-text">（6）Mixins</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%EF%BC%887%EF%BC%89%E6%93%8D%E4%BD%9C%E7%AC%A6%E8%A6%86%E5%86%99"><span class="nav-number">1.0.4.2.7.</span> <span class="nav-text">（7）操作符覆写</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE-enum-%E5%92%8C-%E6%B3%9B%E5%9E%8B"><span class="nav-number">1.0.5.</span> <span class="nav-text">枚举 enum 和 泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.0.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Martin Chen"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Martin Chen</p>
+  <div class="site-description" itemprop="description">越努力，越幸运</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/android9527" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;android9527" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nulibj@gmail.com" title="E-Mail → mailto:nulibj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">89k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -4,7 +4,7 @@
 *.iml
 yarn.lock
 package-lock.json
-node_modules/
+#node_modules/
 
 # Ignore unused verdors' files
 source/lib/fancybox/*

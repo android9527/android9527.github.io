@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.android9527.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="fir.im Jenkins 插件使用方法fir.im Jenkins 插件使用fir.im Jenkins 插件可以更快速地上传 apk&#x2F;ipa 安装包到 fir.im.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fir.im Jenkins 插件使用方法">
+<meta property="og:url" content="http://www.android9527.com/android%20doc/doc/2017-07-07%20fir.im%20Jenkins%20%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Martin&#39;s Blog">
+<meta property="og:description" content="fir.im Jenkins 插件使用方法fir.im Jenkins 插件使用fir.im Jenkins 插件可以更快速地上传 apk&#x2F;ipa 安装包到 fir.im.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/jenkins-1.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/jenkins-2.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/jenkins-3.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/jenkins-4.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/jenkins-5.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/jenkins-6.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/plugins-1.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/plugins-3.jpg">
+<meta property="og:image" content="http://www.android9527.com/images/jenkins/plugins-4.jpg">
+<meta property="article:published_time" content="2017-07-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2017-07-06T16:00:00.000Z">
+<meta property="article:author" content="Martin Chen">
+<meta property="article:tag" content="fir.im">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.android9527.com/images/jenkins/jenkins-1.jpg">
+
+<link rel="canonical" href="http://www.android9527.com/android%20doc/doc/2017-07-07%20fir.im%20Jenkins%20%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>fir.im Jenkins 插件使用方法 | Martin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Martin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">never give up</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/android9527" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.android9527.com/android%20doc/doc/2017-07-07%20fir.im%20Jenkins%20%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Martin Chen">
+      <meta itemprop="description" content="越努力，越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Martin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          fir.im Jenkins 插件使用方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-07 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-07T00:00:00+08:00">2017-07-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jenkins/" itemprop="url" rel="index"><span itemprop="name">Jenkins</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="fir-im-Jenkins-插件使用方法"><a href="#fir-im-Jenkins-插件使用方法" class="headerlink" title="fir.im Jenkins 插件使用方法"></a>fir.im Jenkins 插件使用方法</h1><h4 id="fir-im-Jenkins-插件"><a href="#fir-im-Jenkins-插件" class="headerlink" title="fir.im Jenkins 插件"></a>fir.im Jenkins 插件</h4><p>使用fir.im Jenkins 插件可以更快速地上传 apk&#x2F;ipa 安装包到 fir.im.</p>
+<span id="more"></span>
+
+<h4 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h4><ol>
+<li><p>方法一：直接下载安装包</p>
+<p>Download Jenkins <a target="_blank" rel="noopener" href="https://jenkins.io/index.html">https://jenkins.io/index.html</a><br>安装完成后在 Terminal 中输入，即可打开 Jenkins。</p>
+</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open <span class="regexp">/Applications/</span>Jenkins/jenkins.war</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>方法二：使用命令行安装</p>
+<p>安装 homebrew</p>
+</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> ruby <span class="literal">-e</span> <span class="string">&quot;<span class="variable">$</span>(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>   安装 Jenkins</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span><span class="keyword">install </span><span class="keyword">jenkins</span></span><br></pre></td></tr></table></figure>
+
+<p>   启动 Jenkins</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>jenkins</span><br></pre></td></tr></table></figure>
+
+<h4 id="访问-Jenkins"><a href="#访问-Jenkins" class="headerlink" title="访问 Jenkins"></a>访问 Jenkins</h4><p>请在浏览器输入地址:<br><a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a><br>使用安装包安装后会自动打开，如果端口冲突那么请修改端口</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults <span class="keyword">write</span> <span class="regexp">/Library/</span>Preferences/org.jenkins-ci httpPort xxxx</span><br></pre></td></tr></table></figure>
+
+<p>如果下载的是war的包，用这个命令更改端口</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">java </span>-<span class="keyword">jar </span><span class="keyword">jenkins.war </span>--httpPort=<span class="number">8090</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-fir-im-的上传插件"><a href="#安装-fir-im-的上传插件" class="headerlink" title="安装 fir.im 的上传插件"></a>安装 fir.im 的上传插件</h4><h4 id="插件介绍"><a href="#插件介绍" class="headerlink" title="插件介绍"></a>插件介绍</h4><p>该插件主要功能有2点：</p>
+<ol>
+<li>上传 apk&#x2F;ipa 安装包 到 fir.im</li>
+<li>上传符号表到 BugHD，方便查看混淆后的 Log 日志</li>
+</ol>
+<p>注意：在使用之前，请确认自己创建的 Jenkins 项目可以正常编译生成 ipa&#x2F;apk 文件。 该插件的一般使用情景是编译完生成 apk&#x2F;ipa 后，如果未指定 apk&#x2F;ipa 生成目录，插件会默认选择 Jenkins 项目目录。</p>
+<h4 id="下载插件"><a href="#下载插件" class="headerlink" title="下载插件"></a>下载插件</h4><p>Jenkins 插件下载地址 <a target="_blank" rel="noopener" href="http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin-1.9.5.hpi">http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin-1.9.5.hpi</a></p>
+<h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><ul>
+<li>进入 Jenkins 管理界面后，点击左侧进入 <code>系统管理</code><br><img src="/../../../images/jenkins/jenkins-1.jpg" loading="lazy"></li>
+<li>然后找到 <code>管理插件</code> 并点击进入<br><img src="/../../../images/jenkins/jenkins-2.jpg" loading="lazy"></li>
+<li>进入插件管理后，点击 <code>高级</code> 选项卡<br><img src="/../../../images/jenkins/jenkins-3.jpg" loading="lazy"></li>
+<li>然后在页面找到 <code>上传插件</code>，选择已下载好的 <code>fir.im jenkins 插件文件路径</code>，并点击 <code>上传</code> 等待安装成功。<br><img src="/../../../images/jenkins/jenkins-4.jpg" loading="lazy"></li>
+<li>安装成功后，如果没有创建 Jenkins 项目，请先创建项目。如果需要配置已存在的项目，请进入在 <code>配置</code> 中找到 <code>增加构建后操作步骤</code> ，并选择 <code>Upload to fir.im</code> 添加到 Jenkins 项目中。<br><img src="/../../../images/jenkins/jenkins-5.jpg" loading="lazy"></li>
+<li>添加成功后开始配置各种参数，如图显示：<br><img src="/../../../images/jenkins/jenkins-6.jpg" loading="lazy"></li>
+</ul>
+<h4 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h4><ul>
+<li>fir.im Token（必填）<br>fir.im Token 查看方法：直接点击 <code>API token</code> (<a target="_blank" rel="noopener" href="http://fir.im/apps/apitoken">http://fir.im/apps/apitoken</a>) 进行查看.<br><img src="/../../../images/jenkins/plugins-1.jpg" loading="lazy"></li>
+<li>IPA&#x2F;APK Files（可选）<br>接下来，选择生成 <code>ipa/apk</code> 文件路径<br>注意：如果没有填写该选项，插会件自动默认查找 Jenkins 创建的项目目录下的 <code>apk/ipa</code> 文件</li>
+<li>BugHD token（可选）<br>作用：BugHD上传 mapping.txt&#x2F;dSYM 文件 API 的调用权限<br>注意：如果需要上传符号表则是必填项；不需要上传混淆表，则不需要填写<br><code>BugHD token 查看方法</code>：请访问 <code>BugHD API token</code> <a target="_blank" rel="noopener" href="http://bughd.com/account">http://bughd.com/account</a> ，登录后进行查看。<br><img src="/../../../images/jenkins/plugins-3.jpg" loading="lazy"></li>
+<li>BugHD project ID(可选)<br>作用：判断具体上传到指定的 bughd 项目<br>注意：如果需要上传符号表，则是必填项；不需要上传则不用填写<br><code>BugHD project ID</code> 查看方法： 请访问 <code>BugHD Projects</code> <a target="_blank" rel="noopener" href="http://bughd.com/projects">http://bughd.com/projects</a> ，登录后找到你要上传符号表的项目，进入该项目，选择 <code>项目设置</code> 选项卡进行查看。<br><img src="/../../../images/jenkins/plugins-4.jpg" loading="lazy"></li>
+<li>dSYM File or mapping File(可选)<br>作用：选择生成 dSYM&#x2F;mapping.txt 文件路径<br>注意：如果需要上传符号表，则是必填项；不需要上传则不用填写</li>
+<li>Build Notes(可选)<br>作用：上传 fir.im 后，可显示出更新日志</li>
+</ul>
+<h4 id="Jenkins-插件更新日志"><a href="#Jenkins-插件更新日志" class="headerlink" title="Jenkins 插件更新日志"></a>Jenkins 插件更新日志</h4><ul>
+<li>2015-11-13 V1.1 上线</li>
+<li>2015-11-25 V1.2 修复 slave 状态下上传失败的Bug</li>
+<li>2015-11-30 V1.3 修复 上传 apk 图标过小的问题</li>
+<li>2015-12-01 V1.4 修复 ipa文件解析 icon 出错的问题</li>
+<li>2015-12-08 V1.5 增加 上传apk&#x2F;ipa文件的过滤条件</li>
+<li>2015-12-16 V1.6 Bug fix</li>
+<li>2016-01-08 V1.7 Bug fix</li>
+<li>2016-03-14 V1.9.1 修复 解析图标失败后导致无法上传 &amp; 获取git log失败的问题</li>
+<li>2016-03-18 V1.9.2 更新 dsym&#x2F;mapping 路径支持环境变量 changelog支持环境变量</li>
+<li>2016-06-29 V1.9.2.3 修复 应用上传问题</li>
+<li>2016-09-06 V1.9.3 修复 apk&#x2F;ipa解析的错误</li>
+<li>2016-09-16 V1.9.4 修复 ChangeLog选项环境变量不变的bug</li>
+<li>2016-11-09 V1.9.4 修复 解析ipa的问题<br>最后，关于更多 Jenkins 的问题推荐阅读 fir.im 的用户写的 Jenkins+GitHub+Xcode+fir搭了一个持续集成环境<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/a17167274463">http://www.jianshu.com/p/a17167274463</a>)</li>
+</ul>
+<h4 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h4><p><a target="_blank" rel="noopener" href="http://blog.fir.im/jenkins">fir.im Jenkins 插件使用方法</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/fir-im/" rel="tag"># fir.im</a>
+              <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2017-06-25%20Kotlin%E4%B8%8EDagger2%20ButterKnife%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/" rel="prev" title="Kotlin与Dagger2 ButterKnife冲突解决">
+      <i class="fa fa-chevron-left"></i> Kotlin与Dagger2 ButterKnife冲突解决
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2017-07-17%20Jenkins+fir%20%E4%B8%8A%E4%BC%A0%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" rel="next" title="Jenkins+fir 上传更新日志">
+      Jenkins+fir 上传更新日志 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fir-im-Jenkins-%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">fir.im Jenkins 插件使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fir-im-Jenkins-%E6%8F%92%E4%BB%B6"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">fir.im Jenkins 插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Jenkins"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">安装Jenkins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE-Jenkins"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">访问 Jenkins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-fir-im-%E7%9A%84%E4%B8%8A%E4%BC%A0%E6%8F%92%E4%BB%B6"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">安装 fir.im 的上传插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">插件介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">下载插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">配置插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jenkins-%E6%8F%92%E4%BB%B6%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">Jenkins 插件更新日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Martin Chen"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Martin Chen</p>
+  <div class="site-description" itemprop="description">越努力，越幸运</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/android9527" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;android9527" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nulibj@gmail.com" title="E-Mail → mailto:nulibj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">89k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
