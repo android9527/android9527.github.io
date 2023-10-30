@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.android9527.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Android APK 安装过程详解APK 安装过程开发 Android 应用后，一般都会安装到手机上去运行，了解应用是如何安装到手机上的，可以更好的理解应用的本质，理解应用是如何运行的，在自己开发的应用遇到一些问题时，会从更深层次去分析，快速定位找到原因。这一篇文章中我们就来详细分析一下应用是如何安装的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android APK 安装过程详解">
+<meta property="og:url" content="http://www.android9527.com/android%20doc/doc/2016-09-10%20Android%20APK%20%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Martin&#39;s Blog">
+<meta property="og:description" content="Android APK 安装过程详解APK 安装过程开发 Android 应用后，一般都会安装到手机上去运行，了解应用是如何安装到手机上的，可以更好的理解应用的本质，理解应用是如何运行的，在自己开发的应用遇到一些问题时，会从更深层次去分析，快速定位找到原因。这一篇文章中我们就来详细分析一下应用是如何安装的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.android9527.com/images/apk/apk_install_1.jpeg">
+<meta property="og:image" content="http://www.android9527.com/images/apk/apk_install_2.jpeg">
+<meta property="og:image" content="http://www.android9527.com/images/apk/apk_install_3.jpeg">
+<meta property="article:published_time" content="2016-09-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-09-09T16:00:00.000Z">
+<meta property="article:author" content="Martin Chen">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.android9527.com/images/apk/apk_install_1.jpeg">
+
+<link rel="canonical" href="http://www.android9527.com/android%20doc/doc/2016-09-10%20Android%20APK%20%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android APK 安装过程详解 | Martin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Martin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">never give up</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/android9527" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.android9527.com/android%20doc/doc/2016-09-10%20Android%20APK%20%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Martin Chen">
+      <meta itemprop="description" content="越努力，越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Martin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android APK 安装过程详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-10 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-10T00:00:00+08:00">2016-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Android-APK-安装过程详解"><a href="#Android-APK-安装过程详解" class="headerlink" title="Android APK 安装过程详解"></a>Android APK 安装过程详解</h1><h4 id="APK-安装过程"><a href="#APK-安装过程" class="headerlink" title="APK 安装过程"></a>APK 安装过程</h4><p>开发 Android 应用后，一般都会安装到手机上去运行，了解应用是如何安装到手机上的，可以更好的理解应用的本质，理解应用是如何运行的，在自己开发的应用遇到一些问题时，会从更深层次去分析，快速定位找到原因。这一篇文章中我们就来详细分析一下应用是如何安装的。</p>
+<span id="more"></span>
+
+<h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><p>要想详细了解 APK 的安装过程，需要了解一些基础概念，包括：</p>
+<ol>
+<li>什么是 APK</li>
+<li>什么是 DEX 文件和 ODEX 文件</li>
+<li>什么是 OAT 文件</li>
+<li>什么是 Dalvik 和 ART</li>
+</ol>
+<p>总体来说是：APK 是 Android 应用安装包，Dalvik 和 ART 都是 Android 运行环境，但是由于 Dalvik 存在一些不足，ART 是在高版本手机上替换 Dalvik 的。应用的安装过程就是将 APK 中内容解压处理的过程，Dalvik 会将 APK 中内容 DEX 转化为 ODEX，ART 会将其转化为 OAT。下面对这些问题分别进行分析。</p>
+<h4 id="什么是-APK"><a href="#什么是-APK" class="headerlink" title="什么是 APK"></a>什么是 APK</h4><p>APK，即 Android Package，Android 安装包。不同平台的安装文件格式都不同，类似于 Windows 的安装包是二进制的 exe 格式，Mac 的安装包是 dmg 格式。APK 的可以在 Android 上执行安装，APK 的本质是一个 Zip 压缩包，只是后缀被修改为 apk，其中打包了源代码编译出的 class.dex、一些图片视频资源文件和一些 Native 库文件。APK 文件与 Zip 文件最大的一个不同是 APK 包含签名信息，用于保证安装包安全不被修改。</p>
+<h4 id="什么是-DEX-文件和-ODEX-文件"><a href="#什么是-DEX-文件和-ODEX-文件" class="headerlink" title="什么是 DEX 文件和 ODEX 文件"></a>什么是 DEX 文件和 ODEX 文件</h4><p>说起 DEX 文件，不得不提 class 文件。Java 跨平台是由源代码编译出的 class 文件分别运行在不同平台的虚拟机上，由虚拟机屏蔽了不同平台的差异。如图：<br><img src="/../../../images/apk/apk_install_1.jpeg" loading="lazy"></p>
+<p>但是由于 Android 系统针对手持设备，对 Dalvik 虚拟机进行了优化，主要包括：</p>
+<ol>
+<li>将原来 class 文件进行优化，例如将其中的常量冗余信息进行合并，提高虚拟机解析效率；</li>
+<li>修改 JVM 运行时基于栈的数据结构修改为 Dalvik 基于寄存器的数据结构，数据访问方式更快，运行效率更高。</li>
+</ol>
+<p>这种情况下，原来的 .class 文件就有些不适用了，因此，出现了 dex 文件格式，它是源代码编译后打包生成的文件。它是 APK 的一个组成部分。</p>
+<p>ODEX 文件是 Dalvik 将 DEX 文件中可执行文件——class.dex——文件解压出来后，存储在本地后生成的。因为 Android 系统无法直接运行 APK 文件，需要将其解压后找到 class.dex 文件后才可以运行，因此在安装时就将其取出放在本地，可以提高应用启动速度。除了这个原因，其实在将 class.dex 转换成 ODEX 文件过程中，还根据当前系统进行了优化（直接复制到其他系统不一定可以运行），文件大小会减少，ODEX 文件比 DEX 文件更难反编译，这也在一定程度上提高了安全性，因此在一些系统预装或系统级应用大多采用了 ODEX 优化。</p>
+<p>一般 ODEX 不直接运行，在 Dalvik 运行 ODEX 时，需要通过 JIT 进行优化，提高运行效率。JIT 是一种在运行时同步将字节码转化成机器码的过程，Dalvik 直接运行转化后的机器码，这会导致部分的内存和时间开销，但是整体来说，在某些情况下是会提高系统性能的。（有些动态编译器，可能根据经验或尝试编译，优化这一过程，可能运行次数越多，优化效果越好）</p>
+<h4 id="什么是-OAT-文件"><a href="#什么是-OAT-文件" class="headerlink" title="什么是 OAT 文件"></a>什么是 OAT 文件</h4><p>OAT 文件是 ART 运行的文件，是一种二进制可运行文件，包含 DEX 文件和编译出的本地机器指令文件，其文件格式类似于网络数据报文，包含文件头和文件体，文件头的 oatdata、oatexec 和 oatlastword 字段分别描述 DEX 文件位置和本地机器指令的起止位置。因为 OAT 文件包含 DEX 文件，因此比 ODEX 文件占用空间更大，由于其在安装时经过了 ART 的处理，ART 加载 OAT 文件后不需要经过处理就可以直接运行，它没有了从字节码装换成机器码的过程，因此运行速度更快。可以理解为 JIT 从运行时才解析提前到了安装时解析，安装变慢，运行变快。<br>通过这种方式编译后，我们来看下生成的代码是怎样的。AspectJ的原理实际上是在编译的时候，根据一定的规则解析，然后插入一些代码，通过aspectj生成的代码，会在Build目录下：</p>
+<h4 id="什么是-Dalvik-和-ART"><a href="#什么是-Dalvik-和-ART" class="headerlink" title="什么是 Dalvik 和 ART"></a>什么是 Dalvik 和 ART</h4><p>上面提到了 Dalvik 和 ART，Dalvik 和 ART 是 Android 平台实现的 JAVA 虚拟机。用于解析 DEX 文件、ODEX 文件和OAT 文件。</p>
+<p><img src="/../../../images/apk/apk_install_2.jpeg" loading="lazy"></p>
+<p>ART 即 Android Runtime，Android 运行时，由于 Android 系统会运行在不同的设备上，底层硬件不同，Linux 系统屏蔽了一些这些系统的细节，但是直接在 Linux 上开发应用太难，实现成本太高，为了屏蔽 Linux 的细节，Google 创建出了 Dalvik 和 ART，对 Linux 进行了再一次封装，这样，使用 Google 提供的集成开发环境 SDK，就可以轻松开发应用了，Dalvik 与 ART 的关系是 ART 用来替换 Dalvik 的。Dalvik 在低版本（4.4 以下）的手机上使用作为 Android 运行环境，但是由于其有一些不足，在高版本的 Android 系统上 ART 用来替换 Dalvik，现在市场上 ART 的占有率已经超过了 70%。</p>
+<p>ART 是 Android 应用的运行模式，在这种模式下，Android 应用在安装后，会进行一次预编译，将应用安装包中的字节码转换成机器语言存储在本地（系统只能运行二进制程序），这样，应用在运行时，可以直接执行这些二进制程序。相比较于 Dalvik 来说，Dalvik 的做法是在应用安装后，直接将字节码存储起来，在每次运行时，需要将代码编译成机器语言，这样在运行程序时，就比 ART 慢了一些。ART 这样做导致了安装后应用所占的空间更大，安装时间更长，但是对于经常使用的应用，这样做是值得的。</p>
+<h4 id="APK-是如何安装的呢？"><a href="#APK-是如何安装的呢？" class="headerlink" title="APK 是如何安装的呢？"></a>APK 是如何安装的呢？</h4><p>了解了以上的知识，理解应用安装就简单了，我们整体看一下应用是如何安装的。</p>
+<p>程序的源代码，首先经过 SDK 编译成 DEX 文件，DEX 文件和一些资源文件（图片、视频等）、Native Code（C 语言等编译出的 .so 文件）会直接打包进 APK。安装 APK 的过程，其实是安装包解压过程。资源文件、二进制库等解压后直接存储在本地，DEX 文件不仅仅解压，会根据系统的运行环境，采用不同的处理方式，被处理成不同格式的文件存储在本地，等待程序启动调用，这样就完成了应用的安装过程。</p>
+<p><img src="/../../../images/apk/apk_install_3.jpeg" loading="lazy"></p>
+<p>总结</p>
+<p>这一篇文章中，我们详细介绍了 Android APK 的安装过程，分析了 Dalvik 和 ART 的不同以及安装过程的不同。</p>
+<h4 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h4><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/37wjSQs1HWVfX0xL27NjBg">Android APK 安装过程</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2016-08-12%20%20Android%E8%BD%AF%E9%94%AE%E7%9B%98%E6%8C%A1%E4%BD%8F%E8%BE%93%E5%85%A5%E6%A1%86%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="prev" title="Android软键盘挡住输入框的解决方案">
+      <i class="fa fa-chevron-left"></i> Android软键盘挡住输入框的解决方案
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2017-03-10%20Hello%20World,%20Hexo/" rel="next" title="Hello World, Hexo">
+      Hello World, Hexo <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-APK-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">Android APK 安装过程详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#APK-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">APK 安装过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-APK"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">什么是 APK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-DEX-%E6%96%87%E4%BB%B6%E5%92%8C-ODEX-%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">什么是 DEX 文件和 ODEX 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-OAT-%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">什么是 OAT 文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Dalvik-%E5%92%8C-ART"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">什么是 Dalvik 和 ART</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#APK-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">APK 是如何安装的呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Martin Chen"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Martin Chen</p>
+  <div class="site-description" itemprop="description">越努力，越幸运</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/android9527" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;android9527" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nulibj@gmail.com" title="E-Mail → mailto:nulibj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">89k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

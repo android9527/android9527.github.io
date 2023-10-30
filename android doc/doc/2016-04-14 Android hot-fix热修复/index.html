@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.android9527.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Android hot-fix热修复AndFix项目地址：https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;AndFix AndFix is a solution to fix the bugs online instead of redistributing Android App.AndFix is an acronym for “Android hot-fix”.AndFix suppo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android hot-fix热修复">
+<meta property="og:url" content="http://www.android9527.com/android%20doc/doc/2016-04-14%20Android%20hot-fix%E7%83%AD%E4%BF%AE%E5%A4%8D/index.html">
+<meta property="og:site_name" content="Martin&#39;s Blog">
+<meta property="og:description" content="Android hot-fix热修复AndFix项目地址：https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;AndFix AndFix is a solution to fix the bugs online instead of redistributing Android App.AndFix is an acronym for “Android hot-fix”.AndFix suppo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.android9527.com/images/andfix/principle.png">
+<meta property="og:image" content="http://www.android9527.com/images/andfix/process.png">
+<meta property="og:image" content="http://www.android9527.com/images/andfix/out.apatch.zip.png">
+<meta property="og:image" content="http://www.android9527.com/images/andfix/CERT.RSA.png">
+<meta property="og:image" content="http://www.android9527.com/images/andfix/method_replace.png">
+<meta property="article:published_time" content="2016-03-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2016-03-03T16:00:00.000Z">
+<meta property="article:author" content="Martin Chen">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Handler">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.android9527.com/images/andfix/principle.png">
+
+<link rel="canonical" href="http://www.android9527.com/android%20doc/doc/2016-04-14%20Android%20hot-fix%E7%83%AD%E4%BF%AE%E5%A4%8D/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android hot-fix热修复 | Martin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Martin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">never give up</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">48</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+  <a href="https://github.com/android9527" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.android9527.com/android%20doc/doc/2016-04-14%20Android%20hot-fix%E7%83%AD%E4%BF%AE%E5%A4%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Martin Chen">
+      <meta itemprop="description" content="越努力，越幸运">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Martin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android hot-fix热修复
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-04 00:00:00" itemprop="dateCreated datePublished" datetime="2016-03-04T00:00:00+08:00">2016-03-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-hot-fix/" itemprop="url" rel="index"><span itemprop="name">Android hot-fix</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Android-hot-fix热修复"><a href="#Android-hot-fix热修复" class="headerlink" title="Android hot-fix热修复"></a>Android hot-fix热修复</h1><h4 id="AndFix"><a href="#AndFix" class="headerlink" title="AndFix"></a>AndFix</h4><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/alibaba/AndFix">https://github.com/alibaba/AndFix</a></p>
+<p>AndFix is a solution to fix the bugs online instead of redistributing Android App.<br>AndFix is an acronym for “Android hot-fix”.<br>AndFix supports Android version from 2.3 to 6.0, both ARM and X86 architecture, both Dalvik and ART runtime.</p>
+<span id="more"></span>
+
+<p>The compressed file format of AndFix’s patch is .apatch. It is dispatched from your own server to client to fix your App’s bugs.</p>
+<p>优点：实时修复，仅支持java层修改</p>
+<p>缺点：不支持添加文件到assets文件夹<br>不支持layout文件添加组件<br>不支持add filed(R.xx.xx)， new class， 内部类， 匿名内部类</p>
+<h4 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h4><p>The implementation principle of AndFix is method body’s replacing,</p>
+<p>具体的实现原理就是方法替换</p>
+<p><img src="/../../images/andfix/principle.png" loading="lazy"></p>
+<h4 id="Method-replacing"><a href="#Method-replacing" class="headerlink" title="Method replacing"></a>Method replacing</h4><p>AndFix judges the methods should be replaced by java custom annotation and replaces it by hooking it. AndFix has a native method <code>art_replaceMethod</code> in ART or <code>dalvik_replaceMethod</code> in Dalvik.</p>
+<p>For more details, <a target="_blank" rel="noopener" href="https://github.com/alibaba/AndFix/tree/master/jni">here</a>.</p>
+<h4 id="Fix-Process"><a href="#Fix-Process" class="headerlink" title="Fix Process"></a>Fix Process</h4><p><img src="/../../images/andfix/process.png" alt="image" loading="lazy"></p>
+<h4 id="Integration"><a href="#Integration" class="headerlink" title="Integration"></a>Integration</h4><h4 id="How-to-get"><a href="#How-to-get" class="headerlink" title="How to get?"></a>How to get?</h4><p>Directly add AndFix aar to your project as compile libraries.</p>
+<p>For your maven dependency,</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alipay.euler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>andfix<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">type</span>&gt;</span>aar<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>For your gradle dependency,</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	<span class="keyword">compile</span> <span class="string">&#x27;com.alipay.euler:andfix:0.4.0@aar&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use?"></a>How to use?</h4><ol>
+<li>Initialize PatchManager,</li>
+</ol>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">patchManager</span> <span class="operator">=</span> new PatchManager(context)<span class="comment">;</span></span><br><span class="line">patchManager.init(appversion)<span class="comment">;//current version</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>Load patch,</li>
+</ol>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patchManager.loadPatch()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>You should load patch as early as possible, generally, in the initialization phase of your application(such as <code>Application.onCreate()</code>).</p>
+<ol>
+<li>Add patch,</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patchManager.add<span class="constructor">Patch(<span class="params">path</span>)</span>;<span class="comment">//path of the patch file that was downloaded</span></span><br></pre></td></tr></table></figure>
+
+<p>When a new patch file has been downloaded, it will become effective immediately by <code>addPatch</code>.</p>
+<h4 id="Developer-Tool"><a href="#Developer-Tool" class="headerlink" title="Developer Tool"></a>Developer Tool</h4><p>AndFix provides a patch-making tool called <strong>apkpatch</strong>.</p>
+<h4 id="How-to-get-1"><a href="#How-to-get-1" class="headerlink" title="How to get?"></a>How to get?</h4><p>The <code>apkpatch</code> tool can be found <a target="_blank" rel="noopener" href="https://github.com/alibaba/AndFix/raw/master/tools/apkpatch-1.0.3.zip">here</a>.</p>
+<h4 id="How-to-use-1"><a href="#How-to-use-1" class="headerlink" title="How to use?"></a>How to use?</h4><ul>
+<li>Prepare two android packages, one is the online package, the other one is the package after you fix bugs by coding.</li>
+<li>Generate <code>.apatch</code> file by providing the two package,</li>
+</ul>
+<figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">usage: apkpatch -f <span class="attribute">&lt;new&gt;</span> -t <span class="attribute">&lt;old&gt;</span> -o <span class="attribute">&lt;output&gt;</span> -k <span class="attribute">&lt;keystore&gt;</span> -p <span class="attribute">&lt;***&gt;</span> -a <span class="attribute">&lt;alias&gt;</span> -e <span class="attribute">&lt;***&gt;</span></span><br><span class="line"> -a,--alias <span class="attribute">&lt;alias&gt;</span>     keystore entry alias.</span><br><span class="line"> -e,--epassword <span class="attribute">&lt;***&gt;</span>   keystore entry password.</span><br><span class="line"> -f,--from <span class="attribute">&lt;loc&gt;</span>        new Apk file path.</span><br><span class="line"> -k,--keystore <span class="attribute">&lt;loc&gt;</span>    keystore path.</span><br><span class="line"> -n,--name <span class="attribute">&lt;name&gt;</span>       patch name.</span><br><span class="line"> -o,--out <span class="attribute">&lt;dir&gt;</span>         output dir.</span><br><span class="line"> -p,--kpassword <span class="attribute">&lt;***&gt;</span>   keystore password.</span><br><span class="line"> -t,--to <span class="attribute">&lt;loc&gt;</span>          old Apk file path.</span><br></pre></td></tr></table></figure>
+
+<p>Now you get the application savior, the patch file. Then you need to dispatch it to your client in some way, push or pull.</p>
+<p>Sometimes, your team members may fix each other’s bugs, and generate not only one <code>.apatch</code>. For this situation, you can<br>merge <code>.apatch</code> files using this tool,</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">usage: apkpatch -m &lt;apatch_path.<span class="string">..</span>&gt; -o &lt;output&gt; -k &lt;keystore&gt; -p &lt;***&gt; -a &lt;<span class="keyword">alias</span>&gt; -e &lt;***&gt;</span><br><span class="line"> -a,<span class="params">--alias</span> &lt;<span class="keyword">alias</span>&gt;     keystore entry <span class="keyword">alias</span>.</span><br><span class="line"> -e,<span class="params">--epassword</span> &lt;***&gt;   keystore entry password.</span><br><span class="line"> -k,<span class="params">--keystore</span> &lt;loc&gt;    keystore path.</span><br><span class="line"> -m,<span class="params">--merge</span> &lt;loc.<span class="string">..</span>&gt;    path of <span class="string">.apatch</span> files.</span><br><span class="line"> -n,<span class="params">--name</span> &lt;name&gt;       <span class="keyword">patch</span> name.</span><br><span class="line"> -o,<span class="params">--out</span> &lt;dir&gt;         output dir.</span><br><span class="line"> -p,<span class="params">--kpassword</span> &lt;***&gt;   keystore password.</span><br></pre></td></tr></table></figure>
+
+<h4 id="Running-sample"><a href="#Running-sample" class="headerlink" title="Running sample"></a>Running sample</h4><ol>
+<li>Import samplesI&#x2F;AndFixDemo to your IDE, append AndFixDemo dependencies with AndFix(library project or aar).</li>
+<li>Build project, save the package as 1.apk, and then install on device&#x2F;emulator.</li>
+<li>Modify com.euler.test.A, references com.euler.test.Fix.</li>
+<li>Build project, save the package as 2.apk.</li>
+<li>Use apkpatch tool to make a patch.</li>
+<li>Rename the patch file to out.apatch, and then copy it to sdcard.</li>
+<li>Run 1.apk and view log.</li>
+</ol>
+<h4 id="Notice"><a href="#Notice" class="headerlink" title="Notice"></a>Notice</h4><h4 id="ProGuard"><a href="#ProGuard" class="headerlink" title="ProGuard"></a>ProGuard</h4><p>If you enable ProGuard, you must save the mapping.txt, so your new version’s build can use it with <a target="_blank" rel="noopener" href="http://proguard.sourceforge.net/manual/usage.html#applymapping">“-applymapping”</a>.</p>
+<p>And it is necessary to keep classes as follow,</p>
+<ul>
+<li><p>Native method</p>
+<p>com.alipay.euler.andfix.AndFix</p>
+</li>
+<li><p>Annotation</p>
+<p>com.alipay.euler.andfix.annotation.MethodReplace</p>
+</li>
+</ul>
+<p>To ensure that these classes can be found after running an obfuscation and static analysis tool like ProGuard, add the configuration below to your ProGuard configuration file.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-keep <span class="class"><span class="keyword">class</span> <span class="title">*</span> <span class="keyword">extends</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">annotation</span>.<span class="title">Annotation</span></span></span><br><span class="line">-keepclasseswithmembernames <span class="class"><span class="keyword">class</span> <span class="title">*</span> </span>&#123;</span><br><span class="line">    native &lt;methods&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Self-Modifying-Code"><a href="#Self-Modifying-Code" class="headerlink" title="Self-Modifying Code"></a>Self-Modifying Code</h4><p>If you use it, such as <em>Bangcle</em>. To generate patch file, you’d better to use raw apk.</p>
+<h4 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h4><p>The following is important but out of AndFix’s range.</p>
+<ul>
+<li>verify the signature of patch file</li>
+<li>verify the fingerprint of optimize file</li>
+</ul>
+<h4 id="API-Documentation"><a href="#API-Documentation" class="headerlink" title="API Documentation"></a>API Documentation</h4><p>The libraries javadoc can be found <a target="_blank" rel="noopener" href="https://rawgit.com/alibaba/AndFix/master/docs/index.html">here</a>.</p>
+<h4 id="License"><a href="#License" class="headerlink" title="License"></a>License</h4><p><a target="_blank" rel="noopener" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a></p>
+<p>Copyright (c) 2015, alipay.com</p>
+<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><p>Server端使用apkpatch生成差分补丁，后缀.apatch</p>
+<p>.&#x2F;apkpatch.sh -f demo-debug2.apk -t demo-debug1.apk -o out -k demo.jks -p 123456 -a key -e 123456</p>
+<h4 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h4><p>Application初始化AndFix组件，下载补丁，加载补丁，删除补丁</p>
+<h4 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h4><p>Application.onCreate()初始化AndFix组件</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void init<span class="constructor">AndFix()</span> &#123;</span><br><span class="line">    mPatchManager = <span class="keyword">new</span> <span class="constructor">PatchManager(<span class="params">this</span>)</span>; <span class="comment">// </span></span><br><span class="line">    mPatchManager.init(<span class="module-access"><span class="module"><span class="identifier">ApkUtil</span>.</span></span>get<span class="constructor">VersionName(<span class="params">this</span>)</span>); <span class="comment">// 根据版本号处理补丁文件的加载、删除等（暂时把files/apatch下的补丁添加到												mPatchManager.mPatchs集合里，没有加载）</span></span><br><span class="line">    <span class="comment">// load patch</span></span><br><span class="line">    mPatchManager.load<span class="constructor">Patch()</span>; <span class="comment">//加载补丁</span></span><br><span class="line">    <span class="comment">// add patch at runtime</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// .apatch file path</span></span><br><span class="line">        String patchFileString = <span class="module-access"><span class="module"><span class="identifier">Environment</span>.</span></span>get<span class="constructor">ExternalStorageDirectory()</span></span><br><span class="line">                .get<span class="constructor">AbsolutePath()</span> + APATCH_PATH;</span><br><span class="line">        mPatchManager.add<span class="constructor">Patch(<span class="params">patchFileString</span>)</span>;</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        e.print<span class="constructor">StackTrace()</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="PatchManager-java"><a href="#PatchManager-java" class="headerlink" title="PatchManager.java"></a>PatchManager.java</h4><p>补丁文件的管理类（加载、删除）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SUFFIX</span> <span class="operator">=</span> <span class="string">&quot;.apatch&quot;</span>; <span class="comment">// 补丁后缀</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DIR</span> <span class="operator">=</span> <span class="string">&quot;apatch&quot;</span>;   <span class="comment">// 补丁路径 files/apatch</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SP_NAME</span> <span class="operator">=</span> <span class="string">&quot;_andfix_&quot;</span>; <span class="comment">// sharedpreferences文件名</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SP_VERSION</span> <span class="operator">=</span> <span class="string">&quot;version&quot;</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">PatchManager</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">    mContext = context;</span><br><span class="line">    mAndFixManager = <span class="keyword">new</span> <span class="title class_">AndFixManager</span>(mContext); <span class="comment">// AndFixManager</span></span><br><span class="line">    mPatchDir = <span class="keyword">new</span> <span class="title class_">File</span>(mContext.getFilesDir(), DIR); <span class="comment">// 补丁路径 files/apatch</span></span><br><span class="line">    mPatchs = <span class="keyword">new</span> <span class="title class_">ConcurrentSkipListSet</span>&lt;Patch&gt;(); <span class="comment">// 存放补丁信息的集合（同步高并发）</span></span><br><span class="line">    mLoaders = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, ClassLoader&gt;(); <span class="comment">// classloaders</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * initialize</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> appVersion App version</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(String appVersion)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!mPatchDir.exists() &amp;&amp; !mPatchDir.mkdirs()) &#123;<span class="comment">// make directory fail</span></span><br><span class="line">        Log.e(TAG, <span class="string">&quot;patch dir create error.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!mPatchDir.isDirectory()) &#123;<span class="comment">// not directory</span></span><br><span class="line">        mPatchDir.delete();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">SharedPreferences</span> <span class="variable">sp</span> <span class="operator">=</span> mContext.getSharedPreferences(SP_NAME,</span><br><span class="line">            Context.MODE_PRIVATE);</span><br><span class="line">    <span class="type">String</span> <span class="variable">ver</span> <span class="operator">=</span> sp.getString(SP_VERSION, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">if</span> (ver == <span class="literal">null</span> || !ver.equalsIgnoreCase(appVersion)) &#123;</span><br><span class="line">        cleanPatch();  <span class="comment">// app版本升级后清空之前的历史补丁（新版已修复bug）</span></span><br><span class="line">        sp.edit().putString(SP_VERSION, appVersion).commit();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        initPatchs();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initPatchs</span><span class="params">()</span> &#123;</span><br><span class="line">    File[] files = mPatchDir.listFiles();</span><br><span class="line">    <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">        addPatch(file);  <span class="comment">// 加载mPatchDir下的appath补丁到mPatchs集合</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 删除源文件和输出dex文件</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">cleanPatch</span><span class="params">()</span> &#123;</span><br><span class="line">    File[] files = mPatchDir.listFiles();</span><br><span class="line">    <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">        mAndFixManager.removeOptFile(file);</span><br><span class="line">        <span class="keyword">if</span> (!FileUtil.deleteFile(file)) &#123;</span><br><span class="line">            Log.e(TAG, file.getName() + <span class="string">&quot; delete error.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * add patch at runtime</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> path patch path</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addPatch</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">File</span> <span class="variable">src</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(path);</span><br><span class="line">    <span class="type">File</span> <span class="variable">dest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(mPatchDir, src.getName());</span><br><span class="line">    <span class="keyword">if</span> (!src.exists()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">FileNotFoundException</span>(path);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dest.exists()) &#123;</span><br><span class="line">        Log.d(TAG, <span class="string">&quot;patch [&quot;</span> + path + <span class="string">&quot;] has be loaded.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    FileUtil.copyFile(src, dest);<span class="comment">// copy to patch&#x27;s directory</span></span><br><span class="line">    <span class="type">Patch</span> <span class="variable">patch</span> <span class="operator">=</span> addPatch(dest);</span><br><span class="line">    <span class="keyword">if</span> (patch != <span class="literal">null</span>) &#123;</span><br><span class="line">        loadPatch(patch);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * load specific patch</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> patch patch</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">loadPatch</span><span class="params">(Patch patch)</span> &#123;</span><br><span class="line">    Set&lt;String&gt; patchNames = patch.getPatchNames();</span><br><span class="line">    ClassLoader cl;</span><br><span class="line">    List&lt;String&gt; classes;</span><br><span class="line">    <span class="keyword">for</span> (String patchName : patchNames) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mLoaders.containsKey(<span class="string">&quot;*&quot;</span>)) &#123;</span><br><span class="line">            cl = mContext.getClassLoader();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cl = mLoaders.get(patchName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cl != <span class="literal">null</span>) &#123;</span><br><span class="line">            classes = patch.getClasses(patchName);</span><br><span class="line">            mAndFixManager.fix(patch.getFile(), cl, classes);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="AndFixManager-java"><a href="#AndFixManager-java" class="headerlink" title="AndFixManager.java"></a>AndFixManager.java</h4><p>fix dex files</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * fix</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param file        patch file</span></span><br><span class="line"><span class="comment"> * @param classLoader classloader of class that will be fixed</span></span><br><span class="line"><span class="comment"> * @param classes     classes will be fixed</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">public synchronized void fix(File file, ClassLoader classLoader,</span><br><span class="line">                             List&lt;String&gt; classes) &#123;</span><br><span class="line">    <span class="comment">// 系统是否支持                         </span></span><br><span class="line">    <span class="keyword">if</span> (!mSupport) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!mSecurityChecker.verify<span class="constructor">Apk(<span class="params">file</span>)</span>) &#123;<span class="comment">// security check fail 签名校验</span></span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// loadClass 输出目录</span></span><br><span class="line">        File optfile = <span class="keyword">new</span> <span class="constructor">File(<span class="params">mOptDir</span>, <span class="params">file</span>.<span class="params">getName</span>()</span>);</span><br><span class="line">        <span class="comment">// 保存指纹签名</span></span><br><span class="line">        boolean saveFingerprint = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (optfile.exists<span class="literal">()</span>) &#123;</span><br><span class="line">            <span class="comment">// need to verify fingerprint when the optimize file exist,</span></span><br><span class="line">            <span class="comment">// prevent someone attack on jailbreak device with</span></span><br><span class="line">            <span class="comment">// Vulnerability-Parasyte.</span></span><br><span class="line">            <span class="comment">// btw:exaggerated android Vulnerability-Parasyte</span></span><br><span class="line">            <span class="comment">// http://secauo.com/Exaggerated-Android-Vulnerability-Parasyte.html</span></span><br><span class="line">            <span class="comment">// 校验MD5            </span></span><br><span class="line">            <span class="keyword">if</span> (mSecurityChecker.verify<span class="constructor">Opt(<span class="params">optfile</span>)</span>) &#123;  </span><br><span class="line">                saveFingerprint = <span class="literal">false</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!optfile.delete<span class="literal">()</span>) &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        final DexFile dexFile = <span class="module-access"><span class="module"><span class="identifier">DexFile</span>.</span></span>load<span class="constructor">Dex(<span class="params">file</span>.<span class="params">getAbsolutePath</span>()</span>,</span><br><span class="line">                optfile.get<span class="constructor">AbsolutePath()</span>, Context.MODE_PRIVATE);</span><br><span class="line">        <span class="keyword">if</span> (saveFingerprint) &#123;        </span><br><span class="line">        	<span class="comment">// 保存MD5</span></span><br><span class="line">            mSecurityChecker.save<span class="constructor">OptSig(<span class="params">optfile</span>)</span>; </span><br><span class="line">        &#125;</span><br><span class="line">        ClassLoader patchClassLoader = <span class="keyword">new</span> <span class="constructor">ClassLoader(<span class="params">classLoader</span>)</span> &#123;</span><br><span class="line">            @Override</span><br><span class="line">            protected Class&lt;?&gt; find<span class="constructor">Class(String <span class="params">className</span>)</span></span><br><span class="line">                    throws ClassNotFoundException &#123;</span><br><span class="line">                Class&lt;?&gt; clazz = dexFile.load<span class="constructor">Class(<span class="params">className</span>, <span class="params">this</span>)</span>;</span><br><span class="line">                <span class="keyword">if</span> (clazz<span class="operator"> == </span>null<span class="operator"></span></span><br><span class="line"><span class="operator">                         &amp;&amp; </span>className.starts<span class="constructor">With(<span class="string">&quot;com.alipay.euler.andfix&quot;</span>)</span>) &#123;</span><br><span class="line">                    return <span class="module-access"><span class="module"><span class="identifier">Class</span>.</span></span><span class="keyword">for</span><span class="constructor">Name(<span class="params">className</span>)</span>;<span class="comment">// annotation’s class</span></span><br><span class="line">                    <span class="comment">// not found</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (clazz<span class="operator"> == </span>null) &#123;</span><br><span class="line">                    throw <span class="keyword">new</span> <span class="constructor">ClassNotFoundException(<span class="params">className</span>)</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                return clazz;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Enumeration&lt;String&gt; entrys = dexFile.entries<span class="literal">()</span>;</span><br><span class="line">        Class&lt;?&gt; clazz = null;</span><br><span class="line">        <span class="keyword">while</span> (entrys.has<span class="constructor">MoreElements()</span>) &#123;</span><br><span class="line">            String entry = entrys.next<span class="constructor">Element()</span>;</span><br><span class="line">            <span class="keyword">if</span> (classes != null<span class="operator"> &amp;&amp; </span>!classes.contains(entry)) &#123;</span><br><span class="line">                continue;<span class="comment">// skip, not need fix</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// loadClass</span></span><br><span class="line">            clazz = dexFile.load<span class="constructor">Class(<span class="params">entry</span>, <span class="params">patchClassLoader</span>)</span>;  </span><br><span class="line">            <span class="keyword">if</span> (clazz != null) &#123;</span><br><span class="line">                <span class="comment">// fixClass</span></span><br><span class="line">                fix<span class="constructor">Class(<span class="params">clazz</span>, <span class="params">classLoader</span>)</span>;          </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        <span class="module-access"><span class="module"><span class="identifier">Log</span>.</span></span>e(TAG, <span class="string">&quot;pacth&quot;</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * fix class</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param clazz class</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> void fix<span class="constructor">Class(Class&lt;?&gt; <span class="params">clazz</span>, ClassLoader <span class="params">classLoader</span>)</span> &#123;</span><br><span class="line">    Method<span class="literal">[]</span> methods = clazz.get<span class="constructor">DeclaredMethods()</span>;</span><br><span class="line">    MethodReplace methodReplace;</span><br><span class="line">    String clz;</span><br><span class="line">    String meth;</span><br><span class="line">    <span class="keyword">for</span> (Method <span class="keyword">method</span> : methods) &#123;</span><br><span class="line">        <span class="comment">//  反射提取带有MethodReplace注解的方法</span></span><br><span class="line">        methodReplace = <span class="keyword">method</span>.get<span class="constructor">Annotation(MethodReplace.<span class="params">class</span>)</span>;  </span><br><span class="line">        <span class="keyword">if</span> (methodReplace<span class="operator"> == </span>null)</span><br><span class="line">            continue;</span><br><span class="line">        clz = methodReplace.clazz<span class="literal">()</span>;</span><br><span class="line">        meth = methodReplace.<span class="keyword">method</span><span class="literal">()</span>;</span><br><span class="line">        <span class="keyword">if</span> (!is<span class="constructor">Empty(<span class="params">clz</span>)</span><span class="operator"> &amp;&amp; </span>!is<span class="constructor">Empty(<span class="params">meth</span>)</span>) &#123;</span><br><span class="line">            <span class="comment">// jni层替换方法</span></span><br><span class="line">            replace<span class="constructor">Method(<span class="params">classLoader</span>, <span class="params">clz</span>, <span class="params">meth</span>, <span class="params">method</span>)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="SecurityChecker-java"><a href="#SecurityChecker-java" class="headerlink" title="SecurityChecker.java"></a>SecurityChecker.java</h4><p>用于验证apk和dex的签名</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">init</span><span class="params">()</span></span>获取apk的签名mPublicKey</span><br><span class="line"><span class="function"><span class="title">verifyApk</span><span class="params">(File path)</span></span>  <span class="comment">//loadPatch()时检查apk和补丁的签名</span></span><br><span class="line">签名校验失败时抛出异常</span><br><span class="line">E/SecurityChecker: /data/data/com<span class="selector-class">.euler</span>.andfix/files/apatch/out<span class="selector-class">.apatch</span> java<span class="selector-class">.security</span><span class="selector-class">.SignatureException</span>: Signature was not verified </span><br><span class="line">at org<span class="selector-class">.apache</span><span class="selector-class">.harmony</span><span class="selector-class">.security</span><span class="selector-class">.provider</span><span class="selector-class">.cert</span><span class="selector-class">.X509CertImpl</span><span class="selector-class">.verify</span>(X509CertImpl<span class="selector-class">.java</span>:<span class="number">384</span>) </span><br><span class="line">at com<span class="selector-class">.alipay</span><span class="selector-class">.euler</span><span class="selector-class">.andfix</span><span class="selector-class">.security</span><span class="selector-class">.SecurityChecker</span><span class="selector-class">.check</span>(SecurityChecker<span class="selector-class">.java</span>:<span class="number">158</span>)</span><br><span class="line">at com<span class="selector-class">.alipay</span><span class="selector-class">.euler</span><span class="selector-class">.andfix</span><span class="selector-class">.security</span><span class="selector-class">.SecurityChecker</span><span class="selector-class">.verifyApk</span>(SecurityChecker<span class="selector-class">.java</span>:<span class="number">124</span>) </span><br><span class="line">at com<span class="selector-class">.alipay</span><span class="selector-class">.euler</span><span class="selector-class">.andfix</span><span class="selector-class">.AndFixManager</span><span class="selector-class">.fix</span>(AndFixManager<span class="selector-class">.java</span>:<span class="number">121</span>) </span><br><span class="line">at com<span class="selector-class">.alipay</span><span class="selector-class">.euler</span><span class="selector-class">.andfix</span><span class="selector-class">.patch</span><span class="selector-class">.PatchManager</span><span class="selector-class">.loadPatch</span>(PatchManager<span class="selector-class">.java</span>:<span class="number">230</span>) </span><br><span class="line">at com<span class="selector-class">.alipay</span><span class="selector-class">.euler</span><span class="selector-class">.andfix</span><span class="selector-class">.patch</span><span class="selector-class">.PatchManager</span><span class="selector-class">.addPatch</span>(PatchManager<span class="selector-class">.java</span>:<span class="number">161</span>) </span><br><span class="line">at com<span class="selector-class">.euler</span><span class="selector-class">.andfix</span><span class="selector-class">.MainApplication</span><span class="selector-class">.onCreate</span>(MainApplication<span class="selector-class">.java</span>:<span class="number">63</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Compat-java"><a href="#Compat-java" class="headerlink" title="Compat.java"></a>Compat.java</h4><p>检查当前系统是否支持andfix<br>AndFix supports Android version from 2.3 to 6.0, both ARM and X86 architecture, both Dalvik and ART runtime.<br>not support alibaba’s YunOs</p>
+<h4 id="MethodReplace-java"><a href="#MethodReplace-java" class="headerlink" title="MethodReplace.java"></a>MethodReplace.java</h4><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Annotation for method</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author sanping.li@alipay.com</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable">@Target</span>(ElementType.METHOD) <span class="comment">// ElementType是用来指定Annotation类型可以用在哪一些元素上的</span></span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)  <span class="comment">// 注解的保存策略</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * SOURCE：只会保留在程序源码里，源码如果经过了编译之后，Annotation的数据就会消失,并不会保留在编译好的.class文件里面</span></span><br><span class="line"><span class="comment"> * CLASS：Annotation类型的信息保留在程序源码里,同时也会保留在编译好的.class文件里面,在执行的时候，并不会把这一些信息加载到虚拟机</span></span><br><span class="line"><span class="comment"> * (JVM)中去.注意一下，当你没有设定一个Annotation类型的Retention值时，系统默认值是CLASS.</span></span><br><span class="line"><span class="comment"> * RUNTIME：表示在源码、编译好的.class文件中保留信息，在执行的时候会把这一些信息加载到JVM中去的．</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">public <span class="variable">@interface</span> MethodReplace &#123;</span><br><span class="line">    <span class="selector-tag">String</span> <span class="selector-tag">clazz</span>();</span><br><span class="line">    <span class="selector-tag">String</span> <span class="selector-tag">method</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="AndFix-java"><a href="#AndFix-java" class="headerlink" title="AndFix.java"></a>AndFix.java</h4><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// initialize art or dalvik </span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="function"><span class="keyword">boolean</span> <span class="title">setup</span><span class="params">(<span class="keyword">boolean</span> isArt, <span class="keyword">int</span> apilevel)</span></span>;</span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="function"><span class="keyword">void</span> <span class="title">replaceMethod</span><span class="params">(Method dest, Method src)</span></span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * modify access flag of class’ fields to public</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> field field</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="function"><span class="keyword">void</span> <span class="title">setFieldFlag</span><span class="params">(Field field)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>生成的补丁out.apatch是带有签名信息的压缩包，</p>
+<p><img src="/../../images/andfix/out.apatch.zip.png" alt="image" loading="lazy"></p>
+<p>META_INFO文件夹包含MANIFEST.MF、CERT.SF和CERT.RSA、PATCH.MF。这三个文件分别表征以下含义：</p>
+<p>（1）MANIFEST.MF：这是摘要文件。程序遍历Apk包中的所有文件(entry)，对非文件夹非签名文件的文件，逐个用SHA1生成摘要信息(用SHA1算法摘要的消息最终有160比特位的输出)，再用Base64进行编码。如果你改变了apk包中的文件，那么在apk安装校验时，改变后的文件摘要信息与MANIFEST.MF的检验信息不同，于是程序就不能成功安装。<br>说明：如果攻击者修改了程序的内容，有重新生成了新的摘要，那么就可以通过验证，所以这是一个非常简单的验证。</p>
+<p>（2）CERT.SF：这是对摘要的签名文件。对前一步生成的MANIFEST.MF，使用SHA1-RSA算法，用开发者的私钥进行签名。在安装时只能使用公钥才能解密它。解密之后，将它与未加密的摘要信息（即，MANIFEST.MF文件）进行对比，如果相符，则表明内容没有被异常修改。<br>说明：在这一步，即使开发者修改了程序内容，并生成了新的摘要文件，但是攻击者没有开发者的私钥，所以不能生成正确的签名文件（CERT.SF）。系统在对程序进行验证的时候，用开发者公钥对不正确的签名文件进行解密，得到的结果和摘要文件（MANIFEST.MF）对应不起来，所以不能通过检验，不能成功安装文件。</p>
+<p>（3）CERT.RSA文件中保存了公钥、所采用的加密算法等信息。<br>说明：系统对签名文件进行解密，所需要的公钥就是从这个文件里取出来的。<br>结论：从上面的总结可以看出，META-INFO里面的说那个文件环环相扣，从而保证Android程序的安全性。（只是防止开发者的程序不被攻击者修改，如果开发者的公私钥对对攻击者得到或者开发者开发出攻击程序，Android系统都无法检测出来。）</p>
+<p><img src="/../../../images/andfix/CERT.RSA.png" loading="lazy"></p>
+<p>（4）PATCH.MF 由<code>apkpatch</code> tool 生成，主要内容：</p>
+<p>Manifest-Version: 1.0</p>
+<p>Patch-Name: demo-debug2</p>
+<p>Created-Time: 15 Apr 2016 10:10:12 GMT</p>
+<p>From-File: demo-debug2.apk</p>
+<p>To-File: demo-debug1.apk</p>
+<p>Patch-Classes: com.euler.andfix.SecondAvtivity_CF,com.euler.andfix.MainApplication_CF</p>
+<p>Created-By: 1.0 (ApkPatch)</p>
+<p>&#x2F;&#x2F; 获取CERT.RSA公钥信息<br>openssl pkcs7 -inform DER -in CERT.RSA -noout -print_certs -text</p>
+<h4 id="加载apatch过程"><a href="#加载apatch过程" class="headerlink" title="加载apatch过程"></a>加载apatch过程</h4><p>1、isSupport 判断设备是否支持andfix</p>
+<p>2、copy &#x2F;data&#x2F;data&#x2F;packageName&#x2F;files&#x2F;apatch&#x2F; 下</p>
+<p>3、verify 校验apatch签名，对比apk的publickey和apatch的publickey</p>
+<p>4、loaddex &#x2F;data&#x2F;data&#x2F;packageName&#x2F;files&#x2F;apatch_opt&#x2F;</p>
+<p>5、repleaseMethod 根据PATCH.MF中Patch-Classes找到需要替换的class，再由class反射提取带有MethodReplace注解的方法，jni层替换，立即修复</p>
+<p><img src="/../../../images/andfix/method_replace.png" loading="lazy"></p>
+<h4 id="Apk重签名"><a href="#Apk重签名" class="headerlink" title="Apk重签名"></a>Apk重签名</h4><p>1、解压apk，删除META_INFO文件夹，再压缩改后缀.apk</p>
+<p>2、生成keystore签名文件</p>
+<p>keytool -genkey -alias demo -keyalg RSA -validity 20000 -keystore demo.keystore</p>
+<p>-genkey 产生证书文件</p>
+<p>-keystore 指定密钥库的.keystore文件中</p>
+<p>-keyalg 指定密钥的算法</p>
+<p>-validity 为证书有效天数，这里我们写的是20000天</p>
+<p>-alias 产生别名</p>
+<p>3、apk签名</p>
+<p>jarsigner -verbose -keystore demo.keystore -signedjar demo.apk demo_old.apk demo -digestalg SHA1 -sigalg MD5withRSA</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/AndFix">https://github.com/alibaba/AndFix</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/qxs965266509/article/details/49816007">Alibaba-AndFix Bug热修复框架原理及源码解析</a></p>
+<p><a target="_blank" rel="noopener" href="http://myeyeofjava.iteye.com/blog/2125348">Android签名与认证详细分析之一（CERT.RSA剖析）</a></p>
+<p>[<a target="_blank" rel="noopener" href="http://www.cnblogs.com/0616--ataozhijia/p/4482667.html">Android Pro] Android签名与认证详细分析之二（CERT.RSA剖析）</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Handler/" rel="tag"># Handler</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/android%20doc/doc/2016-03-04%20Handler%E3%80%81Message%E3%80%81MessageQueue%E9%9A%8F%E7%AC%94/" rel="next" title="Handler、Message、MessageQueue随笔">
+      Handler、Message、MessageQueue随笔 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-hot-fix%E7%83%AD%E4%BF%AE%E5%A4%8D"><span class="nav-number">1.</span> <span class="nav-text">Android hot-fix热修复</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AndFix"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">AndFix</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Principle"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Principle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Method-replacing"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">Method replacing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fix-Process"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">Fix Process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Integration"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">Integration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-to-get"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">How to get?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-to-use"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">How to use?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Developer-Tool"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">Developer Tool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-to-get-1"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">How to get?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-to-use-1"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">How to use?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Running-sample"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">Running sample</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Notice"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">Notice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ProGuard"><span class="nav-number">1.0.0.13.</span> <span class="nav-text">ProGuard</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Self-Modifying-Code"><span class="nav-number">1.0.0.14.</span> <span class="nav-text">Self-Modifying Code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Security"><span class="nav-number">1.0.0.15.</span> <span class="nav-text">Security</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API-Documentation"><span class="nav-number">1.0.0.16.</span> <span class="nav-text">API Documentation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#License"><span class="nav-number">1.0.0.17.</span> <span class="nav-text">License</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.0.18.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">1.0.0.19.</span> <span class="nav-text">Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client"><span class="nav-number">1.0.0.20.</span> <span class="nav-text">Client</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.0.0.21.</span> <span class="nav-text">源码解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PatchManager-java"><span class="nav-number">1.0.0.22.</span> <span class="nav-text">PatchManager.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AndFixManager-java"><span class="nav-number">1.0.0.23.</span> <span class="nav-text">AndFixManager.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SecurityChecker-java"><span class="nav-number">1.0.0.24.</span> <span class="nav-text">SecurityChecker.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compat-java"><span class="nav-number">1.0.0.25.</span> <span class="nav-text">Compat.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MethodReplace-java"><span class="nav-number">1.0.0.26.</span> <span class="nav-text">MethodReplace.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AndFix-java"><span class="nav-number">1.0.0.27.</span> <span class="nav-text">AndFix.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.0.0.28.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BDapatch%E8%BF%87%E7%A8%8B"><span class="nav-number">1.0.0.29.</span> <span class="nav-text">加载apatch过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Apk%E9%87%8D%E7%AD%BE%E5%90%8D"><span class="nav-number">1.0.0.30.</span> <span class="nav-text">Apk重签名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.0.0.31.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Martin Chen"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Martin Chen</p>
+  <div class="site-description" itemprop="description">越努力，越幸运</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/android9527" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;android9527" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nulibj@gmail.com" title="E-Mail → mailto:nulibj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Martin Chen</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">89k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
