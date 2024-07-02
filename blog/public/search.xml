@@ -299,6 +299,33 @@
   </entry>
   <entry>
     <title>Parcelable和Serializable的区别</title>
+    <url>/android%20doc/doc/2016-07-09%20Tomcat%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="Tomcat本地服务器配置"><a href="#Tomcat本地服务器配置" class="headerlink" title="Tomcat本地服务器配置"></a>Tomcat本地服务器配置</h1><h5 id="用户名密码配置"><a href="#用户名密码配置" class="headerlink" title="用户名密码配置"></a>用户名密码配置</h5><p>tomcat-users.xml</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;role <span class="attribute">rolename</span>=<span class="string">&quot;manager-gui&quot;</span>/&gt;</span><br><span class="line">&lt;user <span class="attribute">username</span>=<span class="string">&quot;admin&quot;</span> <span class="attribute">password</span>=<span class="string">&quot;admin&quot;</span> <span class="attribute">roles</span>=<span class="string">&quot;manager-gui”/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h5 id="1-配置在tomcat目录下"><a href="#1-配置在tomcat目录下" class="headerlink" title="1. 配置在tomcat目录下"></a>1. 配置在tomcat目录下</h5><p>直接把文件放在 tomcat6&#x2F;webapps&#x2F;ROOT 目录下，<br>然后在网址中访问： <a href="http://192.168.2.31:8080/download.zip">http://192.168.2.31:8080/download.zip</a> 便可下载。</p>
+<h5 id="2-配置在其他目录"><a href="#2-配置在其他目录" class="headerlink" title="2. 配置在其他目录"></a>2. 配置在其他目录</h5><p>如何不想放在webapps&#x2F;ROOT下，就要对想要下载的目录进行配置：<br>在tomcat安装目录\conf下建立任意文件名xml文件，比如：download.xml，内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span>  <span class="attr">path</span>=<span class="string">&quot;/download&quot;</span> <span class="attr">docBase</span>=<span class="string">&quot;D://download&quot;</span> <span class="attr">crossContext</span>=<span class="string">&quot;true&quot;</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>修改tomcat配置文件，文件目录\conf\web.xml，要将红色的false改为true。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>default<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.apache.catalina.servlets.DefaultServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>debug<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>0<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>listings<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>重启tomcat，访问<a href="http://127.0.0.1:8080/download">http://127.0.0.1:8080/download</a></p>
+<p>#####3. 遗留问题：<br>在使用过程中似乎配到某些格式的文件下载不稳定，出现下载到一半便中断的现象。</p>
+<p>配置Tomcat 中文字符集问题</p>
+<p>找到Tomcat安装路径下的conf文件夹下的server.xml配置文件，修改配置Tomcat端口的标签”Connector”,添加URIEncoding属性，代码如下：</p>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;Connector port<span class="operator">=</span><span class="string">&quot;8090&quot;</span> protocol<span class="operator">=</span><span class="string">&quot;HTTP/1.1&quot;</span>   </span><br><span class="line">             maxThreads<span class="operator">=</span><span class="string">&quot;150&quot;</span> connectionTimeout<span class="operator">=</span><span class="string">&quot;20000&quot;</span>   </span><br><span class="line">             redirectPort<span class="operator">=</span><span class="string">&quot;8443&quot;</span> URIEncoding<span class="operator">=</span><span class="string">&quot;utf-8&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Parcelable和Serializable的区别</title>
     <url>/android%20doc/doc/2016-06-09%20Parcelable%E5%92%8CSerializable%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h1 id="Parcelable和Serializable的区别"><a href="#Parcelable和Serializable的区别" class="headerlink" title="Parcelable和Serializable的区别"></a>Parcelable和Serializable的区别</h1><h5 id="Android自定义对象可序列化有两个选择一个是Serializable和Parcelable"><a href="#Android自定义对象可序列化有两个选择一个是Serializable和Parcelable" class="headerlink" title="Android自定义对象可序列化有两个选择一个是Serializable和Parcelable"></a>Android自定义对象可序列化有两个选择一个是Serializable和Parcelable</h5><h5 id="一、对象为什么需要序列化"><a href="#一、对象为什么需要序列化" class="headerlink" title="一、对象为什么需要序列化"></a>一、对象为什么需要序列化</h5><ul>
 <li><p>1.永久性保存对象，保存对象的字节序列到本地文件。</p>
@@ -319,33 +346,6 @@
 </li>
 </ul>
 ]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Parcelable和Serializable的区别</title>
-    <url>/android%20doc/doc/2016-07-09%20Tomcat%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="Tomcat本地服务器配置"><a href="#Tomcat本地服务器配置" class="headerlink" title="Tomcat本地服务器配置"></a>Tomcat本地服务器配置</h1><h5 id="用户名密码配置"><a href="#用户名密码配置" class="headerlink" title="用户名密码配置"></a>用户名密码配置</h5><p>tomcat-users.xml</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;role <span class="attribute">rolename</span>=<span class="string">&quot;manager-gui&quot;</span>/&gt;</span><br><span class="line">&lt;user <span class="attribute">username</span>=<span class="string">&quot;admin&quot;</span> <span class="attribute">password</span>=<span class="string">&quot;admin&quot;</span> <span class="attribute">roles</span>=<span class="string">&quot;manager-gui”/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h5 id="1-配置在tomcat目录下"><a href="#1-配置在tomcat目录下" class="headerlink" title="1. 配置在tomcat目录下"></a>1. 配置在tomcat目录下</h5><p>直接把文件放在 tomcat6&#x2F;webapps&#x2F;ROOT 目录下，<br>然后在网址中访问： <a href="http://192.168.2.31:8080/download.zip">http://192.168.2.31:8080/download.zip</a> 便可下载。</p>
-<h5 id="2-配置在其他目录"><a href="#2-配置在其他目录" class="headerlink" title="2. 配置在其他目录"></a>2. 配置在其他目录</h5><p>如何不想放在webapps&#x2F;ROOT下，就要对想要下载的目录进行配置：<br>在tomcat安装目录\conf下建立任意文件名xml文件，比如：download.xml，内容如下：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span>  <span class="attr">path</span>=<span class="string">&quot;/download&quot;</span> <span class="attr">docBase</span>=<span class="string">&quot;D://download&quot;</span> <span class="attr">crossContext</span>=<span class="string">&quot;true&quot;</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>修改tomcat配置文件，文件目录\conf\web.xml，要将红色的false改为true。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>default<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.apache.catalina.servlets.DefaultServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>debug<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>0<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>listings<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>重启tomcat，访问<a href="http://127.0.0.1:8080/download">http://127.0.0.1:8080/download</a></p>
-<p>#####3. 遗留问题：<br>在使用过程中似乎配到某些格式的文件下载不稳定，出现下载到一半便中断的现象。</p>
-<p>配置Tomcat 中文字符集问题</p>
-<p>找到Tomcat安装路径下的conf文件夹下的server.xml配置文件，修改配置Tomcat端口的标签”Connector”,添加URIEncoding属性，代码如下：</p>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;Connector port<span class="operator">=</span><span class="string">&quot;8090&quot;</span> protocol<span class="operator">=</span><span class="string">&quot;HTTP/1.1&quot;</span>   </span><br><span class="line">             maxThreads<span class="operator">=</span><span class="string">&quot;150&quot;</span> connectionTimeout<span class="operator">=</span><span class="string">&quot;20000&quot;</span>   </span><br><span class="line">             redirectPort<span class="operator">=</span><span class="string">&quot;8443&quot;</span> URIEncoding<span class="operator">=</span><span class="string">&quot;utf-8&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Android</category>
       </categories>
@@ -497,6 +497,32 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World, Hexo</title>
+    <url>/android%20doc/doc/2017-03-10%20Hello%20World,%20Hexo/</url>
+    <content><![CDATA[<h1 id="Hello-World-Hexo"><a href="#Hello-World-Hexo" class="headerlink" title="Hello World, Hexo"></a>Hello World, Hexo</h1><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+
+<h4 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h4><h4 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h4><figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h4 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h4><figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h4 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h4><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">generate</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h4 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h4><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android进程间通信</title>
     <url>/android%20doc/doc/2016-10-13%20Android%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</url>
     <content><![CDATA[<h1 id="Android进程间通信"><a href="#Android进程间通信" class="headerlink" title="Android进程间通信"></a>Android进程间通信</h1><h4 id="进程间通信几种方式"><a href="#进程间通信几种方式" class="headerlink" title="进程间通信几种方式:"></a>进程间通信几种方式:</h4><p>文件<br>SharedPreferences<br>BroadcastReceiver<br>ContentProvider<br>AIDL</p>
@@ -601,32 +627,6 @@
       </categories>
       <tags>
         <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World, Hexo</title>
-    <url>/android%20doc/doc/2017-03-10%20Hello%20World,%20Hexo/</url>
-    <content><![CDATA[<h1 id="Hello-World-Hexo"><a href="#Hello-World-Hexo" class="headerlink" title="Hello World, Hexo"></a>Hello World, Hexo</h1><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-
-<h4 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h4><h4 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h4><figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h4 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h4><figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h4 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h4><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">generate</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h4 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h4><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1045,6 +1045,31 @@
       </tags>
   </entry>
   <entry>
+    <title>Kotlin与Dagger2 ButterKnife冲突解决</title>
+    <url>/android%20doc/doc/2017-06-25%20Kotlin%E4%B8%8EDagger2%20ButterKnife%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<h1 id="Kotlin与Dagger2-ButterKnife冲突解决"><a href="#Kotlin与Dagger2-ButterKnife冲突解决" class="headerlink" title="Kotlin与Dagger2 ButterKnife冲突解决"></a>Kotlin与Dagger2 ButterKnife冲突解决</h1><h4 id="1-Kotlin-与-Dagger2冲突"><a href="#1-Kotlin-与-Dagger2冲突" class="headerlink" title="1. Kotlin 与 Dagger2冲突"></a>1. Kotlin 与 Dagger2冲突</h4><p>在kotlin中加入dagger注入代码时出现<br>Unresolved reference dagger的错误时<br>需要在 Kotlin 中则需要添加 kotlin-kapt 插件激活 kapt，并使用 kapt 替换 annotationProcessor：<br>在app&#x2F;build.gradle文件中增加</p>
+<span id="more"></span>
+
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">apply</span> plugin: <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line"></span><br><span class="line">kapt &#123;</span><br><span class="line">    <span class="attribute">generateStubs</span> = <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    <span class="attribute">kapt</span> <span class="string">&quot;com.google.dagger:dagger-compiler:<span class="variable">$dagger</span>-version&quot;</span></span><br><span class="line">    compile <span class="string">&quot;com.google.dagger:dagger:<span class="variable">$&#123;daggerVersion&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>特别提示：kapt 也能够处理 Java 文件，所以不需要再保留 annotationProcessor 的依赖。</p>
+<h4 id="2-出现ButterKnife不生效问题处理"><a href="#2-出现ButterKnife不生效问题处理" class="headerlink" title="2.出现ButterKnife不生效问题处理"></a>2.出现ButterKnife不生效问题处理</h4><p>在项目级 build.gradle中增加</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">classpath</span> <span class="string">&#x27;com.neenbedankt.gradle.plugins:android-apt:1.8&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在 Kotlin 中使用 ButterKnife 与 Java 中完全一致。 在 Gradle 构建脚本的修改如下，后面将重点介绍代码部分的差异。<br>在 Gradle 依赖中添加 kotlin-kapt 插件，并使用 kapt 替代 annotationProcessor。</p>
+<figure class="highlight puppet"><table><tr><td class="code"><pre><span class="line">apply plugin: ‘kotlin-kapt‘</span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    compile <span class="string">&quot;com.jakewharton:butterknife:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">    kapt <span class="string">&quot;com.jakewharton:butterknife-compiler:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">    </span><br><span class="line"> // 处理butterknife与support-compat冲突</span><br><span class="line">    compile (<span class="string">&quot;com.jakewharton:butterknife:<span class="variable">$butterknife</span>-version&quot;</span>) &#123;</span><br><span class="line">        <span class="literal">exclude</span> <span class="literal">group</span>: <span class="string">&#x27;com.android.support&#x27;</span>, module: <span class="string">&#x27;support-compat&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">//    apt <span class="string">&quot;com.jakewharton:butterknife-compiler:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">    kapt <span class="string">&quot;com.jakewharton:butterknife-compiler:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Kotlin</category>
+      </categories>
+      <tags>
+        <tag>Kotlin</tag>
+        <tag>Dagger2</tag>
+        <tag>ButterKnife</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Glide 设置超时时间</title>
     <url>/android%20doc/doc/2017-06-22%20Glide%20%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4/</url>
     <content><![CDATA[<h1 id="Glide-设置超时时间"><a href="#Glide-设置超时时间" class="headerlink" title="Glide 设置超时时间"></a>Glide 设置超时时间</h1><p>Glide 系列文章<br><a href="https://mrfu.me/2016/02/27/Glide_Request_Priorities/">https://mrfu.me/2016/02/27/Glide_Request_Priorities/</a></p>
@@ -1069,31 +1094,6 @@
       </categories>
       <tags>
         <tag>Glide</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kotlin与Dagger2 ButterKnife冲突解决</title>
-    <url>/android%20doc/doc/2017-06-25%20Kotlin%E4%B8%8EDagger2%20ButterKnife%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<h1 id="Kotlin与Dagger2-ButterKnife冲突解决"><a href="#Kotlin与Dagger2-ButterKnife冲突解决" class="headerlink" title="Kotlin与Dagger2 ButterKnife冲突解决"></a>Kotlin与Dagger2 ButterKnife冲突解决</h1><h4 id="1-Kotlin-与-Dagger2冲突"><a href="#1-Kotlin-与-Dagger2冲突" class="headerlink" title="1. Kotlin 与 Dagger2冲突"></a>1. Kotlin 与 Dagger2冲突</h4><p>在kotlin中加入dagger注入代码时出现<br>Unresolved reference dagger的错误时<br>需要在 Kotlin 中则需要添加 kotlin-kapt 插件激活 kapt，并使用 kapt 替换 annotationProcessor：<br>在app&#x2F;build.gradle文件中增加</p>
-<span id="more"></span>
-
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">apply</span> plugin: <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line"></span><br><span class="line">kapt &#123;</span><br><span class="line">    <span class="attribute">generateStubs</span> = <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    <span class="attribute">kapt</span> <span class="string">&quot;com.google.dagger:dagger-compiler:<span class="variable">$dagger</span>-version&quot;</span></span><br><span class="line">    compile <span class="string">&quot;com.google.dagger:dagger:<span class="variable">$&#123;daggerVersion&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>特别提示：kapt 也能够处理 Java 文件，所以不需要再保留 annotationProcessor 的依赖。</p>
-<h4 id="2-出现ButterKnife不生效问题处理"><a href="#2-出现ButterKnife不生效问题处理" class="headerlink" title="2.出现ButterKnife不生效问题处理"></a>2.出现ButterKnife不生效问题处理</h4><p>在项目级 build.gradle中增加</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">classpath</span> <span class="string">&#x27;com.neenbedankt.gradle.plugins:android-apt:1.8&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>在 Kotlin 中使用 ButterKnife 与 Java 中完全一致。 在 Gradle 构建脚本的修改如下，后面将重点介绍代码部分的差异。<br>在 Gradle 依赖中添加 kotlin-kapt 插件，并使用 kapt 替代 annotationProcessor。</p>
-<figure class="highlight puppet"><table><tr><td class="code"><pre><span class="line">apply plugin: ‘kotlin-kapt‘</span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    compile <span class="string">&quot;com.jakewharton:butterknife:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">    kapt <span class="string">&quot;com.jakewharton:butterknife-compiler:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">    </span><br><span class="line"> // 处理butterknife与support-compat冲突</span><br><span class="line">    compile (<span class="string">&quot;com.jakewharton:butterknife:<span class="variable">$butterknife</span>-version&quot;</span>) &#123;</span><br><span class="line">        <span class="literal">exclude</span> <span class="literal">group</span>: <span class="string">&#x27;com.android.support&#x27;</span>, module: <span class="string">&#x27;support-compat&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">//    apt <span class="string">&quot;com.jakewharton:butterknife-compiler:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">    kapt <span class="string">&quot;com.jakewharton:butterknife-compiler:<span class="variable">$butterknife</span>-version&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Kotlin</category>
-      </categories>
-      <tags>
-        <tag>Kotlin</tag>
-        <tag>Dagger2</tag>
-        <tag>ButterKnife</tag>
       </tags>
   </entry>
   <entry>
@@ -1477,72 +1477,6 @@
       </tags>
   </entry>
   <entry>
-    <title>简析TCP的三次握手与四次分手</title>
-    <url>/android%20doc/doc/2017-09-15%20%E7%AE%80%E6%9E%90TCP%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E5%88%86%E6%89%8B/</url>
-    <content><![CDATA[<h1 id="简析TCP的三次握手与四次分手"><a href="#简析TCP的三次握手与四次分手" class="headerlink" title="简析TCP的三次握手与四次分手"></a>简析TCP的三次握手与四次分手</h1><h4 id="TCP是什么"><a href="#TCP是什么" class="headerlink" title="TCP是什么"></a>TCP是什么</h4><p>TCP （传输控制协议）<br>本词条由“科普中国”百科科学词条编写与应用工作项目 审核 。<br>TCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC 793定义。在简化的计算机网络OSI模型中，它完成第四层传输层所指定的功能，用户数据报协议（UDP）是同一层内[1] 另一个重要的传输协议。在因特网协议族（Internet protocol suite）中，TCP层是位于IP层之上，应用层之下的中间层。不同主机的应用层之间经常需要可靠的、像管道一样的连接，但是IP层不提供这样的流机制，而是提供不可靠的包交换。</p>
-<span id="more"></span>
-
-<p>首先来看看OSI的七层模型：<br><img src="/../../../images/tcp/TCP1.jpg" alt="TCP" loading="lazy"></p>
-<p>我们需要知道TCP工作在网络OSI的七层模型中的第四层——Transport层，IP在第三层——Network层，ARP在第二层——Data Link层；在第二层上的数据，我们把它叫Frame，在第三层上的数据叫Packet，第四层的数据叫Segment。 同时，我们需要简单的知道，数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。这个基本的流程你需要知道，就是每个数据都会经过数据的封装和解封装的过程。 在OSI七层模型中，每一层的作用和对应的协议如下：<br><img src="/../../../images/tcp/TCP2.jpg" alt="TCP" loading="lazy"></p>
-<p>TCP是一个协议，那这个协议是如何定义的，它的数据格式是什么样子的呢？要进行更深层次的剖析，就需要了解，甚至是熟记TCP协议中每个字段的含义。<br><img src="/../../images/tcp/TCP3.jpg" alt="TCP" loading="lazy"></p>
-<p>上面就是TCP协议头部的格式，由于它太重要了，是理解其它内容的基础，下面就将每个字段的信息都详细的说明一下。</p>
-<ul>
-<li>Source Port和Destination Port:分别占用16位，表示源端口号和目的端口号；用于区别主机中的不同进程，而IP地址是用来区分不同的主机的，源端口号和目的端口号配合上IP首部中的源IP地址和目的IP地址就能唯一的确定一个TCP连接；</li>
-<li>Sequence Number:用来标识从TCP发端向TCP收端发送的数据字节流，它表示在这个报文段中的的第一个数据字节在数据流中的序号；主要用来解决网络报乱序的问题；</li>
-<li>Acknowledgment Number:32位确认序列号包含发送确认的一端所期望收到的下一个序号，因此，确认序号应当是上次已成功收到数据字节序号加1。不过，只有当标志位中的ACK标志（下面介绍）为1时该确认序列号的字段才有效。主要用来解决不丢包的问题；</li>
-<li>Offset:给出首部中32 bit字的数目，需要这个值是因为任选字段的长度是可变的。这个字段占4bit（最多能表示15个32bit的的字，即4*15&#x3D;60个字节的首部长度），因此TCP最多有60字节的首部。然而，没有任选字段，正常的长度是20字节；</li>
-<li>TCP Flags:TCP首部中有6个标志比特，它们中的多个可同时被设置为1，主要是用于操控TCP的状态机的，依次为URG，ACK，PSH，RST，SYN，FIN。每个标志位的意思如下：<ul>
-<li>URG：此标志表示TCP包的紧急指针域（后面马上就要说到）有效，用来保证TCP连接不被中断，并且督促中间层设备要尽快处理这些数据；</li>
-<li>ACK：此标志表示应答域有效，就是说前面所说的TCP应答号将会包含在TCP数据包中；有两个取值：0和1，为1的时候表示应答域有效，反之为0；</li>
-<li>PSH：这个标志位表示Push操作。所谓Push操作就是指在数据包到达接收端以后，立即传送给应用程序，而不是在缓冲区中排队；</li>
-<li>RST：这个标志表示连接复位请求。用来复位那些产生错误的连接，也被用来拒绝错误和非法的数据包；</li>
-<li>SYN：表示同步序号，用来建立连接。SYN标志位和ACK标志位搭配使用，当连接请求的时候，SYN&#x3D;1，ACK&#x3D;0；连接被响应的时候，SYN&#x3D;1，ACK&#x3D;1；这个标志的数据包经常被用来进行端口扫描。扫描者发送一个只有SYN的数据包，如果对方主机响应了一个数据包回来 ，就表明这台主机存在这个端口；但是由于这种扫描方式只是进行TCP三次握手的第一次握手，因此这种扫描的成功表示被扫描的机器不很安全，一台安全的主机将会强制要求一个连接严格的进行TCP的三次握手；</li>
-<li>FIN： 表示发送端已经达到数据末尾，也就是说双方的数据传送完成，没有数据可以传送了，发送FIN标志位的TCP数据包后，连接将被断开。这个标志的数据包也经常被用于进行端口扫描。</li>
-</ul>
-</li>
-<li>Window:窗口大小，也就是有名的滑动窗口，用来进行流量控制；这是一个复杂的问题，这篇博文中并不会进行总结的；<br>好了，基本知识都已经准备好了，开始下一段的征程吧。</li>
-</ul>
-<h4 id="三次握手又是什么？"><a href="#三次握手又是什么？" class="headerlink" title="三次握手又是什么？"></a>三次握手又是什么？</h4><p>TCP是面向连接的，无论哪一方向另一方发送数据之前，都必须先在双方之间建立一条连接。在TCP&#x2F;IP协议中，TCP协议提供可靠的连接服务，连接是通过三次握手进行初始化的。三次握手的目的是同步连接双方的序列号和确认号并交换 TCP窗口大小信息。这就是面试中经常会被问到的TCP三次握手。只是了解TCP三次握手的概念，对你获得一份工作是没有任何帮助的，你需要去了解TCP三次握手中的一些细节。先来看图说话。</p>
-<p><img src="/../../../images/tcp/TCP4.jpg" alt="TCP" loading="lazy"></p>
-<p>多么清晰的一张图，当然了，也不是我画的，我也只是引用过来说明问题了。</p>
-<ul>
-<li>第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认；</li>
-<li>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态；</li>
-<li>第三次握手：客户端收到服务器的SYN+ACK报文段。然后将Acknowledgment Number设置为y+1，向服务器发送ACK报文段，这个报文段发送完毕以后，客户端和服务器端都进入ESTABLISHED状态，完成TCP三次握手。</li>
-<li>完成了三次握手，客户端和服务器端就可以开始传送数据。以上就是TCP三次握手的总体介绍。</li>
-</ul>
-<h4 id="那四次分手呢？"><a href="#那四次分手呢？" class="headerlink" title="那四次分手呢？"></a>那四次分手呢？</h4><p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的“四次分手”。</p>
-<ul>
-<li>第一次分手：主机1（可以使客户端，也可以是服务器端），设置Sequence Number和Acknowledgment Number，向主机2发送一个FIN报文段；此时，主机1进入’FIN_WAIT_1’状态；这表示主机1没有数据要发送给主机2了；</li>
-<li>第二次分手：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1；主机1进入’FIN_WAIT_2’状态；主机2告诉主机1，我“同意”你的关闭请求；</li>
-<li>第三次分手：主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态；</li>
-<li>第四次分手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。<br>至此，TCP的四次分手就这么愉快的完成了。当你看到这里，你的脑子里会有很多的疑问，很多的不懂，感觉很凌乱；没事，我们继续总结。</li>
-</ul>
-<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><p>既然总结了TCP的三次握手，那为什么非要三次呢？怎么觉得两次就可以完成了。那TCP为什么非要进行三次连接呢？在谢希仁的《计算机网络》中是这样说的：</p>
-<p>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</p>
-<p>在书中同时举了一个例子，如下：</p>
-<p>“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”</p>
-<p>这就很明白了，防止了服务器端的一直等待而浪费资源。</p>
-<h4 id="为什么要四次分手"><a href="#为什么要四次分手" class="headerlink" title="为什么要四次分手"></a>为什么要四次分手</h4><p>那四次分手又是为何呢？TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。如果要正确的理解四次分手的原理，就需要了解四次分手过程中的状态变化。</p>
-<ul>
-<li>‘FIN_WAIT_1’: 这个状态要好好解释一下，其实’FIN_WAIT_1’和’FIN_WAIT_2’状态的真正含义都是表示等待对方的FIN报文。而这两种状态的区别是：’FIN_WAIT_1’状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到’FIN_WAIT_1’状态。而当对方回应ACK报文后，则进入到’FIN_WAIT_2’状态，当然在实际的正常情况下，无论对方何种情况下，都应该马上回应ACK报文，所以’FIN_WAIT_1’状态一般是比较难见到的，而’FIN_WAIT_2’状态还有时常常可以用netstat看到。（主动方）</li>
-<li>‘FIN_WAIT_2’：上面已经详细解释了这种状态，实际上’FIN_WAIT_2’状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点数据需要传送给你(ACK信息)，稍后再关闭连接。（主动方）</li>
-<li>CLOSE_WAIT：这种状态的含义其实是表示在等待关闭。怎么理解呢？当对方close一个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文给对方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以 close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。（被动方）</li>
-<li>LAST_ACK: 这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。（被动方）</li>
-<li>TIME_WAIT: 表示收到了对方的FIN报文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FINWAIT1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过’FIN_WAIT_2’状态。（主动方）</li>
-<li>CLOSED: 表示连接中断。<br>我想你应该懂了</li>
-</ul>
-<p>总结到这里，也该结束了，但是对于TCP的学习远还没有结束。TCP是一个非常复杂的协议，这里稍微总结了一下TCP的连接与断开连接是发生的事情，其中还有很多的“坑”，让我们后续有时间再继续填吧</p>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.jellythink.com/archives/705">简析TCP的三次握手与四次分手</a></p>
-]]></content>
-      <categories>
-        <category>TCP</category>
-      </categories>
-      <tags>
-        <tag>TCP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android界面性能调优手册</title>
     <url>/android%20doc/doc/2017-11-06%20Android%E7%95%8C%E9%9D%A2%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E6%89%8B%E5%86%8C/</url>
     <content><![CDATA[<h1 id="Android界面性能调优手册"><a href="#Android界面性能调优手册" class="headerlink" title="Android界面性能调优手册"></a>Android界面性能调优手册</h1><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>界面是 Android 应用中直接影响用户体验最关键的部分。如果代码实现得不好，界面容易发生卡顿且导致应用占用大量内存。</p>
@@ -1712,157 +1646,69 @@
       </tags>
   </entry>
   <entry>
-    <title>Kotlin语法小结(1)-基础语法</title>
-    <url>/android%20doc/doc/2018-04-10%20Kotlin%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93(1)-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="Kotlin语法小结-1-基础语法"><a href="#Kotlin语法小结-1-基础语法" class="headerlink" title="Kotlin语法小结(1)-基础语法"></a>Kotlin语法小结(1)-基础语法</h1><h4 id="Kotlin语法特点"><a href="#Kotlin语法特点" class="headerlink" title="Kotlin语法特点"></a>Kotlin语法特点</h4><ul>
-<li>兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。</li>
-<li>性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambda 表达式的代码通常比用 Java 写的代码运行得更快。</li>
-<li>互操作性：Kotlin 可与 Java 进行 100％ 的互操作，允许在 Kotlin 应用程序中使用所有现有的 Android 库 。这包括注解处理，所以数据绑定和 Dagger 也是一样。</li>
-<li>占用：Kotlin 具有非常紧凑的运行时库，可以通过使用 ProGuard 进一步减少。 在实际应用程序中，Kotlin 运行时只增加几百个方法以及 .apk 文件不到 100K 大小。</li>
-<li>编译时长：Kotlin 支持高效的增量编译，所以对于清理构建会有额外的开销，增量构建通常与 Java 一样快或者更快。</li>
-</ul>
+    <title>简析TCP的三次握手与四次分手</title>
+    <url>/android%20doc/doc/2017-09-15%20%E7%AE%80%E6%9E%90TCP%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E5%88%86%E6%89%8B/</url>
+    <content><![CDATA[<h1 id="简析TCP的三次握手与四次分手"><a href="#简析TCP的三次握手与四次分手" class="headerlink" title="简析TCP的三次握手与四次分手"></a>简析TCP的三次握手与四次分手</h1><h4 id="TCP是什么"><a href="#TCP是什么" class="headerlink" title="TCP是什么"></a>TCP是什么</h4><p>TCP （传输控制协议）<br>本词条由“科普中国”百科科学词条编写与应用工作项目 审核 。<br>TCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC 793定义。在简化的计算机网络OSI模型中，它完成第四层传输层所指定的功能，用户数据报协议（UDP）是同一层内[1] 另一个重要的传输协议。在因特网协议族（Internet protocol suite）中，TCP层是位于IP层之上，应用层之下的中间层。不同主机的应用层之间经常需要可靠的、像管道一样的连接，但是IP层不提供这样的流机制，而是提供不可靠的包交换。</p>
 <span id="more"></span>
 
-<h4 id="为什么选择-Kotlin？"><a href="#为什么选择-Kotlin？" class="headerlink" title="为什么选择 Kotlin？"></a>为什么选择 Kotlin？</h4><ul>
-<li>简洁</li>
-</ul>
-<p>使用一行代码创建一个包含 getters、 setters、 equals()、 hashCode()、 toString() 以及 copy() 的 POJO：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Customer</span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> email: String, <span class="keyword">val</span> company: String)</span><br></pre></td></tr></table></figure>
-
-<p>或者使用 lambda 表达式来过滤列表：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> positiveNumbers = list.filter &#123; it &gt; <span class="number">0</span> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>想要单例？创建一个 object 就可以了：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">object</span> ThisIsASingleton &#123;</span><br><span class="line">    <span class="keyword">val</span> companyName: String = <span class="string">&quot;JetBrains&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>首先来看看OSI的七层模型：<br><img src="/../../../images/tcp/TCP1.jpg" alt="TCP" loading="lazy"></p>
+<p>我们需要知道TCP工作在网络OSI的七层模型中的第四层——Transport层，IP在第三层——Network层，ARP在第二层——Data Link层；在第二层上的数据，我们把它叫Frame，在第三层上的数据叫Packet，第四层的数据叫Segment。 同时，我们需要简单的知道，数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。这个基本的流程你需要知道，就是每个数据都会经过数据的封装和解封装的过程。 在OSI七层模型中，每一层的作用和对应的协议如下：<br><img src="/../../../images/tcp/TCP2.jpg" alt="TCP" loading="lazy"></p>
+<p>TCP是一个协议，那这个协议是如何定义的，它的数据格式是什么样子的呢？要进行更深层次的剖析，就需要了解，甚至是熟记TCP协议中每个字段的含义。<br><img src="/../../images/tcp/TCP3.jpg" alt="TCP" loading="lazy"></p>
+<p>上面就是TCP协议头部的格式，由于它太重要了，是理解其它内容的基础，下面就将每个字段的信息都详细的说明一下。</p>
 <ul>
-<li>安全</li>
+<li>Source Port和Destination Port:分别占用16位，表示源端口号和目的端口号；用于区别主机中的不同进程，而IP地址是用来区分不同的主机的，源端口号和目的端口号配合上IP首部中的源IP地址和目的IP地址就能唯一的确定一个TCP连接；</li>
+<li>Sequence Number:用来标识从TCP发端向TCP收端发送的数据字节流，它表示在这个报文段中的的第一个数据字节在数据流中的序号；主要用来解决网络报乱序的问题；</li>
+<li>Acknowledgment Number:32位确认序列号包含发送确认的一端所期望收到的下一个序号，因此，确认序号应当是上次已成功收到数据字节序号加1。不过，只有当标志位中的ACK标志（下面介绍）为1时该确认序列号的字段才有效。主要用来解决不丢包的问题；</li>
+<li>Offset:给出首部中32 bit字的数目，需要这个值是因为任选字段的长度是可变的。这个字段占4bit（最多能表示15个32bit的的字，即4*15&#x3D;60个字节的首部长度），因此TCP最多有60字节的首部。然而，没有任选字段，正常的长度是20字节；</li>
+<li>TCP Flags:TCP首部中有6个标志比特，它们中的多个可同时被设置为1，主要是用于操控TCP的状态机的，依次为URG，ACK，PSH，RST，SYN，FIN。每个标志位的意思如下：<ul>
+<li>URG：此标志表示TCP包的紧急指针域（后面马上就要说到）有效，用来保证TCP连接不被中断，并且督促中间层设备要尽快处理这些数据；</li>
+<li>ACK：此标志表示应答域有效，就是说前面所说的TCP应答号将会包含在TCP数据包中；有两个取值：0和1，为1的时候表示应答域有效，反之为0；</li>
+<li>PSH：这个标志位表示Push操作。所谓Push操作就是指在数据包到达接收端以后，立即传送给应用程序，而不是在缓冲区中排队；</li>
+<li>RST：这个标志表示连接复位请求。用来复位那些产生错误的连接，也被用来拒绝错误和非法的数据包；</li>
+<li>SYN：表示同步序号，用来建立连接。SYN标志位和ACK标志位搭配使用，当连接请求的时候，SYN&#x3D;1，ACK&#x3D;0；连接被响应的时候，SYN&#x3D;1，ACK&#x3D;1；这个标志的数据包经常被用来进行端口扫描。扫描者发送一个只有SYN的数据包，如果对方主机响应了一个数据包回来 ，就表明这台主机存在这个端口；但是由于这种扫描方式只是进行TCP三次握手的第一次握手，因此这种扫描的成功表示被扫描的机器不很安全，一台安全的主机将会强制要求一个连接严格的进行TCP的三次握手；</li>
+<li>FIN： 表示发送端已经达到数据末尾，也就是说双方的数据传送完成，没有数据可以传送了，发送FIN标志位的TCP数据包后，连接将被断开。这个标志的数据包也经常被用于进行端口扫描。</li>
 </ul>
-<p>彻底告别那些烦人的 NPE(NullPointerException)。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> output: String</span><br><span class="line">output = <span class="literal">null</span>   <span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure>
-
-<p>Kotlin 可以保护你避免对可空类型的误操作。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> name: String? = <span class="literal">null</span>    <span class="comment">// 可空类型</span></span><br><span class="line">println(name.length())      <span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure>
-
-<p>智能类型转换，编译器会为你做自动类型转换。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getStringLength</span><span class="params">(obj: <span class="type">Any</span>)</span></span>: <span class="built_in">Int</span>? &#123;</span><br><span class="line">    <span class="keyword">if</span> (obj <span class="keyword">is</span> String) &#123;</span><br><span class="line">        <span class="comment">// `obj` 在该条件分⽀内⾃动转换成 `String`</span></span><br><span class="line">        <span class="keyword">return</span> obj.length</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 在离开类型检测分⽀后，`obj` 仍然是 `Any` 类型</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+</li>
+<li>Window:窗口大小，也就是有名的滑动窗口，用来进行流量控制；这是一个复杂的问题，这篇博文中并不会进行总结的；<br>好了，基本知识都已经准备好了，开始下一段的征程吧。</li>
+</ul>
+<h4 id="三次握手又是什么？"><a href="#三次握手又是什么？" class="headerlink" title="三次握手又是什么？"></a>三次握手又是什么？</h4><p>TCP是面向连接的，无论哪一方向另一方发送数据之前，都必须先在双方之间建立一条连接。在TCP&#x2F;IP协议中，TCP协议提供可靠的连接服务，连接是通过三次握手进行初始化的。三次握手的目的是同步连接双方的序列号和确认号并交换 TCP窗口大小信息。这就是面试中经常会被问到的TCP三次握手。只是了解TCP三次握手的概念，对你获得一份工作是没有任何帮助的，你需要去了解TCP三次握手中的一些细节。先来看图说话。</p>
+<p><img src="/../../../images/tcp/TCP4.jpg" alt="TCP" loading="lazy"></p>
+<p>多么清晰的一张图，当然了，也不是我画的，我也只是引用过来说明问题了。</p>
 <ul>
-<li>互操作性</li>
+<li>第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认；</li>
+<li>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态；</li>
+<li>第三次握手：客户端收到服务器的SYN+ACK报文段。然后将Acknowledgment Number设置为y+1，向服务器发送ACK报文段，这个报文段发送完毕以后，客户端和服务器端都进入ESTABLISHED状态，完成TCP三次握手。</li>
+<li>完成了三次握手，客户端和服务器端就可以开始传送数据。以上就是TCP三次握手的总体介绍。</li>
 </ul>
-<p>使用 JVM 上的任何现有库，因为有 100％ 的兼容性，包括 SAM(Single Abstract Method) 支持。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> io.reactivex.Flowable</span><br><span class="line"><span class="keyword">import</span> io.reactivex.schedulers.Schedulers</span><br><span class="line"></span><br><span class="line">Flowable</span><br><span class="line">    .fromCallable &#123;</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>) <span class="comment">//  模仿高开销的计算</span></span><br><span class="line">        <span class="string">&quot;Done&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    .subscribeOn(Schedulers.io())</span><br><span class="line">    .observeOn(Schedulers.single())</span><br><span class="line">    .subscribe(::println, Throwable::printStackTrace)</span><br></pre></td></tr></table></figure>
-
-<p>无论是 JVM 还是 JavaScript 目标平台，都可用 Kotlin 写代码然后部署到你想要的地方</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlin.browser.window</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">onLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    window.document.body!!.innerHTML += <span class="string">&quot;&lt;br/&gt;Hello, Kotlin!&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h4 id="那四次分手呢？"><a href="#那四次分手呢？" class="headerlink" title="那四次分手呢？"></a>那四次分手呢？</h4><p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的“四次分手”。</p>
 <ul>
-<li>工具友好</li>
+<li>第一次分手：主机1（可以使客户端，也可以是服务器端），设置Sequence Number和Acknowledgment Number，向主机2发送一个FIN报文段；此时，主机1进入’FIN_WAIT_1’状态；这表示主机1没有数据要发送给主机2了；</li>
+<li>第二次分手：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1；主机1进入’FIN_WAIT_2’状态；主机2告诉主机1，我“同意”你的关闭请求；</li>
+<li>第三次分手：主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态；</li>
+<li>第四次分手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。<br>至此，TCP的四次分手就这么愉快的完成了。当你看到这里，你的脑子里会有很多的疑问，很多的不懂，感觉很凌乱；没事，我们继续总结。</li>
 </ul>
-<p>一门语言需要工具化，而在 JetBrains，这正是我们做得最好的地方！<br><img src="/../../../images/kotlin/kotlin1.png" loading="lazy"><br><img src="/../../../images/kotlin/kotlin2.png" loading="lazy"></p>
-<p>Kotlin相关知识</p>
-<h4 id="一、基础语法"><a href="#一、基础语法" class="headerlink" title="一、基础语法"></a>一、基础语法</h4><h5 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h5><ul>
-<li>基本数据类型<br>在 Kotlin 中，所有东西都是对象，在这个意义上讲我们可以在任何变量上调⽤成员函数和属性。<br>Kotlin 处理数字在某种程度上接近 Java， 但是并不完全相同。 例如， 对于数字没有隐式拓宽转换 （如 Java 中 int 可以隐式转换为 long)， 另外有些情况的字⾯值略有不同。<br>Kotlin 提供了如下的内置类型来表⽰数字 （与 Java 很相近）</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="left">Type</th>
-<th align="left">Bit width</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Double</td>
-<td align="left">64</td>
-</tr>
-<tr>
-<td align="left">Float</td>
-<td align="left">32</td>
-</tr>
-<tr>
-<td align="left">Long</td>
-<td align="left">64</td>
-</tr>
-<tr>
-<td align="left">Int</td>
-<td align="left">32</td>
-</tr>
-<tr>
-<td align="left">Short</td>
-<td align="left">16</td>
-</tr>
-<tr>
-<td align="left">Byte</td>
-<td align="left">8</td>
-</tr>
-</tbody></table>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">// kotlin 没有隐式转换</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(l: <span class="type">Long</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> i = <span class="number">10</span></span><br><span class="line">    test(i.toLong())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><p>既然总结了TCP的三次握手，那为什么非要三次呢？怎么觉得两次就可以完成了。那TCP为什么非要进行三次连接呢？在谢希仁的《计算机网络》中是这样说的：</p>
+<p>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</p>
+<p>在书中同时举了一个例子，如下：</p>
+<p>“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”</p>
+<p>这就很明白了，防止了服务器端的一直等待而浪费资源。</p>
+<h4 id="为什么要四次分手"><a href="#为什么要四次分手" class="headerlink" title="为什么要四次分手"></a>为什么要四次分手</h4><p>那四次分手又是为何呢？TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。如果要正确的理解四次分手的原理，就需要了解四次分手过程中的状态变化。</p>
 <ul>
-<li>字符串<br>字符串⽤ String 类型表⽰。 字符串是不可变的。 字符串的元素⸺字符可以使⽤索引运算符访问: s[i] 。 可以⽤ for 循环迭代字符串:</li>
+<li>‘FIN_WAIT_1’: 这个状态要好好解释一下，其实’FIN_WAIT_1’和’FIN_WAIT_2’状态的真正含义都是表示等待对方的FIN报文。而这两种状态的区别是：’FIN_WAIT_1’状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到’FIN_WAIT_1’状态。而当对方回应ACK报文后，则进入到’FIN_WAIT_2’状态，当然在实际的正常情况下，无论对方何种情况下，都应该马上回应ACK报文，所以’FIN_WAIT_1’状态一般是比较难见到的，而’FIN_WAIT_2’状态还有时常常可以用netstat看到。（主动方）</li>
+<li>‘FIN_WAIT_2’：上面已经详细解释了这种状态，实际上’FIN_WAIT_2’状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点数据需要传送给你(ACK信息)，稍后再关闭连接。（主动方）</li>
+<li>CLOSE_WAIT：这种状态的含义其实是表示在等待关闭。怎么理解呢？当对方close一个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文给对方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以 close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。（被动方）</li>
+<li>LAST_ACK: 这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。（被动方）</li>
+<li>TIME_WAIT: 表示收到了对方的FIN报文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FINWAIT1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过’FIN_WAIT_2’状态。（主动方）</li>
+<li>CLOSED: 表示连接中断。<br>我想你应该懂了</li>
 </ul>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (c <span class="keyword">in</span> name) &#123;</span><br><span class="line">    println(c)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Kotlin 有两种类型的字符串字⾯值: 转义字符串, 以及原⽣字符串可以包含换⾏和任意⽂本。转义字符串很像 Java 字符串:</span></span><br><span class="line"><span class="keyword">val</span> s = <span class="string">&quot;Hello, world!\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用原⽣字符串 使⽤三个引号（ &quot;&quot;&quot; ） 分界符括起来， 内部没有转义并且可以包含换⾏和任何其他字符:</span></span><br><span class="line"><span class="keyword">val</span> text = <span class="string">&quot;&quot;&quot; \n</span></span><br><span class="line"><span class="string">    for (c in &quot;foo&quot;)</span></span><br><span class="line"><span class="string">        print(c) &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>你可以通过 trimMargin() 函数去除前导空格：</p>
-<ul>
-<li>字符串模板<br>字符串可以包含模板表达式 ， 即⼀些⼩段代码， 会求值并把结果合并到字符串中。 模板表达式以美元符 （ $ ） 开头， 由⼀个简单的名字构成:</li>
-</ul>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> string = <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">println(<span class="string">&quot;result is <span class="variable">$string</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;result is <span class="subst">$&#123;string.replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h5 id="2、语法定义"><a href="#2、语法定义" class="headerlink" title="2、语法定义"></a>2、语法定义</h5><ul>
-<li>定义包、定义函数、定义常量、变量、变长参数vararg</li>
-</ul>
-<p>（1）定义包：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> my.demo</span><br><span class="line"><span class="keyword">import</span> java.util.*</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
-
-<p>包名不必和文件夹路径一致：源文件可以放在任意位置。</p>
-<p>（2）定义函数</p>
-<p>定义一个函数接受两个 int 型参数，返回值为 int ：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span> , b: <span class="type">Int</span>)</span></span> : <span class="built_in">Int</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>该函数只有一个表达式函数体以及一个自推导型的返回值：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span> = a + b</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">  println(<span class="string">&quot;sum of 19 and 23 is <span class="subst">$&#123;sum(<span class="number">19</span>, <span class="number">23</span>)&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>kotlin没有void关键字，用Unit表示返回一个没有意义的值， Unit 的返回类型可以省略：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span>: <span class="built_in">Unit</span> &#123;</span><br><span class="line">   println(<span class="string">&quot;sum of <span class="variable">$a</span> and <span class="variable">$b</span> is <span class="subst">$&#123;a + b&#125;</span>&quot;</span>)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">   println(<span class="string">&quot;sum of <span class="variable">$a</span> and <span class="variable">$b</span> is <span class="subst">$&#123;a + b&#125;</span>&quot;</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>（3）定义变量、常量</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> a: <span class="built_in">Int</span> = <span class="number">1</span>  <span class="comment">// 立即初始化</span></span><br><span class="line">   <span class="keyword">val</span> b = <span class="number">2</span>   <span class="comment">// 推导出Int型</span></span><br><span class="line">   <span class="keyword">val</span> c: <span class="built_in">Int</span>  <span class="comment">// 当没有初始化值时必须声明类型</span></span><br><span class="line">   c = <span class="number">3</span>       <span class="comment">// 赋值</span></span><br><span class="line">   println(<span class="string">&quot;a = <span class="variable">$a</span>, b = <span class="variable">$b</span>, c = <span class="variable">$c</span>&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> x = <span class="number">5</span> <span class="comment">// 推导出Int类型</span></span><br><span class="line">   x += <span class="number">1</span></span><br><span class="line">   println(<span class="string">&quot;x = <span class="variable">$x</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（4）变长参数 vararg</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * kotlin 变长参数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(<span class="keyword">vararg</span> arg: <span class="type">Int</span>, string: <span class="type">String</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    arg.forEach &#123; n -&gt;</span><br><span class="line">        sum += n</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, string = <span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在java中变长参数必须放在所有参数的后面，kotlin由于具名参数的存在可以放在任何位置</p>
-<ul>
-<li>注释</li>
-</ul>
-<p>注释正如Java 和 JavaScript， Kotlin ⽀持⾏注释及块注释。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这是⼀个⾏注释</span></span><br><span class="line"><span class="comment">/* 这是⼀个多⾏的</span></span><br><span class="line"><span class="comment"> 块注释。 */</span></span><br><span class="line"><span class="comment">/** /** */</span> */</span><br></pre></td></tr></table></figure>
-
-<p>与 Java 不同的是， Kotlin 的块注释可以嵌套。</p>
-<ul>
-<li>可空类型 String?<br>当某个变量的值可以为 null 的时候， 必须在声明处的类型后添加 ? 来标识该引⽤可为空。<br>如果 str 的内容不是数字返回 null：</li>
-</ul>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">parseInt</span><span class="params">(str: <span class="type">String</span>)</span></span>: <span class="built_in">Int</span>? &#123;</span><br><span class="line">    <span class="comment">// ……</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3、import引用，区间使用（参见控制流）"><a href="#3、import引用，区间使用（参见控制流）" class="headerlink" title="3、import引用，区间使用（参见控制流）"></a>3、import引用，区间使用（参见控制流）</h5><p>源⽂件通常以包声明开头:package foo.bar</p>
-<ul>
-<li>默认导⼊</li>
-</ul>
-<p>有多个包会默认导⼊到每个 Kotlin ⽂件中：<br>kotlin.*<br>kotlin.annotation.*<br>…<br>kotlin.io.*<br>kotlin.text.*<br>根据⽬标平台还会导⼊额外的包：<br>JVM:<br>java.lang.*<br>kotlin.jvm.*<br>JS:<br>kotlin.js.*</p>
-<ul>
-<li>也可以导⼊⼀个作⽤域下的所有内容 （包、 类、 对象等） :<br>import foo.* &#x2F;&#x2F; “foo”中的⼀切都可访问<br>如果出现名字冲突， 可以使⽤ as 关键字在本地重命名冲突项来消歧义：<br>import foo.Bar &#x2F;&#x2F; Bar 可访问<br>import bar.Bar as bBar &#x2F;&#x2F; bBar 代表“bar.Bar”</li>
-<li>import 并不仅限于导⼊类； 也可⽤它来导⼊其他声明：<br>顶层函数及属性；<br>在对象声明中声明的函数和属性;<br>枚举常量。</li>
-<li>与 Java 不同， Kotlin 没有单独的 “import static” 语法； 所有这些声明都⽤ import 关键字导⼊。</li>
-</ul>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://www.kotlincn.net/">Kotlin中文站</a></p>
-<p><a href="http://blog.csdn.net/jhj_24/article/details/53896224">Kotlin控制流</a></p>
+<p>总结到这里，也该结束了，但是对于TCP的学习远还没有结束。TCP是一个非常复杂的协议，这里稍微总结了一下TCP的连接与断开连接是发生的事情，其中还有很多的“坑”，让我们后续有时间再继续填吧</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.jellythink.com/archives/705">简析TCP的三次握手与四次分手</a></p>
 ]]></content>
       <categories>
-        <category>Kotlin</category>
+        <category>TCP</category>
       </categories>
       <tags>
-        <tag>Kotlin</tag>
+        <tag>TCP</tag>
       </tags>
   </entry>
   <entry>
@@ -2077,6 +1923,160 @@
       </tags>
   </entry>
   <entry>
+    <title>Kotlin语法小结(1)-基础语法</title>
+    <url>/android%20doc/doc/2018-04-10%20Kotlin%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93(1)-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="Kotlin语法小结-1-基础语法"><a href="#Kotlin语法小结-1-基础语法" class="headerlink" title="Kotlin语法小结(1)-基础语法"></a>Kotlin语法小结(1)-基础语法</h1><h4 id="Kotlin语法特点"><a href="#Kotlin语法特点" class="headerlink" title="Kotlin语法特点"></a>Kotlin语法特点</h4><ul>
+<li>兼容性：Kotlin 与 JDK 6 完全兼容，保障了 Kotlin 应用程序可以在较旧的 Android 设备上运行而无任何问题。Kotlin 工具在 Android Studio 中会完全支持，并且兼容 Android 构建系统。</li>
+<li>性能：由于非常相似的字节码结构，Kotlin 应用程序的运行速度与 Java 类似。 随着 Kotlin 对内联函数的支持，使用 lambda 表达式的代码通常比用 Java 写的代码运行得更快。</li>
+<li>互操作性：Kotlin 可与 Java 进行 100％ 的互操作，允许在 Kotlin 应用程序中使用所有现有的 Android 库 。这包括注解处理，所以数据绑定和 Dagger 也是一样。</li>
+<li>占用：Kotlin 具有非常紧凑的运行时库，可以通过使用 ProGuard 进一步减少。 在实际应用程序中，Kotlin 运行时只增加几百个方法以及 .apk 文件不到 100K 大小。</li>
+<li>编译时长：Kotlin 支持高效的增量编译，所以对于清理构建会有额外的开销，增量构建通常与 Java 一样快或者更快。</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="为什么选择-Kotlin？"><a href="#为什么选择-Kotlin？" class="headerlink" title="为什么选择 Kotlin？"></a>为什么选择 Kotlin？</h4><ul>
+<li>简洁</li>
+</ul>
+<p>使用一行代码创建一个包含 getters、 setters、 equals()、 hashCode()、 toString() 以及 copy() 的 POJO：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">Customer</span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> email: String, <span class="keyword">val</span> company: String)</span><br></pre></td></tr></table></figure>
+
+<p>或者使用 lambda 表达式来过滤列表：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> positiveNumbers = list.filter &#123; it &gt; <span class="number">0</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>想要单例？创建一个 object 就可以了：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">object</span> ThisIsASingleton &#123;</span><br><span class="line">    <span class="keyword">val</span> companyName: String = <span class="string">&quot;JetBrains&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安全</li>
+</ul>
+<p>彻底告别那些烦人的 NPE(NullPointerException)。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> output: String</span><br><span class="line">output = <span class="literal">null</span>   <span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure>
+
+<p>Kotlin 可以保护你避免对可空类型的误操作。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> name: String? = <span class="literal">null</span>    <span class="comment">// 可空类型</span></span><br><span class="line">println(name.length())      <span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure>
+
+<p>智能类型转换，编译器会为你做自动类型转换。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getStringLength</span><span class="params">(obj: <span class="type">Any</span>)</span></span>: <span class="built_in">Int</span>? &#123;</span><br><span class="line">    <span class="keyword">if</span> (obj <span class="keyword">is</span> String) &#123;</span><br><span class="line">        <span class="comment">// `obj` 在该条件分⽀内⾃动转换成 `String`</span></span><br><span class="line">        <span class="keyword">return</span> obj.length</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 在离开类型检测分⽀后，`obj` 仍然是 `Any` 类型</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>互操作性</li>
+</ul>
+<p>使用 JVM 上的任何现有库，因为有 100％ 的兼容性，包括 SAM(Single Abstract Method) 支持。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> io.reactivex.Flowable</span><br><span class="line"><span class="keyword">import</span> io.reactivex.schedulers.Schedulers</span><br><span class="line"></span><br><span class="line">Flowable</span><br><span class="line">    .fromCallable &#123;</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>) <span class="comment">//  模仿高开销的计算</span></span><br><span class="line">        <span class="string">&quot;Done&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    .subscribeOn(Schedulers.io())</span><br><span class="line">    .observeOn(Schedulers.single())</span><br><span class="line">    .subscribe(::println, Throwable::printStackTrace)</span><br></pre></td></tr></table></figure>
+
+<p>无论是 JVM 还是 JavaScript 目标平台，都可用 Kotlin 写代码然后部署到你想要的地方</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> kotlin.browser.window</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">onLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    window.document.body!!.innerHTML += <span class="string">&quot;&lt;br/&gt;Hello, Kotlin!&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>工具友好</li>
+</ul>
+<p>一门语言需要工具化，而在 JetBrains，这正是我们做得最好的地方！<br><img src="/../../../images/kotlin/kotlin1.png" loading="lazy"><br><img src="/../../../images/kotlin/kotlin2.png" loading="lazy"></p>
+<p>Kotlin相关知识</p>
+<h4 id="一、基础语法"><a href="#一、基础语法" class="headerlink" title="一、基础语法"></a>一、基础语法</h4><h5 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h5><ul>
+<li>基本数据类型<br>在 Kotlin 中，所有东西都是对象，在这个意义上讲我们可以在任何变量上调⽤成员函数和属性。<br>Kotlin 处理数字在某种程度上接近 Java， 但是并不完全相同。 例如， 对于数字没有隐式拓宽转换 （如 Java 中 int 可以隐式转换为 long)， 另外有些情况的字⾯值略有不同。<br>Kotlin 提供了如下的内置类型来表⽰数字 （与 Java 很相近）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Type</th>
+<th align="left">Bit width</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Double</td>
+<td align="left">64</td>
+</tr>
+<tr>
+<td align="left">Float</td>
+<td align="left">32</td>
+</tr>
+<tr>
+<td align="left">Long</td>
+<td align="left">64</td>
+</tr>
+<tr>
+<td align="left">Int</td>
+<td align="left">32</td>
+</tr>
+<tr>
+<td align="left">Short</td>
+<td align="left">16</td>
+</tr>
+<tr>
+<td align="left">Byte</td>
+<td align="left">8</td>
+</tr>
+</tbody></table>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">// kotlin 没有隐式转换</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(l: <span class="type">Long</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> i = <span class="number">10</span></span><br><span class="line">    test(i.toLong())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串<br>字符串⽤ String 类型表⽰。 字符串是不可变的。 字符串的元素⸺字符可以使⽤索引运算符访问: s[i] 。 可以⽤ for 循环迭代字符串:</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (c <span class="keyword">in</span> name) &#123;</span><br><span class="line">    println(c)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Kotlin 有两种类型的字符串字⾯值: 转义字符串, 以及原⽣字符串可以包含换⾏和任意⽂本。转义字符串很像 Java 字符串:</span></span><br><span class="line"><span class="keyword">val</span> s = <span class="string">&quot;Hello, world!\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用原⽣字符串 使⽤三个引号（ &quot;&quot;&quot; ） 分界符括起来， 内部没有转义并且可以包含换⾏和任何其他字符:</span></span><br><span class="line"><span class="keyword">val</span> text = <span class="string">&quot;&quot;&quot; \n</span></span><br><span class="line"><span class="string">    for (c in &quot;foo&quot;)</span></span><br><span class="line"><span class="string">        print(c) &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以通过 trimMargin() 函数去除前导空格：</p>
+<ul>
+<li>字符串模板<br>字符串可以包含模板表达式 ， 即⼀些⼩段代码， 会求值并把结果合并到字符串中。 模板表达式以美元符 （ $ ） 开头， 由⼀个简单的名字构成:</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> string = <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">println(<span class="string">&quot;result is <span class="variable">$string</span>&quot;</span>)</span><br><span class="line">println(<span class="string">&quot;result is <span class="subst">$&#123;string.replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="2、语法定义"><a href="#2、语法定义" class="headerlink" title="2、语法定义"></a>2、语法定义</h5><ul>
+<li>定义包、定义函数、定义常量、变量、变长参数vararg</li>
+</ul>
+<p>（1）定义包：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> my.demo</span><br><span class="line"><span class="keyword">import</span> java.util.*</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>包名不必和文件夹路径一致：源文件可以放在任意位置。</p>
+<p>（2）定义函数</p>
+<p>定义一个函数接受两个 int 型参数，返回值为 int ：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span> , b: <span class="type">Int</span>)</span></span> : <span class="built_in">Int</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该函数只有一个表达式函数体以及一个自推导型的返回值：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span> = a + b</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">  println(<span class="string">&quot;sum of 19 and 23 is <span class="subst">$&#123;sum(<span class="number">19</span>, <span class="number">23</span>)&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>kotlin没有void关键字，用Unit表示返回一个没有意义的值， Unit 的返回类型可以省略：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span>: <span class="built_in">Unit</span> &#123;</span><br><span class="line">   println(<span class="string">&quot;sum of <span class="variable">$a</span> and <span class="variable">$b</span> is <span class="subst">$&#123;a + b&#125;</span>&quot;</span>)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a: <span class="type">Int</span>, b: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">   println(<span class="string">&quot;sum of <span class="variable">$a</span> and <span class="variable">$b</span> is <span class="subst">$&#123;a + b&#125;</span>&quot;</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（3）定义变量、常量</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">   <span class="keyword">val</span> a: <span class="built_in">Int</span> = <span class="number">1</span>  <span class="comment">// 立即初始化</span></span><br><span class="line">   <span class="keyword">val</span> b = <span class="number">2</span>   <span class="comment">// 推导出Int型</span></span><br><span class="line">   <span class="keyword">val</span> c: <span class="built_in">Int</span>  <span class="comment">// 当没有初始化值时必须声明类型</span></span><br><span class="line">   c = <span class="number">3</span>       <span class="comment">// 赋值</span></span><br><span class="line">   println(<span class="string">&quot;a = <span class="variable">$a</span>, b = <span class="variable">$b</span>, c = <span class="variable">$c</span>&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> x = <span class="number">5</span> <span class="comment">// 推导出Int类型</span></span><br><span class="line">   x += <span class="number">1</span></span><br><span class="line">   println(<span class="string">&quot;x = <span class="variable">$x</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）变长参数 vararg</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * kotlin 变长参数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(<span class="keyword">vararg</span> arg: <span class="type">Int</span>, string: <span class="type">String</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    arg.forEach &#123; n -&gt;</span><br><span class="line">        sum += n</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, string = <span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在java中变长参数必须放在所有参数的后面，kotlin由于具名参数的存在可以放在任何位置</p>
+<ul>
+<li>注释</li>
+</ul>
+<p>注释正如Java 和 JavaScript， Kotlin ⽀持⾏注释及块注释。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这是⼀个⾏注释</span></span><br><span class="line"><span class="comment">/* 这是⼀个多⾏的</span></span><br><span class="line"><span class="comment"> 块注释。 */</span></span><br><span class="line"><span class="comment">/** /** */</span> */</span><br></pre></td></tr></table></figure>
+
+<p>与 Java 不同的是， Kotlin 的块注释可以嵌套。</p>
+<ul>
+<li>可空类型 String?<br>当某个变量的值可以为 null 的时候， 必须在声明处的类型后添加 ? 来标识该引⽤可为空。<br>如果 str 的内容不是数字返回 null：</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">parseInt</span><span class="params">(str: <span class="type">String</span>)</span></span>: <span class="built_in">Int</span>? &#123;</span><br><span class="line">    <span class="comment">// ……</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3、import引用，区间使用（参见控制流）"><a href="#3、import引用，区间使用（参见控制流）" class="headerlink" title="3、import引用，区间使用（参见控制流）"></a>3、import引用，区间使用（参见控制流）</h5><p>源⽂件通常以包声明开头:package foo.bar</p>
+<ul>
+<li>默认导⼊</li>
+</ul>
+<p>有多个包会默认导⼊到每个 Kotlin ⽂件中：<br>kotlin.*<br>kotlin.annotation.*<br>…<br>kotlin.io.*<br>kotlin.text.*<br>根据⽬标平台还会导⼊额外的包：<br>JVM:<br>java.lang.*<br>kotlin.jvm.*<br>JS:<br>kotlin.js.*</p>
+<ul>
+<li>也可以导⼊⼀个作⽤域下的所有内容 （包、 类、 对象等） :<br>import foo.* &#x2F;&#x2F; “foo”中的⼀切都可访问<br>如果出现名字冲突， 可以使⽤ as 关键字在本地重命名冲突项来消歧义：<br>import foo.Bar &#x2F;&#x2F; Bar 可访问<br>import bar.Bar as bBar &#x2F;&#x2F; bBar 代表“bar.Bar”</li>
+<li>import 并不仅限于导⼊类； 也可⽤它来导⼊其他声明：<br>顶层函数及属性；<br>在对象声明中声明的函数和属性;<br>枚举常量。</li>
+<li>与 Java 不同， Kotlin 没有单独的 “import static” 语法； 所有这些声明都⽤ import 关键字导⼊。</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://www.kotlincn.net/">Kotlin中文站</a></p>
+<p><a href="http://blog.csdn.net/jhj_24/article/details/53896224">Kotlin控制流</a></p>
+]]></content>
+      <categories>
+        <category>Kotlin</category>
+      </categories>
+      <tags>
+        <tag>Kotlin</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kotlin语法小结(2)-程序结构</title>
     <url>/android%20doc/doc/2018-04-10%20Kotlin%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93(2)-%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<h1 id="Kotlin语法小结-2-程序结构"><a href="#Kotlin语法小结-2-程序结构" class="headerlink" title="Kotlin语法小结(2)-程序结构"></a>Kotlin语法小结(2)-程序结构</h1><h4 id="二、程序结构"><a href="#二、程序结构" class="headerlink" title="二、程序结构"></a>二、程序结构</h4><h5 id="1、Kotlin访问控制修饰符"><a href="#1、Kotlin访问控制修饰符" class="headerlink" title="1、Kotlin访问控制修饰符"></a>1、Kotlin访问控制修饰符</h5><p>在Kotlin中拥有public、internal、protected、private修饰符，作用也和Java几乎一样，与Java不同的是，在Kotlin中，类的声明默认是public的。</p>
@@ -2283,38 +2283,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Fiddler抓取HTTPS原理</title>
-    <url>/android%20doc/doc/2018-05-21%20Fiddler%E6%8A%93%E5%8F%96HTTPS%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h1 id="Fiddler抓取HTTPS原理"><a href="#Fiddler抓取HTTPS原理" class="headerlink" title="Fiddler抓取HTTPS原理"></a>Fiddler抓取HTTPS原理</h1><ul>
-<li>首先fiddler截获客户端浏览器发送给服务器的https请求， 此时还未建立握手。</li>
-<li>fiddler向服务器发送请求进行握手， 获取到服务器的CA证书， 用根证书公钥进行解密， 验证服务器数据签名， 获取到服务器CA证书公钥。</li>
-<li>fiddler伪造自己的CA证书， 冒充服务器证书传递给客户端浏览器， 客户端浏览器做跟fiddler一样的事。</li>
-<li>客户端浏览器生成https通信用的对称密钥， 用fiddler伪造的证书公钥加密后传递给服务器， 被fiddler截获。</li>
-<li>fiddler将截获的密文用自己伪造证书的私钥解开， 获得https通信用的对称密钥。</li>
-<li>fiddler将对称密钥用服务器证书公钥加密传递给服务器， 服务器用私钥解开后建立信任， 握手完成， 用对称密钥加密消息， 开始通信。</li>
-<li>fiddler接收到服务器发送的密文， 用对称密钥解开， 获得服务器发送的明文。再次加密， 发送给客户端浏览器。</li>
-<li>客户端向服务器发送消息， 用对称密钥加密， 被fidller截获后， 解密获得明文。由于fiddler一直拥有通信用对称密钥， 所以在整个https通信过程中信息对其透明。</li>
-</ul>
-<span id="more"></span>
-
-<h4 id="为什么使用了HTTPS还是可以被抓包"><a href="#为什么使用了HTTPS还是可以被抓包" class="headerlink" title="为什么使用了HTTPS还是可以被抓包"></a>为什么使用了HTTPS还是可以被抓包</h4><ul>
-<li>https把流量加密了，正常抓包，你看到的内容是一堆乱码。</li>
-<li>https的加密没有安全问题，但它只是用来防止通信过程中被第三方获取明文。如果黑客能直接控制通信的双方（你的电脑，或服务器)，那么黑客肯定能看到https明文的。</li>
-<li>所以，你用charles之所以能看到https明文，是因为你允许了charles在你的电脑上做手脚，关键就是你同意charles在你电脑上安装证书。</li>
-<li>具体一点，charles通过使用了https代理功能，来完成查看https明文的目的，也就是SSL中间人攻击。简单来说，你并不是直接与https的另一端通信，而是与charles通信，charles再与另一端通信，这种结构下，charles才能看到通信明文。这个问题的原理比较复杂，涉及到整套RSA系统，想了解原理的话，建议去看【信息安全】相关书籍，但这类书籍的门槛非常高。另外Fiddle也有这个功能，而且原理也一样。</li>
-</ul>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://www.zhihu.com/question/24484809/answer/70126366">Fiddler抓取HTTPS原理</a></p>
-]]></content>
-      <categories>
-        <category>HTTPS</category>
-      </categories>
-      <tags>
-        <tag>抓包</tag>
-        <tag>Fiddler</tag>
-        <tag>HTTPS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android APP项目改进部分</title>
     <url>/android%20doc/doc/2018-06-01%20Android%20APP%E9%A1%B9%E7%9B%AE%E6%94%B9%E8%BF%9B%E9%83%A8%E5%88%86/</url>
     <content><![CDATA[<h1 id="Android-APP项目改进部分"><a href="#Android-APP项目改进部分" class="headerlink" title="Android APP项目改进部分"></a>Android APP项目改进部分</h1><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>主要回顾一下项目中修改的地方，以及目前存在的问题和改进的方向</p>
@@ -2476,41 +2444,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SSL单向认证和双向认证说明</title>
-    <url>/android%20doc/doc/2018-06-01%20SSL%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81%E5%92%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%E8%AF%B4%E6%98%8E/</url>
-    <content><![CDATA[<h1 id="SSL单向认证和双向认证说明"><a href="#SSL单向认证和双向认证说明" class="headerlink" title="SSL单向认证和双向认证说明"></a>SSL单向认证和双向认证说明</h1><h4 id="SSL单向认证具体过程"><a href="#SSL单向认证具体过程" class="headerlink" title="SSL单向认证具体过程"></a>SSL单向认证具体过程</h4><ul>
-<li>客户端的浏览器向服务器传送客户端SSL协议的版本号，加密算法的种类，产生的随机数，以及其他服务器和客户端之间通讯所需要的各种信息。</li>
-<li>服务器向客户端传送SSL协议的版本号，加密算法的种类，随机数以及其他相关信息，同时服务器还将向客户端传 送自己的证书。</li>
-<li>客户利用服务器传过来的信息验证服务器的合法性，服务器的合法性包括：证书是否过期，发行服务器证书的CA是否可靠，发行者证书的公钥能否正确解开服务器证书的”发行者的数字签名，服务器证书的域名是否和服务器的</li>
-<li>实际域名相匹配。如果合法性验证没有通过，通讯将断开;如果合法性验证通过，将继续进行第四步。</li>
-<li>用户端随机产生一个用于后面通讯的”对称密码”，然后用服务器的公钥(服务器的公钥从第二步中的服务器的证书中获得)对其加密，然后将加密后的”预主密码”传给服务器。</li>
-<li>如果服务器要求客户的身份认证(在握手过程中为可选)，用户可以建立一个随机数然后对其进行数据签名，将这个含有签名的随机数和客户自己的证书以及加密过的”预主密码”一起传给服务器。</li>
-</ul>
-<span id="more"></span>
-
-<h4 id="SSL双向认证具体过程"><a href="#SSL双向认证具体过程" class="headerlink" title="SSL双向认证具体过程"></a>SSL双向认证具体过程</h4><ul>
-<li>浏览器发送一个连接请求给安全服务器。</li>
-<li>服务器将自己的证书，以及同证书相关的信息发送给客户浏览器。</li>
-<li>客户浏览器检查服务器送过来的证书是否是由自己信赖的CA中心所签发的。如果是，就继续执行协议; 如果不是，客户浏览器就给客户一个警告消息：警告客户这个证书不是可以信赖的，询问客户是否需要继续。</li>
-<li>接着客户浏览器比较证书里的消息，例如域名和公钥，与服务器刚刚发送的相关消息是否一致，如果是一致的，</li>
-<li>客户浏览器认可这个服务器的合法身份。</li>
-<li>服务器要求客户发送客户自己的证书。收到后，服务器验证客户的证书，如果没有通过验证，拒绝连接;如果通过验证，服务器获得用户的公钥。</li>
-<li>客户浏览器告诉服务器自己所能够支持的通讯对称密码方案。</li>
-<li>服务器从客户发送过来的密码方案中，选择一种加密程度最高的密码方案，用客户的公钥加过密后通知浏览器。</li>
-<li>浏览器针对这个密码方案，选择一个通话密钥，接着用服务器的公钥加过密后发送给服务器。</li>
-<li>服务器接收到浏览器送过来的消息，用自己的私钥解密，获得通话密钥。</li>
-<li>服务器、浏览器接下来的通讯都是用对称密码方案，对称密钥是加过密的。</li>
-</ul>
-<p>双向认证则是需要服务端与客户端提供身份认证，只能是服务端允许的客户能去访问，安全性相对较高一些</p>
-]]></content>
-      <categories>
-        <category>HTTPS</category>
-      </categories>
-      <tags>
-        <tag>HTTPS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>自签名证书实现HTTPS单双向认证</title>
     <url>/android%20doc/doc/2018-06-02%20%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6%E5%AE%9E%E7%8E%B0HTTPS%E5%8D%95%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</url>
     <content><![CDATA[<h1 id="自签名证书实现HTTPS单双向认证"><a href="#自签名证书实现HTTPS单双向认证" class="headerlink" title="自签名证书实现HTTPS单双向认证"></a>自签名证书实现HTTPS单双向认证</h1><h4 id="自签名证书生成过程"><a href="#自签名证书生成过程" class="headerlink" title="自签名证书生成过程"></a>自签名证书生成过程</h4><p>对于向权威机构申请过证书的网络地址,用OkHttp或者HttpsURLConnection都可以直接访问，不需要做额外的事情。但是申请证书要$$的，所以开发的时候我们接口经常是使用自签名证书，或者即使上线了也还是用自签名的</p>
@@ -2569,6 +2502,41 @@
 <p>上面的都改完之后，双向验证的配置就完成了。你可以打开浏览器访问下你配置好的地址，应该不能访问，提示你:不接受您的登录证书，或者您的登录证书可能已过期。因为你的系统没有加入刚才生成的客户端密钥库，安卓端像上面一样设置完SSLSocketFactory就可以正常访问了。</p>
 <h4 id="源码地址-https-github-com-android9527-HttpsApplication"><a href="#源码地址-https-github-com-android9527-HttpsApplication" class="headerlink" title="源码地址 (https://github.com/android9527/HttpsApplication/)"></a>源码地址 (<a href="https://github.com/android9527/HttpsApplication/">https://github.com/android9527/HttpsApplication/</a>)</h4><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://blog.majiajie.me/2016/05/11/Android-%E5%81%B6%E9%81%87HTTPS/">Android 偶遇HTTPS</a></p>
 <p><a href="http://pingguohe.net/2016/02/26/Android-App-secure-ssl.html">苹果核 - Android App 安全的HTTPS 通信</a></p>
+]]></content>
+      <categories>
+        <category>HTTPS</category>
+      </categories>
+      <tags>
+        <tag>HTTPS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SSL单向认证和双向认证说明</title>
+    <url>/android%20doc/doc/2018-06-01%20SSL%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81%E5%92%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<h1 id="SSL单向认证和双向认证说明"><a href="#SSL单向认证和双向认证说明" class="headerlink" title="SSL单向认证和双向认证说明"></a>SSL单向认证和双向认证说明</h1><h4 id="SSL单向认证具体过程"><a href="#SSL单向认证具体过程" class="headerlink" title="SSL单向认证具体过程"></a>SSL单向认证具体过程</h4><ul>
+<li>客户端的浏览器向服务器传送客户端SSL协议的版本号，加密算法的种类，产生的随机数，以及其他服务器和客户端之间通讯所需要的各种信息。</li>
+<li>服务器向客户端传送SSL协议的版本号，加密算法的种类，随机数以及其他相关信息，同时服务器还将向客户端传 送自己的证书。</li>
+<li>客户利用服务器传过来的信息验证服务器的合法性，服务器的合法性包括：证书是否过期，发行服务器证书的CA是否可靠，发行者证书的公钥能否正确解开服务器证书的”发行者的数字签名，服务器证书的域名是否和服务器的</li>
+<li>实际域名相匹配。如果合法性验证没有通过，通讯将断开;如果合法性验证通过，将继续进行第四步。</li>
+<li>用户端随机产生一个用于后面通讯的”对称密码”，然后用服务器的公钥(服务器的公钥从第二步中的服务器的证书中获得)对其加密，然后将加密后的”预主密码”传给服务器。</li>
+<li>如果服务器要求客户的身份认证(在握手过程中为可选)，用户可以建立一个随机数然后对其进行数据签名，将这个含有签名的随机数和客户自己的证书以及加密过的”预主密码”一起传给服务器。</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="SSL双向认证具体过程"><a href="#SSL双向认证具体过程" class="headerlink" title="SSL双向认证具体过程"></a>SSL双向认证具体过程</h4><ul>
+<li>浏览器发送一个连接请求给安全服务器。</li>
+<li>服务器将自己的证书，以及同证书相关的信息发送给客户浏览器。</li>
+<li>客户浏览器检查服务器送过来的证书是否是由自己信赖的CA中心所签发的。如果是，就继续执行协议; 如果不是，客户浏览器就给客户一个警告消息：警告客户这个证书不是可以信赖的，询问客户是否需要继续。</li>
+<li>接着客户浏览器比较证书里的消息，例如域名和公钥，与服务器刚刚发送的相关消息是否一致，如果是一致的，</li>
+<li>客户浏览器认可这个服务器的合法身份。</li>
+<li>服务器要求客户发送客户自己的证书。收到后，服务器验证客户的证书，如果没有通过验证，拒绝连接;如果通过验证，服务器获得用户的公钥。</li>
+<li>客户浏览器告诉服务器自己所能够支持的通讯对称密码方案。</li>
+<li>服务器从客户发送过来的密码方案中，选择一种加密程度最高的密码方案，用客户的公钥加过密后通知浏览器。</li>
+<li>浏览器针对这个密码方案，选择一个通话密钥，接着用服务器的公钥加过密后发送给服务器。</li>
+<li>服务器接收到浏览器送过来的消息，用自己的私钥解密，获得通话密钥。</li>
+<li>服务器、浏览器接下来的通讯都是用对称密码方案，对称密钥是加过密的。</li>
+</ul>
+<p>双向认证则是需要服务端与客户端提供身份认证，只能是服务端允许的客户能去访问，安全性相对较高一些</p>
 ]]></content>
       <categories>
         <category>HTTPS</category>
@@ -2727,6 +2695,38 @@
       </categories>
       <tags>
         <tag>CoordinatorLayout</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Fiddler抓取HTTPS原理</title>
+    <url>/android%20doc/doc/2018-05-21%20Fiddler%E6%8A%93%E5%8F%96HTTPS%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h1 id="Fiddler抓取HTTPS原理"><a href="#Fiddler抓取HTTPS原理" class="headerlink" title="Fiddler抓取HTTPS原理"></a>Fiddler抓取HTTPS原理</h1><ul>
+<li>首先fiddler截获客户端浏览器发送给服务器的https请求， 此时还未建立握手。</li>
+<li>fiddler向服务器发送请求进行握手， 获取到服务器的CA证书， 用根证书公钥进行解密， 验证服务器数据签名， 获取到服务器CA证书公钥。</li>
+<li>fiddler伪造自己的CA证书， 冒充服务器证书传递给客户端浏览器， 客户端浏览器做跟fiddler一样的事。</li>
+<li>客户端浏览器生成https通信用的对称密钥， 用fiddler伪造的证书公钥加密后传递给服务器， 被fiddler截获。</li>
+<li>fiddler将截获的密文用自己伪造证书的私钥解开， 获得https通信用的对称密钥。</li>
+<li>fiddler将对称密钥用服务器证书公钥加密传递给服务器， 服务器用私钥解开后建立信任， 握手完成， 用对称密钥加密消息， 开始通信。</li>
+<li>fiddler接收到服务器发送的密文， 用对称密钥解开， 获得服务器发送的明文。再次加密， 发送给客户端浏览器。</li>
+<li>客户端向服务器发送消息， 用对称密钥加密， 被fidller截获后， 解密获得明文。由于fiddler一直拥有通信用对称密钥， 所以在整个https通信过程中信息对其透明。</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="为什么使用了HTTPS还是可以被抓包"><a href="#为什么使用了HTTPS还是可以被抓包" class="headerlink" title="为什么使用了HTTPS还是可以被抓包"></a>为什么使用了HTTPS还是可以被抓包</h4><ul>
+<li>https把流量加密了，正常抓包，你看到的内容是一堆乱码。</li>
+<li>https的加密没有安全问题，但它只是用来防止通信过程中被第三方获取明文。如果黑客能直接控制通信的双方（你的电脑，或服务器)，那么黑客肯定能看到https明文的。</li>
+<li>所以，你用charles之所以能看到https明文，是因为你允许了charles在你的电脑上做手脚，关键就是你同意charles在你电脑上安装证书。</li>
+<li>具体一点，charles通过使用了https代理功能，来完成查看https明文的目的，也就是SSL中间人攻击。简单来说，你并不是直接与https的另一端通信，而是与charles通信，charles再与另一端通信，这种结构下，charles才能看到通信明文。这个问题的原理比较复杂，涉及到整套RSA系统，想了解原理的话，建议去看【信息安全】相关书籍，但这类书籍的门槛非常高。另外Fiddle也有这个功能，而且原理也一样。</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://www.zhihu.com/question/24484809/answer/70126366">Fiddler抓取HTTPS原理</a></p>
+]]></content>
+      <categories>
+        <category>HTTPS</category>
+      </categories>
+      <tags>
+        <tag>HTTPS</tag>
+        <tag>抓包</tag>
+        <tag>Fiddler</tag>
       </tags>
   </entry>
   <entry>
@@ -2943,22 +2943,6 @@
       </categories>
       <tags>
         <tag>单例</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java中sleep()与wait()区别</title>
-    <url>/android%20doc/doc/2018-12-06%20Java%E4%B8%ADsleep()%E4%B8%8Ewait()%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h1 id="Java中sleep-与wait-区别"><a href="#Java中sleep-与wait-区别" class="headerlink" title="Java中sleep()与wait()区别"></a>Java中sleep()与wait()区别</h1><ul>
-<li>每个对象都有一个锁来控制同步访问，Synchronized关键字可以和对象的锁交互，来实现同步方法或同步块。sleep()方法正在执行的线程主动让出CPU（然后CPU就可以去执行其他任务），在sleep指定时间后CPU再回到该线程继续往下执行(注意：sleep方法只让出了CPU，而并不会释放同步资源锁！！！)；wait()方法则是指当前线程让自己暂时退让出同步资源锁，以便其他正在等待该资源的线程得到该资源进而运行，只有调用了notify()方法，之前调用wait()的线程才会解除wait状态，可以去参与竞争同步资源锁，进而得到执行。（注意：notify的作用相当于叫醒睡着的人，而并不会给他分配任务，就是说notify只是让之前调用wait的线程有权利重新参与线程的调度）；</li>
-<li>sleep()方法可以在任何地方使用；wait()方法则只能在同步方法或同步块中使用；</li>
-<li>sleep()是线程线程类（Thread）的方法，调用会暂停此线程指定的时间，但监控依然保持，不会释放对象锁，到时间自动恢复；wait()是Object的方法，调用会放弃对象锁，进入等待队列，待调用notify()&#x2F;notifyAll()唤醒指定的线程或者所有线程，才会进入锁池，不再次获得对象锁才会进入运行状态；</li>
-</ul>
-]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-      <tags>
-        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
@@ -3313,6 +3297,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Java中sleep()与wait()区别</title>
+    <url>/android%20doc/doc/2018-12-06%20Java%E4%B8%ADsleep()%E4%B8%8Ewait()%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1 id="Java中sleep-与wait-区别"><a href="#Java中sleep-与wait-区别" class="headerlink" title="Java中sleep()与wait()区别"></a>Java中sleep()与wait()区别</h1><ul>
+<li>每个对象都有一个锁来控制同步访问，Synchronized关键字可以和对象的锁交互，来实现同步方法或同步块。sleep()方法正在执行的线程主动让出CPU（然后CPU就可以去执行其他任务），在sleep指定时间后CPU再回到该线程继续往下执行(注意：sleep方法只让出了CPU，而并不会释放同步资源锁！！！)；wait()方法则是指当前线程让自己暂时退让出同步资源锁，以便其他正在等待该资源的线程得到该资源进而运行，只有调用了notify()方法，之前调用wait()的线程才会解除wait状态，可以去参与竞争同步资源锁，进而得到执行。（注意：notify的作用相当于叫醒睡着的人，而并不会给他分配任务，就是说notify只是让之前调用wait的线程有权利重新参与线程的调度）；</li>
+<li>sleep()方法可以在任何地方使用；wait()方法则只能在同步方法或同步块中使用；</li>
+<li>sleep()是线程线程类（Thread）的方法，调用会暂停此线程指定的时间，但监控依然保持，不会释放对象锁，到时间自动恢复；wait()是Object的方法，调用会放弃对象锁，进入等待队列，待调用notify()&#x2F;notifyAll()唤醒指定的线程或者所有线程，才会进入锁池，不再次获得对象锁才会进入运行状态；</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Dart语法总结</title>
     <url>/android%20doc/doc/2019-04-29%20Dart%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="Dart语法总结"><a href="#Dart语法总结" class="headerlink" title="Dart语法总结"></a>Dart语法总结</h1><h3 id="Dart-语言介绍"><a href="#Dart-语言介绍" class="headerlink" title="Dart 语言介绍"></a>Dart 语言介绍</h3><ul>
@@ -3496,6 +3496,108 @@
       </categories>
       <tags>
         <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决 GitHub 域名解析失败</title>
+    <url>/android%20doc/doc/2023-10-30%20GitHub%20%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E5%A4%B1%E8%B4%A5/</url>
+    <content><![CDATA[<h1 id="解决-GitHub-域名解析失败"><a href="#解决-GitHub-域名解析失败" class="headerlink" title="解决 GitHub 域名解析失败"></a>解决 GitHub 域名解析失败</h1><h3 id="配置-GitHub-自定义域名"><a href="#配置-GitHub-自定义域名" class="headerlink" title="配置 GitHub 自定义域名"></a>配置 GitHub 自定义域名</h3><p>打开 username.github.io 项目，Settings -&gt; Pages -&gt; Custom domain，输入自定义域名。</p>
+<p>保存之后会自动检查。</p>
+<span id="more"></span>
+
+<h3 id="解决检查失败"><a href="#解决检查失败" class="headerlink" title="解决检查失败"></a>解决检查失败</h3><p>出现检查失败 The custom domain for your GitHub Pages site is pointed at an outdated IP address，说明域名解析 IP 地址需要更新。</p>
+<p>该问题是由于网上的搭建教程提供的 A 域的 IP 地址已经失效了，GitHub 最新的 IP 地址是这四个：</p>
+<ul>
+<li>185.199.108.153</li>
+<li>185.199.109.153</li>
+<li>185.199.110.153</li>
+<li>185.199.111.153</li>
+</ul>
+<p>需要在域名解析添加一条 CNAME 类型的记录，值为 username.github.io。</p>
+<p>添加一条 A 类型的记录，值为上面 IP 地址中的一个。</p>
+<p>回到 GitHub 自定义域名重新输入域名等待一会显示 check successfully。</p>
+]]></content>
+      <categories>
+        <category>GitHub</category>
+      </categories>
+      <tags>
+        <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cocos JavaScript 调用 Java 方法</title>
+    <url>/android%20doc/doc/2023-11-17%20Cocos%20JavaScript%20%E8%B0%83%E7%94%A8%20Java%20%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="使用-JavaScript-直接调用-Java-方法"><a href="#使用-JavaScript-直接调用-Java-方法" class="headerlink" title="使用 JavaScript 直接调用 Java 方法"></a>使用 JavaScript 直接调用 Java 方法</h1><p>使用 Creator 打包的安卓原生应用中，我们可以通过反射机制直接在 JavaScript 中调用 Java 的静态方法。它的使用方法很简单：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o = jsb.<span class="property">reflection</span>.<span class="title function_">callStaticMethod</span>(className, methodName, methodSignature, parameters...)</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>callStaticMethod</code> 方法中，我们通过传入 Java 的类名、方法名和方法签名，参数就可以直接调用 Java 的静态方法，并且可以获得 Java 方法的返回值。下面介绍的类名和方法签名可能会有一点奇怪，但是 Java 的规范就是如此的。</p>
+<h2 id="类名"><a href="#类名" class="headerlink" title="类名"></a>类名</h2><p>参数中的类名必须是包含 Java 包路径的完整类名，例如我们在 <code>com.cocos.game</code> 这个包下面写了一个 <code>Test</code> 类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="string">&quot;com.cocos.game&quot;</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">hello</span> <span class="params">(String msg)</span> &#123;</span><br><span class="line">        System.out.println (msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">sum</span> <span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">sum</span> <span class="params">(<span class="type">int</span> a)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>那么这个 Test 类的完整类名应该是 <code>com/cocos/game/Test</code>，注意这里必须是斜线 <code>/</code>，而不是在 Java 代码中我们习惯的点 <code>.</code>。</p>
+<h2 id="方法签名"><a href="#方法签名" class="headerlink" title="方法签名"></a>方法签名</h2><p>方法签名稍微有一点复杂，最简单的方法签名是 <code>()V</code>，它表示一个没有参数没有返回值的方法。其他一些例子：</p>
+<ul>
+<li><code>(I)V</code> 表示参数为一个 int，没有返回值的方法</li>
+<li><code>(I)I</code> 表示参数为一个 int，返回值为int的方法</li>
+<li><code>(IF)Z</code> 表示参数为一个 int 和一个 float，返回值为 boolean 的方法</li>
+</ul>
+<p>括号内的符号表示参数类型，括号后面的符号表示返回值类型。因为 Java 是允许函数重载的，可以有多个方法名相同但是参数返回值不同的方法，方法签名正是用来帮助区分这些相同名字的方法的。</p>
+<p>目前 Cocos Creator 中支持的 Java 类型签名有以下 4 种：</p>
+<p>目前 Cocos Creator 中支持的 Java 类型签名有以下 4 种：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Java 类型</th>
+<th align="left">签名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">int</td>
+<td align="left">I</td>
+</tr>
+<tr>
+<td align="left">float</td>
+<td align="left">F</td>
+</tr>
+<tr>
+<td align="left">boolean</td>
+<td align="left">Z</td>
+</tr>
+<tr>
+<td align="left">String</td>
+<td align="left">Ljava&#x2F;lang&#x2F;String;</td>
+</tr>
+</tbody></table>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>参数可以是 0 个或任意多个，直接使用 JavaScript 中的 number、bool 和 string 就可以。</p>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><p>我们将会调用上面的 Test 类中的静态方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 调用 hello 方法</span></span><br><span class="line">jsb.<span class="property">reflection</span>.<span class="title function_">callStaticMethod</span>(<span class="string">&quot;com/cocos/game/Test&quot;</span>, <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;(Ljava/lang/String;)V&quot;</span>, <span class="string">&quot;this is a message from JavaScript&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用第一个 sum 方法</span></span><br><span class="line"><span class="keyword">var</span> result = jsb.<span class="property">reflection</span>.<span class="title function_">callStaticMethod</span>(<span class="string">&quot;com/cocos/game/Test&quot;</span>, <span class="string">&quot;sum&quot;</span>, <span class="string">&quot;(II)I&quot;</span>, <span class="number">3</span>, <span class="number">7</span>);</span><br><span class="line"><span class="title function_">log</span>(result); <span class="comment">//10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用第二个 sum 方法</span></span><br><span class="line"><span class="keyword">var</span> result = jsb.<span class="property">reflection</span>.<span class="title function_">callStaticMethod</span>(<span class="string">&quot;com/cocos/game/Test&quot;</span>, <span class="string">&quot;sum&quot;</span>, <span class="string">&quot;(I)I&quot;</span>, <span class="number">3</span>);</span><br><span class="line"><span class="title function_">log</span>(result); <span class="comment">//5</span></span><br></pre></td></tr></table></figure>
+
+<p>这样在 <strong>控制台</strong> 中就会有正确的输出。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>另外有一点需要注意的就是，在 Android 应用中，Cocos 引擎的渲染和 JavaScript 的逻辑是在 GL 线程中进行的，而 Android 本身的 UI 更新是在 App 的 UI 线程进行的，所以如果我们在 JavaScript 中调用的 Java 方法有任何刷新 UI 的操作，都需要在 UI 线程进行。</p>
+<p>例如，在下面的例子中我们会调用一个 Java 方法，用于弹出一个 Android 的 Alert 对话框。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 给我们熟悉的 AppActivity 类稍微加点东西</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppActivity</span> extends CocosActivity &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">static</span> AppActivity app = null;</span><br><span class="line">    @<span class="function">Override</span></span><br><span class="line"><span class="function">    <span class="keyword">public</span> <span class="type">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        super.<span class="built_in">onCreate</span>(savedInstanceState);</span><br><span class="line">        app = <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">static</span> <span class="type">void</span> <span class="title">showAlertDialog</span><span class="params">(<span class="keyword">final</span> String title,<span class="keyword">final</span> String message)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 这里一定要使用 runOnUiThread</span></span><br><span class="line">        app.<span class="built_in">runOnUiThread</span>(<span class="keyword">new</span> <span class="built_in">Runnable</span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            <span class="keyword">public</span> <span class="type">void</span> <span class="built_in">run</span>() &#123;</span><br><span class="line">                AlertDialog alertDialog = <span class="keyword">new</span> AlertDialog.<span class="built_in">Builder</span>(app).<span class="built_in">create</span>();</span><br><span class="line">                alertDialog.<span class="built_in">setTitle</span>(title);</span><br><span class="line">                alertDialog.<span class="built_in">setMessage</span>(message);</span><br><span class="line">                alertDialog.<span class="built_in">setIcon</span>(R.drawable.icon);</span><br><span class="line">                alertDialog.<span class="built_in">show</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在 JavaScript 中调用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">jsb.<span class="property">reflection</span>.<span class="title function_">callStaticMethod</span>(<span class="string">&quot;com/cocos/game/AppActivity&quot;</span>, <span class="string">&quot;showAlertDialog&quot;</span>, <span class="string">&quot;(Ljava/lang/String;Ljava/lang/String;)V&quot;</span>, <span class="string">&quot;title&quot;</span>, <span class="string">&quot;hahahahha&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这样调用之后你就可以看到一个 Android 原生的 Alert 对话框了。</p>
+<h2 id="Java-调用-JavaScript"><a href="#Java-调用-JavaScript" class="headerlink" title="Java 调用 JavaScript"></a>Java 调用 JavaScript</h2><p>现在我们可以从 JavaScript 调用 Java 了，那么能不能反过来？当然可以！</p>
+<p>引擎中包含 <code>CocosJavascriptJavaBridge</code> 类，这个类有一个 <code>evalString</code> 方法可以执行 JavaScript 代码，位于引擎目录的 <code>resources\3d\cocos2d-x-lite\cocos\platform\android\java\src\com\cocos\lib\CocosJavascriptJavaBridge.java</code> 文件中。我们将会给刚才的 Alert 对话框增加一个按钮，并在它的响应中执行 JavaScript。和上面的情况相反，这次执行 JavaScript 代码必须在 GL 线程中进行。</p>
+<p>一般来说，目前引擎并未承诺多线程下的安全性，所以在开发过程中需要避免 JavaScript 代码在其他线程被调用，以避免各种内存错误。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">alertDialog.setButton(<span class="string">&quot;OK&quot;</span>, <span class="keyword">new</span> <span class="title class_">DialogInterface</span>.OnClickListener() &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(DialogInterface dialog, <span class="type">int</span> which)</span> &#123;</span><br><span class="line">        <span class="comment">// 一定要在 GL 线程中执行</span></span><br><span class="line">        CocosHelper.runOnGameThread(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                CocosJavascriptJavaBridge.evalString(<span class="string">&quot;cc.log(\&quot;Javascript Java bridge!\&quot;)&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>如果要在 C++ 中调用 <code>evalString</code>，我们可以参考下面的方式，确保 <code>evalString</code> 在 JavaScript 引擎所在的线程被执行：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Application::<span class="built_in">getInstance</span>()-&gt;<span class="built_in">getScheduler</span>()-&gt;<span class="built_in">performFunctionInCocosThread</span>([=]() &#123;</span><br><span class="line">    se::ScriptEngine::<span class="built_in">getInstance</span>()-&gt;<span class="built_in">evalString</span>(script.<span class="built_in">c_str</span>());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这样在点击 OK 按钮后，便可以在控制台看到正确的输出。<code>evalString</code> 可以执行任何 JavaScript 代码，并且它可以访问到在 JavaScript 代码中的对象。</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Java JavaScript</tag>
       </tags>
   </entry>
 </search>
